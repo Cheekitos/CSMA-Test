@@ -1,0 +1,49 @@
+# Site settings
+title: "TEST"
+description: "TEST"
+baseurl: "/CSMA-Test"  
+url: "https://cheekitos.github.io" 
+author: "TestiBreeki"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  mods:
+    output: true
+    permalink: /mods/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "mods"
+    values:
+      layout: "mod"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Exclude files
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - "*.gem"
+  - "*.gemspec"
+
+# GitHub Pages specific settings
+github: [metadata]
+kramdown:
+  input: GFM
+  hard_wrap: false
