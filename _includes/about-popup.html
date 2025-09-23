@@ -1,58 +1,134 @@
-<!-- About Section -->
+<!-- About/FAQ Section -->
 <div id="contact-overlay" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center hidden z-50">
     <div class="bg-gray-900 rounded-lg max-w-lg w-full max-h-[90vh] overflow-auto p-4 relative text-sm text-gray-200">
       <button id="contact-close" aria-label="Close contact popup" class="absolute top-2 right-2 text-gray-400 hover:text-white text-xl">&times;</button>
-      <h3 class="text-lg font-bold text-white mb-3">About</h3>
       
-      <p class="mb-4">You can contact me here to report a broken link or incorrect information that needs fixing.<br><br><em>If you're a mod author and don't want me to repack/rehost some of your files, please let me know and I'll point the "Download Files" to the official website.</em></p>
-      <div class="flex items-center gap-2 mb-4">
-        <button id="reveal-email" class="bg-yellow-500 hover:bg-yellow-600 text-black text-xs font-medium py-1 px-2 rounded">
-          Reveal Email
-        </button>
-        <p id="email-text" class="text-blue-400 hidden">cheekitos@proton.me</p>
+      <!-- Tab Navigation -->
+      <div class="flex gap-4 mb-3">
+        <h3 id="about-tab" class="text-lg font-bold cursor-pointer transition-colors text-yellow-400 border-b-2 border-yellow-400 pb-1">About</h3>
+        <h3 id="faq-tab" class="text-lg font-bold cursor-pointer transition-colors text-gray-400 hover:text-white">FAQ</h3>
       </div>
       
-      <p class="mb-4">For everything else, you can <a href="https://linktr.ee/cheekibreekii" target="_blank" class="text-white hover:text-gray-300 underline">check me out here</a>.</p>
       
-      <div class="bg-gray-800 rounded-lg p-3 mt-4">
-        <h4 class="text-white text-sm font-medium mb-3">Fan content creation guidelines</h4>
-        
-        <div class="mb-3">
-          <span class="text-white text-xs font-medium">GSC EULA:</span><br>
-          <a href="https://www.gsc-game.com/guidelines/" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">Fan Content Creation Guidelines</a>
+      <!-- About Content -->
+      <div id="about-content" class="tab-content">
+        <p class="mb-4">You can contact me here to report a broken link or incorrect information that needs fixing.<br><br><em>If you're a mod author and don't want me to repack/rehost some of your files, please let me know and I'll point the "Download Files" to the official website.</em></p>
+        <div class="flex items-center gap-2 mb-4">
+          <button id="reveal-email" class="bg-yellow-500 hover:bg-yellow-600 text-black text-xs font-medium py-1 px-2 rounded">
+            Reveal Email
+          </button>
+          <p id="email-text" class="text-blue-400 hidden">cheekitos@proton.me</p>
         </div>
         
-        <p class="text-gray-300 text-xs mb-3">
-          All mods shared are fan-made modifications for the S.T.A.L.K.E.R. series, developed and owned by GSC Game World.<br>
-          They are NOT official products but derivative works based on their games.<br>
-          Please support the original developers by purchasing the official games.
-        </p>
+        <p class="mb-4">For everything else, you can <a href="https://linktr.ee/cheekibreekii" target="_blank" class="text-white hover:text-gray-300 underline">check me out here</a>.</p>
         
-        <div class="space-y-2">
-          <div>
-            <span class="text-white text-xs font-medium">• Steam:</span><br>
-            <a href="https://store.steampowered.com/franchise/stalker" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">S.T.A.L.K.E.R. Franchise</a>
+        <div class="bg-gray-800 rounded-lg p-3 mt-4">
+          <h4 class="text-white text-sm font-medium mb-3">Fan content creation guidelines</h4>
+          
+          <div class="mb-3">
+            <span class="text-white text-xs font-medium">GSC EULA:</span><br>
+            <a href="https://www.gsc-game.com/guidelines/" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">Fan Content Creation Guidelines</a>
           </div>
           
-          <div>
-            <span class="text-white text-xs font-medium">• GOG:</span><br>
-            <div class="ml-2 space-y-1">
-              <a href="https://www.gog.com/en/game/stalker_shadow_of_chernobyl" target="_blank" class="block text-blue-400 hover:underline text-xs">Shadow of Chernobyl</a>
-              <a href="https://www.gog.com/en/game/stalker_clear_sky" target="_blank" class="block text-blue-400 hover:underline text-xs">Clear Sky</a>
-              <a href="https://www.gog.com/en/game/stalker_call_of_pripyat" target="_blank" class="block text-blue-400 hover:underline text-xs">Call of Pripyat</a>
+          <p class="text-gray-300 text-xs mb-3">
+            All mods shared are fan-made modifications for the S.T.A.L.K.E.R. series, developed and owned by GSC Game World.<br>
+            They are NOT official products but derivative works based on their games.<br>
+            Please support the original developers by purchasing the official games.
+          </p>
+          
+          <div class="space-y-2">
+            <div>
+              <span class="text-white text-xs font-medium">• Steam:</span><br>
+              <a href="https://store.steampowered.com/franchise/stalker" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">S.T.A.L.K.E.R. Franchise</a>
+            </div>
+            
+            <div>
+              <span class="text-white text-xs font-medium">• GOG:</span><br>
+              <div class="ml-2 space-y-1">
+                <a href="https://www.gog.com/en/game/stalker_shadow_of_chernobyl" target="_blank" class="block text-blue-400 hover:underline text-xs">Shadow of Chernobyl</a>
+                <a href="https://www.gog.com/en/game/stalker_clear_sky" target="_blank" class="block text-blue-400 hover:underline text-xs">Clear Sky</a>
+                <a href="https://www.gog.com/en/game/stalker_call_of_pripyat" target="_blank" class="block text-blue-400 hover:underline text-xs">Call of Pripyat</a>
+              </div>
+            </div>
+            
+            <div>
+              <span class="text-white text-xs font-medium">• PlayStation Store:</span><br>
+              <a href="https://store.playstation.com/en-cz/product/EB0236-CUSA43978_00-0550328121149114" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">S.T.A.L.K.E.R. Legends of the Zone Trilogy</a>
+            </div>
+            
+            <div>
+              <span class="text-white text-xs font-medium">• Xbox Store:</span><br>
+              <a href="https://www.xbox.com/en-US/games/store/stalker-legends-of-the-zone-trilogy/9N4GFFDG41JR" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">S.T.A.L.K.E.R. Legends of the Zone Trilogy</a>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- FAQ Content -->
+      <div id="faq-content" class="tab-content hidden">
+        <div class="space-y-4">
+          <div class="border-b border-gray-700 pb-3">
+            <h4 class="text-white text-sm font-semibold mb-2">Q: Why won't my mod start or keep crashing?</h4>
+            <p class="text-gray-300 text-xs">Make sure you have all the essential files installed (OpenAL, Visual C++ Runtimes, DirectX). Also check if the mod requires a specific version of the base game and verify your installation path has no special characters.</p>
+          </div>
           
-          <div>
-            <span class="text-white text-xs font-medium">• PlayStation Store:</span><br>
-            <a href="https://store.playstation.com/en-cz/product/EB0236-CUSA43978_00-0550328121149114" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">S.T.A.L.K.E.R. Legends of the Zone Trilogy</a>
+          <div class="border-b border-gray-700 pb-3">
+            <h4 class="text-white text-sm font-semibold mb-2">Q: What's the difference between standalone and non-standalone mods?</h4>
+            <p class="text-gray-300 text-xs">Standalone mods include everything needed to play and don't require the original game installation. Non-standalone mods need to be installed over an existing S.T.A.L.K.E.R. game.</p>
+          </div>
+          
+          <div class="border-b border-gray-700 pb-3">
+            <h4 class="text-white text-sm font-semibold mb-2">Q: Can I play these mods on modern systems?</h4>
+            <p class="text-gray-300 text-xs">Most mods work on Windows 10/11, but some older mods may need compatibility mode or specific tweaks. Check the individual mod pages for system requirements and compatibility notes.</p>
+          </div>
+          
+          <div class="border-b border-gray-700 pb-3">
+            <h4 class="text-white text-sm font-semibold mb-2">Q: How do I install mods safely?</h4>
+            <p class="text-gray-300 text-xs">Always backup your save files first. Use 7-Zip to extract archives, read installation instructions carefully, and install mods to clean game installations when possible.</p>
+          </div>
+          
+          <div class="border-b border-gray-700 pb-3">
+            <h4 class="text-white text-sm font-semibold mb-2">Q: Why are some download links broken?</h4>
+            <p class="text-gray-300 text-xs">Mod hosting can be unstable over time. If you find broken links, please contact me and I'll work on finding alternative downloads or reuploading the files.</p>
           </div>
           
           <div>
-            <span class="text-white text-xs font-medium">• Xbox Store:</span><br>
-            <a href="https://www.xbox.com/en-US/games/store/stalker-legends-of-the-zone-trilogy/9N4GFFDG41JR" target="_blank" class="text-blue-400 hover:underline text-xs ml-2">S.T.A.L.K.E.R. Legends of the Zone Trilogy</a>
+            <h4 class="text-white text-sm font-semibold mb-2">Q: Can I suggest mods for the archive?</h4>
+            <p class="text-gray-300 text-xs">Absolutely! Contact me with mod suggestions. I focus on story-driven mods, but I'm always interested in hearing about hidden gems or newly translated content.</p>
           </div>
         </div>
       </div>
     </div>
 </div>
+
+<script>
+// Tab switching functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const aboutTab = document.getElementById('about-tab');
+    const faqTab = document.getElementById('faq-tab');
+    const aboutContent = document.getElementById('about-content');
+    const faqContent = document.getElementById('faq-content');
+    
+    function showAbout() {
+        aboutTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400', 'pb-1');
+        aboutTab.classList.remove('text-gray-400');
+        faqTab.classList.add('text-gray-400');
+        faqTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400', 'pb-1');
+        
+        aboutContent.classList.remove('hidden');
+        faqContent.classList.add('hidden');
+    }
+    
+    function showFAQ() {
+        faqTab.classList.add('text-yellow-400', 'border-b-2', 'border-yellow-400', 'pb-1');
+        faqTab.classList.remove('text-gray-400');
+        aboutTab.classList.add('text-gray-400');
+        aboutTab.classList.remove('text-yellow-400', 'border-b-2', 'border-yellow-400', 'pb-1');
+        
+        faqContent.classList.remove('hidden');
+        aboutContent.classList.add('hidden');
+    }
+    
+    aboutTab.addEventListener('click', showAbout);
+    faqTab.addEventListener('click', showFAQ);
+});
