@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# Block all crawling and indexing of this test site
+# This is a development/testing environment only
