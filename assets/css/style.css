@@ -1108,7 +1108,8 @@ section h2 {
   }
 }
 
-/* Trying to rules to fix mobile filter dropdown issues */
+
+
 
 /* Increase z-index for filter dropdown to ensure it appears above mod cards */
 #filter-dropdown {
@@ -1131,66 +1132,37 @@ section h2 {
     box-sizing: border-box;
     overflow-x: auto; /* Allow horizontal scroll if needed */
     white-space: nowrap; /* Prevent text wrapping that could cause issues */
-    position: relative;
   }
   
-  /* Add scroll indicators */
-  #filter-dropdown::before,
-  #filter-dropdown::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    pointer-events: none;
-    z-index: 10;
-    transition: opacity 0.2s ease;
-  }
-  
-  /* Right arrow (scroll right indicator) */
-  #filter-dropdown::after {
-    right: 4px;
-    border-left: 6px solid #fbbf24;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    opacity: 1;
-  }
-  
-  /* Left arrow (scroll left indicator) - initially hidden */
-  #filter-dropdown::before {
-    left: 4px;
-    border-right: 6px solid #fbbf24;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    opacity: 0;
-  }
-  
-  /* Ensure the dropdown content doesn't overflow */
+  /* Ensure the dropdown content doesn't overflow and force scrollbar visibility */
   #filter-dropdown .flex.flex-wrap.items-center {
     flex-wrap: nowrap !important; /* Prevent wrapping on very small screens */
     gap: 0.25rem 0.5rem;
     overflow-x: auto;
     padding-bottom: 0.25rem; /* Add space for potential scrollbar */
-    padding-left: 12px; /* Space for left arrow */
-    padding-right: 12px; /* Space for right arrow */
-    scrollbar-width: thin; /* Firefox */
     -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+    scrollbar-width: thin; /* Firefox - always show thin scrollbar */
   }
   
-  /* Webkit scrollbar styling */
+  /* Force webkit scrollbar to always be visible */
   #filter-dropdown .flex.flex-wrap.items-center::-webkit-scrollbar {
-    height: 4px;
+    height: 8px;
+    -webkit-appearance: none;
   }
   
   #filter-dropdown .flex.flex-wrap.items-center::-webkit-scrollbar-track {
-    background: rgba(55, 65, 81, 0.3);
-    border-radius: 2px;
+    background: rgba(55, 65, 81, 0.5);
+    border-radius: 4px;
   }
   
   #filter-dropdown .flex.flex-wrap.items-center::-webkit-scrollbar-thumb {
-    background: #fbbf24;
-    border-radius: 2px;
+    background: #6b7280;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  #filter-dropdown .flex.flex-wrap.items-center::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
   }
   
   /* Adjust font sizes to fit better on mobile */
