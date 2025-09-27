@@ -1108,9 +1108,7 @@ section h2 {
   }
 }
 
-
-
-
+/* Try to Fix mobile filter dropdown issues */
 /* Increase z-index for filter dropdown to ensure it appears above mod cards */
 #filter-dropdown {
   z-index: 50 !important; /* Increased from z-10 */
