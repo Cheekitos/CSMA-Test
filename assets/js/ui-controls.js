@@ -1,227 +1,153 @@
-/* Base Foundation Styles */
+// UI Controls and Interface Interactions
+// This file handles grid layout controls, toggles, and button states
 
-/* Typography and Prose Styles */
-.prose {
-  color: #d1d5db;
-}
+document.addEventListener('DOMContentLoaded', function() {
+  if (!window.StalkerMods) {
+    window.StalkerMods = {};
+  }
+  
+  window.StalkerMods.uiControls = {
+    init: function() {
+      this.setupGridControls();
+      this.setupToggleButtons();
+      this.setupKeyboardShortcuts();
+    },
 
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-  color: #ffffff;
-  font-weight: 600;
-}
+    setupGridControls: function() {
+      const cardsLessBtn = document.getElementById('cards-less');
+      const cardsMoreBtn = document.getElementById('cards-more');
+      
+      if (cardsLessBtn) {
+        cardsLessBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.StalkerMods.cardsPerRow === 2) {
+            window.StalkerMods.cardsPerRow = 3;
+          } else if (window.StalkerMods.cardsPerRow === 3) {
+            window.StalkerMods.cardsPerRow = 4;
+          } else if (window.StalkerMods.cardsPerRow === 4) {
+            window.StalkerMods.cardsPerRow = 'list';
+          }
+          this.updateGridLayout();
+          
+          if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
+            window.StalkerMods.filters.hideFilterDropdown();
+          }
+        });
+      }
 
-.prose h1 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
+      if (cardsMoreBtn) {
+        cardsMoreBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (window.StalkerMods.cardsPerRow === 'list') {
+            window.StalkerMods.cardsPerRow = 4;
+          } else if (window.StalkerMods.cardsPerRow === 4) {
+            window.StalkerMods.cardsPerRow = 3;
+          } else if (window.StalkerMods.cardsPerRow === 3) {
+            window.StalkerMods.cardsPerRow = 2;
+          }
+          this.updateGridLayout();
+          
+          if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
+            window.StalkerMods.filters.hideFilterDropdown();
+          }
+        });
+      }
+    },
 
-.prose h2 {
-  font-size: 1.25rem; 
-  line-height: 1.75rem; 
-  margin-top: 1.25rem; 
-  margin-bottom: 0.75rem; 
-}
+    updateGridLayout: function() {
+      const modList = document.getElementById('mod-list');
+      if (modList) {
+        if (window.StalkerMods.cardsPerRow === 'list') {
+          modList.className = 'cards-list';
+        } else {
+          modList.className = `grid gap-4 cards-${window.StalkerMods.cardsPerRow}`;
+        }
+      }
+      if (window.StalkerMods.filters && window.StalkerMods.filters.updateMustPlayHighlighting) {
+        window.StalkerMods.filters.updateMustPlayHighlighting();
+      }
+    },
 
-.prose h3 {
-  font-size: 1.125rem; 
-  line-height: 1.5rem;
-  margin-top: 1rem; 
-  margin-bottom: 0.5rem; 
-}
+    setupToggleButtons: function() {
+      // Toggle grades functionality
+      const handleToggleGrades = () => {
+        const sortBtn = document.getElementById('sort-button');
+        const isHiding = document.body.classList.toggle('hide-grades');
+        
+        if (isHiding && sortBtn) {
+          sortBtn.textContent = 'Randomize';
+          window.StalkerMods.sortState = 0; 
+        } else if (sortBtn) {
+          sortBtn.textContent = 'Sort by Rating';
+          window.StalkerMods.sortState = 0;
+          // Don't call applyFilters() here to preserve current order
+          // Just re-render the current mods to update the display
+          if (window.StalkerMods.utils && window.StalkerMods.utils.renderMods) {
+            window.StalkerMods.utils.renderMods(window.StalkerMods.currentDisplayedMods);
+          }
+        }
+        this.syncToggleStates();
+        
+        if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
+          window.StalkerMods.filters.hideFilterDropdown();
+        }
+      };
 
-.prose h3:nth-of-type(2) {
-  margin-top: 2rem; 
-}
+      if (window.StalkerMods.utils && window.StalkerMods.utils.setupButtonHandlers) {
+        window.StalkerMods.utils.setupButtonHandlers(['toggle-grades', 'toggle-grades-mobile'], handleToggleGrades);
+      }
 
-.prose p {
-  margin-bottom: 0.75rem;
-  line-height: 1.5; 
-}
+      // Toggle videos functionality
+      const handleToggleVideos = () => {
+        document.body.classList.toggle('hide-videos');
+        this.syncToggleStates();
+        
+        if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
+          window.StalkerMods.filters.hideFilterDropdown();
+        }
+      };
 
-.prose ul, .prose ol {
-  margin-bottom: 1rem; 
-  padding-left: 1.5rem;
-}
+      if (window.StalkerMods.utils && window.StalkerMods.utils.setupButtonHandlers) {
+        window.StalkerMods.utils.setupButtonHandlers(['toggle-videos', 'toggle-videos-mobile'], handleToggleVideos);
+      }
+    },
 
-.prose li {
-  margin-bottom: 0.5rem; 
-  line-height: 1.6;
-}
+    syncToggleStates: function() {
+      const gradesHidden = document.body.classList.contains('hide-grades');
+      const videosHidden = document.body.classList.contains('hide-videos');
+      
+      ['toggle-grades', 'toggle-grades-mobile'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.classList.toggle('button-active', gradesHidden);
+      });
+      
+      ['toggle-videos', 'toggle-videos-mobile'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.classList.toggle('button-active', videosHidden);
+      });
+    },
 
-.prose a {
-  color: #60a5fa;
-  text-decoration: underline;
-}
+    setupKeyboardShortcuts: function() {
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          // Handle escape key for various UI elements
+          const contactOverlay = document.getElementById('contact-overlay');
+          const installFilesOverlay = document.getElementById('install-files-overlay');
+          
+          if (contactOverlay && !contactOverlay.classList.contains('hidden')) {
+            contactOverlay.classList.add('hidden');
+          }
+          if (installFilesOverlay && !installFilesOverlay.classList.contains('hidden')) {
+            installFilesOverlay.classList.add('hidden');
+          }
+          if (window.StalkerMods.filters && window.StalkerMods.filters.isFilterDropdownOpen && !window.StalkerMods.filters.hasActiveFilters()) {
+            window.StalkerMods.filters.hideFilterDropdown();
+          }
+        }
+      });
+    }
+  };
 
-.prose a:hover {
-  color: #93c5fd;
-}
-
-.prose code {
-  background-color: #374151;
-  color: #f3f4f6;
-  padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-}
-
-.prose pre {
-  background-color: #1f2937;
-  color: #f3f4f6;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow-x: auto;
-  margin-bottom: 0.75rem; 
-}
-
-.prose blockquote {
-  border-left: 4px solid #fbbf24;
-  padding-left: 1rem;
-  color: #9ca3af;
-  font-style: italic;
-  margin: 0.75rem 0; 
-}
-
-.prose strong {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.prose em {
-  font-style: italic;
-}
-
-.prose-compact {
-  font-size: 0.875rem; 
-}
-
-.prose-compact h2 {
-  font-size: 1.125rem; 
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.prose-compact h3 {
-  font-size: 1rem;
-  margin-top: 0.75rem;
-  margin-bottom: 0.375rem;
-}
-
-.prose-compact p {
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
-}
-
-.prose-compact ul, .prose-compact ol {
-  margin-bottom: 0.75rem; 
-}
-
-.prose-compact li {
-  margin-bottom: 0.375rem; 
-  line-height: 1.5; 
-}
-
-.prose-compact .space-y-3 {
-  margin-top: 1rem;
-}
-
-.prose-compact .space-y-3 > div {
-  margin-bottom: 0.5rem;
-}
-
-.prose-compact .space-y-3 > div:last-child {
-  margin-bottom: 0;
-}
-
-/* Prose List Styles */
-.prose .space-y-3 .flex.items-start {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem; 
-  margin-bottom: 0.25rem; 
-}
-
-.prose .space-y-3 .flex.items-start span {
-  color: #fbbf24; 
-  font-weight: bold;
-  font-size: 0.875rem; 
-  flex-shrink: 0;
-  line-height: 1.5;
-  width: 1.2rem; 
-  text-align: left;
-  margin-top: 0; 
-}
-
-.prose .space-y-3 .flex.items-start div {
-  flex: 1;
-  line-height: 1.5;
-  display: block;
-  margin-top: 0; 
-}
-
-.prose .space-y-3 .flex.items-start p {
-  margin: 0;
-  color: #d1d5db;
-  display: block;
-  font-size: 0.875rem; 
-  line-height: 1.5; 
-}
-
-.prose .space-y-3 {
-  display: block;
-}
-
-.prose .space-y-3 > div {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem; 
-}
-
-.prose .space-y-3 > div:last-child {
-  margin-bottom: 0;
-}
-
-.prose .text-yellow-400 {
-  color: #fbbf24;
-}
-
-.prose .text-gray-300 {
-  color: #d1d5db;
-}
-
-.prose .font-bold {
-  font-weight: bold;
-}
-
-.prose .text-lg {
-  font-size: 0.875rem !important; 
-}
-
-.prose .flex-shrink-0 {
-  flex-shrink: 0;
-}
-
-/* Base Text Utilities */
-h3, .platform-block {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.rating {
-  flex-shrink: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-section h2 {
-  font-size: 1.38rem; 
-  font-weight: 600;
-}
-
-/* CLS Prevention - Base Image Styles */
-img {
-  display: block;
-}
+  // Initialize UI controls
+  window.StalkerMods.uiControls.init();
+});
