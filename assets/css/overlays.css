@@ -82,6 +82,9 @@
   justify-content: center;
   transition: all 0.2s ease;
   z-index: 1001;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0;
 }
 
 #contact-close:hover,
