@@ -21,7 +21,9 @@
 
 #sort-button,
 #cards-less,
-#cards-more {
+#cards-more,
+#toggle-grades,
+#toggle-videos {
   height: 32px;
   display: flex;
   align-items: center;
@@ -39,14 +41,24 @@
 /* Special styling for main page buttons */
 .main-page #essentials-button,
 .main-page #contact-button,
-.main-page #toggle-grades,
-.main-page #toggle-videos,
 .main-page #essentials-button-mobile,
-.main-page #contact-button-mobile,
-.main-page #toggle-grades-mobile,
-.main-page #toggle-videos-mobile {
+.main-page #contact-button-mobile {
   font-size: 0.75rem !important; 
   padding: 0.25rem 0.5rem !important; 
+}
+
+/* Main page toggle buttons stay normal size when in controls */
+.main-page #toggle-grades,
+.main-page #toggle-videos {
+  font-size: 0.875rem !important;
+  padding: 0.375rem 0.75rem !important;
+}
+
+/* Only mobile toggles get smaller on main page */
+.main-page #toggle-grades-mobile,
+.main-page #toggle-videos-mobile {
+  font-size: 0.75rem !important;
+  padding: 0.25rem 0.5rem !important;
 }
 
 /* Mod Cards */
