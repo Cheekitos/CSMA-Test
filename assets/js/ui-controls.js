@@ -11,6 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
       this.setupGridControls();
       this.setupToggleButtons();
       this.setupKeyboardShortcuts();
+      this.initializeToggleStates();
+    },
+
+    initializeToggleStates: function() {
+      // Set initial active states for both toggle buttons
+      const toggleGradesBtn = document.getElementById('toggle-grades');
+      const toggleVideosBtn = document.getElementById('toggle-videos');
+      const toggleGradesMobileBtn = document.getElementById('toggle-grades-mobile');
+      const toggleVideosMobileBtn = document.getElementById('toggle-videos-mobile');
+      
+      if (toggleGradesBtn) toggleGradesBtn.classList.add('button-active');
+      if (toggleVideosBtn) toggleVideosBtn.classList.add('button-active');
+      if (toggleGradesMobileBtn) toggleGradesMobileBtn.classList.add('button-active');
+      if (toggleVideosMobileBtn) toggleVideosMobileBtn.classList.add('button-active');
     },
 
     setupGridControls: function() {
@@ -116,14 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
       const gradesHidden = document.body.classList.contains('hide-grades');
       const videosHidden = document.body.classList.contains('hide-videos');
       
+      // Active state is now the OPPOSITE - highlighted when NOT hidden
       ['toggle-grades', 'toggle-grades-mobile'].forEach(id => {
         const btn = document.getElementById(id);
-        if (btn) btn.classList.toggle('button-active', gradesHidden);
+        if (btn) btn.classList.toggle('button-active', !gradesHidden);
       });
       
       ['toggle-videos', 'toggle-videos-mobile'].forEach(id => {
         const btn = document.getElementById(id);
-        if (btn) btn.classList.toggle('button-active', videosHidden);
+        if (btn) btn.classList.toggle('button-active', !videosHidden);
       });
     },
 
