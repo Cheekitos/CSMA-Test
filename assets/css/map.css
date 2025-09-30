@@ -1,189 +1,173 @@
 /* Interactive Map Specific Styles */
 
-.mod-tree {
-  min-width: 1400px;
-  padding: 40px;
-}
-
-.tree-level {
-  display: flex;
-  justify-content: center;
-  gap: 60px;
-  margin-bottom: 80px;
-  position: relative;
-}
-
-.mod-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.mod-card {
-  background: #1f2937;
-  border: 2px solid #374151;
+/* Engine Cards */
+.engine-card {
+  background: #5b21b6;
+  border: 2px solid #8b5cf6;
   border-radius: 8px;
-  padding: 12px 16px;
-  min-width: 280px;
-  max-width: 280px;
+  padding: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  z-index: 10;
+  margin-bottom: 24px;
 }
 
-.mod-card:hover {
+.engine-card:hover {
   border-color: #fbbf24;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
 }
 
-.mod-card.expanded {
+.engine-card.expanded {
+  border-color: #fbbf24;
+  background: #6d28d9;
+}
+
+.engine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.engine-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f3f4f6;
+}
+
+/* Children Container */
+.children-container {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.4s ease;
+}
+
+.children-container.expanded {
+  max-height: 5000px;
+  opacity: 1;
+  margin-top: 20px;
+}
+
+/* Child Cards */
+.child-card {
+  background: #1f2937;
+  border: 2px solid #374151;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+}
+
+.child-card:hover {
+  border-color: #fbbf24;
+  background: #374151;
+  transform: translateX(4px);
+}
+
+.child-card.expanded {
   border-color: #fbbf24;
   background: #374151;
 }
 
-.mod-card.base-game {
-  border-color: #10b981;
-  background: #065f46;
-}
-
-.mod-card.engine-family {
-  border-color: #8b5cf6;
-  background: #5b21b6;
-}
-
-.mod-header {
+.child-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
 
-.mod-title {
-  font-size: 14px;
+.child-title {
+  font-size: 1.125rem;
   font-weight: 600;
   color: #f3f4f6;
   flex: 1;
 }
 
-.mod-badge {
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-.badge-standalone {
-  background: #065f46;
-  color: #d1fae5;
-}
-
-.badge-requires {
-  background: #92400e;
-  color: #fef3c7;
-}
-
-.mod-details {
+/* Child Details */
+.child-details {
   height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
-              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              padding-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 0;
-  padding-top: 0;
+  transition: height 0.35s ease, opacity 0.35s ease, margin-top 0.35s ease, padding-top 0.35s ease;
 }
 
-.mod-details.expanded {
+.child-details.expanded {
   opacity: 1;
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid #4b5563;
 }
 
+/* Mod Badges */
+.mod-badge {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #065f46;
+  color: #d1fae5;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Mod Info */
 .mod-info {
-  font-size: 12px;
+  font-size: 14px;
   color: #d1d5db;
   margin-bottom: 8px;
 }
 
 .mod-info span {
   color: #9ca3af;
-}
-
-.mod-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.star {
-  color: #fbbf24;
-  font-size: 12px;
+  font-weight: 600;
 }
 
 .mod-description {
-  font-size: 11px;
+  font-size: 13px;
   color: #9ca3af;
-  line-height: 1.4;
-  margin-bottom: 8px;
+  line-height: 1.5;
 }
 
-.mod-link {
-  display: inline-block;
-  font-size: 11px;
-  color: #60a5fa;
-  text-decoration: underline;
-  margin-top: 4px;
-}
-
-.connection-line {
-  position: absolute;
-  background: #4b5563;
-  z-index: 1;
-}
-
-.connection-line.vertical {
-  width: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
+/* Expand Icons */
 .expand-icon {
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
+  color: #fbbf24;
+  flex-shrink: 0;
 }
 
 .expand-icon.rotated {
   transform: rotate(180deg);
 }
 
-.map-legend {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #1f2937;
-  border: 2px solid #374151;
-  border-radius: 8px;
-  padding: 16px;
-  z-index: 100;
-}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .engine-title {
+    font-size: 1.25rem;
+  }
 
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  font-size: 12px;
-  color: #d1d5db;
-}
+  .child-title {
+    font-size: 1rem;
+  }
 
-.legend-box {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 2px solid;
+  .engine-card {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .child-card {
+    padding: 10px 12px;
+  }
+
+  .mod-badge {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+
+  .mod-info {
+    font-size: 13px;
+  }
+
+  .mod-description {
+    font-size: 12px;
+  }
 }
