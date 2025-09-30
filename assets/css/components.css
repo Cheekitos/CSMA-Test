@@ -38,13 +38,6 @@
   justify-content: center;
 }
 
-/* Only mobile toggles get smaller on main page */
-.main-page #toggle-grades-mobile,
-.main-page #toggle-videos-mobile {
-  font-size: 0.75rem !important;
-  padding: 0.25rem 0.5rem !important;
-}
-
 /* Mod Cards */
 .mod-card {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
