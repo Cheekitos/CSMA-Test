@@ -1,359 +1,244 @@
 ---
 layout: default
-body_class: map-page
-seo_title: "Interactive Mod Map - S.T.A.L.K.E.R. Mods Archive"
-seo_description: "Interactive family tree visualization of S.T.A.L.K.E.R. story modifications"
-keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
+body_class: main-page
+seo_title: "Test page"
+seo_description: "Test Page"
+keywords: "Test Page"
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/map.css' | relative_url }}">
-
 <div class="max-w-6xl mx-auto">
-  <!-- Header Section with Site Title -->
   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-2">
-    <a href="{{ '/' | relative_url }}" class="text-3xl font-bold hover:text-yellow-400 transition-colors">
-      Cheeki's Mods Archive
-    </a>
+    <h1 class="text-3xl font-bold">Cheeki's Mods Archive</h1>
+    {% include header-buttons.html %}
   </div>
 
-  <!-- Breadcrumb Navigation -->
-  <nav class="mb-6" aria-label="Breadcrumb">
-    <ol class="flex items-center space-x-2 text-sm">
-      <li>
-        <a href="{{ '/' | relative_url }}" class="text-blue-400 hover:text-blue-300 transition-colors font-medium flex items-center">
-          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-          </svg>
-          Archive
-        </a>
-      </li>
-      <li>
-        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+  <h2 class="text-lg text-gray-400 mb-3">A collection of S.T.A.L.K.E.R. Story Mods</h2>
+  
+  {% include mobile-buttons.html %}
+  
+ <p class="text-gray-300 text-sm mb-6">
+    This page is a curated archive of S.T.A.L.K.E.R. game modifications, focusing mainly on story-driven projects I've reviewed on the <a href="https://linktr.ee/cheekibreekii" target="_blank" class="text-white underline">YouTube Channel</a>.
+    The goal is to consolidate, preserve, and make these mods and their English translations easily accessible, since they're often scattered across different websites, hosting services, and Discord servers. Full credit goes to the original authors.<br>
+    The grades do reflect community opinion on their overall quality, but don't get too hung up on them. Every mod featured here is worth your time. My advice will always be to go in as blind as possible, but if you want an overview before diving in, all the video reviews are spoiler-free and safe to watch.
+  </p>
+  
+  <div class="flex flex-wrap items-start gap-2 mb-4" id="controls-container">
+    <button id="sort-button" aria-label="Sort mods by rating" class="bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-medium py-1 px-3 rounded w-32 h-8">
+      Sort by Rating
+    </button>
+    <div class="flex items-center gap-1">
+      <button id="cards-less" aria-label="Show fewer cards per row" class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-1 px-2 rounded w-8 h-8 flex items-center justify-center">
+        -
+      </button>
+      <button id="cards-more" aria-label="Show more cards per row" class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-1 px-2 rounded w-8 h-8 flex items-center justify-center">
+        +
+      </button>
+    </div>
+    <div class="flex items-center gap-1">
+      <button id="toggle-grades" aria-label="Toggle grade visibility" class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-1 px-3 rounded h-8 whitespace-nowrap flex items-center justify-center">
+        <svg class="w-4 h-4 fill-current text-yellow-400" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+      </button>
+      <button id="toggle-videos" aria-label="Toggle video visibility" class="bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium py-1 px-3 rounded h-8 whitespace-nowrap flex items-center justify-center">
+        <svg class="w-5 h-5 fill-current text-red-500" viewBox="0 0 24 24"><path d="M21.8 8.001c0 0-0.195-1.378-0.795-1.985-0.76-0.797-1.613-0.801-2.004-0.847-2.799-0.202-6.997-0.202-6.997-0.202h-0.009c0 0-4.198 0-6.997 0.202-0.391 0.046-1.243 0.05-2.004 0.847-0.6 0.607-0.795 1.985-0.795 1.985s-0.199 1.618-0.199 3.237v1.517c0 1.618 0.199 3.237 0.199 3.237s0.195 1.378 0.795 1.985c0.761 0.797 1.76 0.771 2.205 0.855 1.6 0.153 6.8 0.201 6.8 0.201s4.203-0.006 7.001-0.209c0.391-0.047 1.243-0.05 2.004-0.847 0.6-0.607 0.795-1.985 0.795-1.985s0.199-1.618 0.199-3.237v-1.517c0-1.618-0.199-3.237-0.199-3.237zM9.935 14.594v-5.62l5.403 2.82-5.403 2.8z"/></svg>
+      </button>
+    </div>
+    <div class="relative flex-1 min-w-[150px]" id="search-container">
+      <input id="search-input" type="text" aria-label="Search mods" placeholder="Search mods..." class="w-full px-2 py-1 pr-16 text-sm rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 h-8" />
+      <span id="filter-text" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs italic cursor-pointer hover:text-white transition-colors flex items-center gap-1">
+        <span id="filter-text-content">Filters</span>
+        <svg id="filter-arrow" class="w-3 h-3 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
         </svg>
-      </li>
-      <li class="text-gray-300" aria-current="page">
-        Interactive Map
-      </li>
-    </ol>
-  </nav>
-</div>
-
-<div style="overflow-x: auto;">
-  <div class="mod-tree">
-    <h1 class="text-3xl font-bold text-center mb-4 text-yellow-400">S.T.A.L.K.E.R. Mod Family Tree</h1>
-    <p class="text-center text-gray-400 mb-12 text-sm">Click on any engine to expand and see its mods</p>
-    
-    <!-- Engine Level -->
-    <div class="tree-level">
-      <!-- Anomaly Engine -->
-      <div class="mod-branch">
-        <div class="mod-card engine-family" onclick="window.StalkerMap.toggleEngine(this)">
-          <div class="mod-header">
-            <div class="mod-title">Anomaly</div>
-            <span class="mod-badge badge-standalone">Engine</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
+      </span>
+      <div id="filter-dropdown" class="absolute top-full left-2 right-2 bg-gray-800 border border-gray-700 border-t-0 rounded-b-md p-2 hidden z-10 shadow-lg">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <!-- Standalone Filter -->
+          <div class="flex items-center gap-1">
+            <span class="text-xs text-gray-300 font-semibold">Standalone:</span>
+            <label class="flex items-center text-xs text-gray-400">
+              <input type="checkbox" id="filter-standalone-yes" class="filter-checkbox">
+            </label>
           </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-            <div class="mod-info"><span>Released:</span> 2018</div>
-            <div class="mod-description">Most popular sandbox mod with extensive addon support. Became the foundation for countless submods.</div>
+          
+          <!-- Low-spec Friendly Filter -->
+          <div class="flex items-center gap-1">
+            <span class="text-xs text-gray-300 font-semibold">Low-spec Friendly:</span>
+            <label class="flex items-center text-xs text-gray-400">
+              <input type="checkbox" id="filter-lowspec-yes" class="filter-checkbox">
+            </label>
           </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-        
-        <!-- Anomaly Children -->
-        <div class="children-container">
-          <div class="tree-level">
-            <!-- GAMMA -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">GAMMA</div>
-                  <span class="mod-badge badge-standalone">Modpack</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly 1.5.1</div>
-                  <div class="mod-info"><span>Released:</span> 2022</div>
-                  <div class="mod-description">Massive modpack with 300+ addons providing enhanced graphics, survival mechanics, and gameplay systems.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Escape from Pripyat -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Escape from Pripyat</div>
-                  <span class="mod-badge badge-standalone">Story</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2023</div>
-                  <div class="mod-description">Story-focused addon adding a narrative campaign to Anomaly's sandbox gameplay.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dark Signal -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Dark Signal</div>
-                  <span class="mod-badge badge-standalone">Horror</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2022</div>
-                  <div class="mod-description">Atmospheric horror modification enhancing psychological elements.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- HCAR -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">HCAR</div>
-                  <span class="mod-badge badge-standalone">Hardcore</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2021</div>
-                  <div class="mod-description">Hardcore Combat and Realism addon increasing difficulty significantly.</div>
-                </div>
-              </div>
-            </div>
+          
+          <!-- Must Play Filter -->
+          <div class="flex items-center gap-1">
+            <span class="text-xs text-gray-300 font-semibold">Must Play:</span>
+            <label class="flex items-center text-xs text-gray-400">
+              <input type="checkbox" id="filter-mustplay-yes" class="filter-checkbox">
+            </label>
           </div>
-
-          <div class="tree-level">
-            <!-- Old World Addon -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Old World Addon</div>
-                  <span class="mod-badge badge-standalone">Expansion</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2023</div>
-                  <div class="mod-description">Adds new areas inspired by classic S.T.A.L.K.E.R. atmosphere.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bosspack -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Bosspack</div>
-                  <span class="mod-badge badge-standalone">Challenge</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2022</div>
-                  <div class="mod-description">Introduces powerful boss mutants and challenging encounters.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Anomaly Redux -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Anomaly Redux</div>
-                  <span class="mod-badge badge-standalone">Overhaul</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2023</div>
-                  <div class="mod-description">Complete gameplay overhaul rebalancing core mechanics.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Zona -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Zona</div>
-                  <span class="mod-badge badge-standalone">Atmosphere</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Anomaly</div>
-                  <div class="mod-info"><span>Released:</span> 2022</div>
-                  <div class="mod-description">Atmospheric enhancement focusing on environmental storytelling.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Call of Chernobyl Engine -->
-      <div class="mod-branch">
-        <div class="mod-card engine-family" onclick="window.StalkerMap.toggleEngine(this)">
-          <div class="mod-header">
-            <div class="mod-title">Call of Chernobyl</div>
-            <span class="mod-badge badge-standalone">Engine</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Base:</span> Call of Pripyat</div>
-            <div class="mod-info"><span>Released:</span> 2015</div>
-            <div class="mod-description">Freeplay mod merging all three games' maps. Foundation for many modern sandbox mods.</div>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-        
-        <!-- CoC Children -->
-        <div class="children-container">
-          <div class="tree-level">
-            <!-- Call of the Zone -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Call of the Zone</div>
-                  <span class="mod-badge badge-standalone">Story</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-                  <div class="mod-info"><span>Released:</span> 2016</div>
-                  <div class="mod-description">Adds structured story missions and objectives to CoC's sandbox.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Call of Misery -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Call of Misery</div>
-                  <span class="mod-badge badge-standalone">Hardcore</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-                  <div class="mod-info"><span>Released:</span> 2016</div>
-                  <div class="mod-description">Brings Misery mod's brutal difficulty and realism to CoC.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Last Day -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Last Day</div>
-                  <span class="mod-badge badge-standalone">Survival</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-                  <div class="mod-info"><span>Released:</span> 2017</div>
-                  <div class="mod-description">Survival-focused with emphasis on resource management.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tree-level">
-            <!-- Dead Air -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Dead Air</div>
-                  <span class="mod-badge badge-standalone">Hardcore</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-                  <div class="mod-info"><span>Released:</span> 2017</div>
-                  <div class="mod-description">Punishing hardcore survival with atmospheric tension.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Road to the North -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Road to the North</div>
-                  <span class="mod-badge badge-standalone">Story</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> OGSR Engine</div>
-                  <div class="mod-info"><span>Released:</span> 2020</div>
-                  <div class="mod-description">Story mod featuring new northern territories with expanded lore.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Warfare -->
-            <div class="mod-branch">
-              <div class="mod-card" onclick="event.stopPropagation(); window.StalkerMap.toggleChild(this)">
-                <div class="mod-header">
-                  <div class="mod-title">Warfare</div>
-                  <span class="mod-badge badge-standalone">Faction Wars</span>
-                  <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-                  <div class="mod-info"><span>Released:</span> 2018</div>
-                  <div class="mod-description">Dynamic faction warfare with large-scale battles and territory control.</div>
-                </div>
-              </div>
+          
+          <!-- Platform Filter -->
+          <div class="flex items-center gap-1">
+            <span class="text-xs text-gray-300 font-semibold">Platform:</span>
+            <div class="flex items-center gap-2">
+              <label class="flex items-center text-xs text-gray-400">
+                <input type="checkbox" id="filter-platform-soc" class="filter-checkbox mr-1">
+                <span>SoC</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-400">
+                <input type="checkbox" id="filter-platform-cs" class="filter-checkbox mr-1">
+                <span>CS</span>
+              </label>
+              <label class="flex items-center text-xs text-gray-400">
+                <input type="checkbox" id="filter-platform-cop" class="filter-checkbox mr-1">
+                <span>CoP</span>
+              </label>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="mod-list" class="grid gap-4 cards-3">
+    {% assign sorted_mods = site.mods | sort: 'title' %}
+    {% for mod in sorted_mods %}
+      <a href="{{ mod.url | relative_url }}" class="bg-gray-800 p-3 rounded-md shadow-sm flex flex-col h-full mod-card hover:text-white block" 
+         data-mod-title="{{ mod.title | downcase }}" 
+         data-mod-description="{{ mod.short_description | default: mod.description | downcase }}" 
+         data-mod-platform="{{ mod.platform | downcase }}"
+         data-mod-engine="{{ mod.engine | downcase }}"
+         data-mod-standalone="{{ mod.standalone }}"
+         data-mod-lowspec="{{ mod.lowspec_friendly }}"
+         data-mod-mustplay="{{ mod.must_play }}">
+        
+        <!-- List view content (hidden by default) -->
+        <div class="list-content hidden">
+          <div class="list-left">
+            <h3 class="text-sm font-semibold text-gray-100 whitespace-nowrap overflow-hidden text-ellipsis hover:text-yellow-400 transition-colors">
+              {{ mod.title }}
+            </h3>
+            <span class="text-xs {% if mod.standalone %}text-green-400{% else %}text-red-400{% endif %} flex-shrink-0">
+              {% if mod.standalone %}Standalone{% else %}Requires base game{% endif %}
+            </span>
+            <span class="text-xs text-yellow-400 flex-shrink-0 platform-list-compact">
+              {{ mod.platform }}
+            </span>
+          </div>
+          <div class="list-right flex items-center space-x-1 text-yellow-400">
+            <span class="text-sm font-medium">{{ mod.rating }}</span>
+            <div class="flex items-center space-x-0.5">
+              {% assign rating = mod.rating %}
+              {% assign full_stars = rating | floor %}
+              {% for i in (1..5) %}
+                {% if i <= full_stars %}
+                  <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                {% else %}
+                  <svg class="w-3 h-3 fill-gray-600" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid view content (visible by default) -->
+        <div class="grid-content">
+          <!-- Title and rating for cards-2 and cards-3 (side by side) -->
+          <div class="flex justify-between items-center mb-3 gap-2 title-rating-horizontal">
+            <h3 class="text-2xl font-semibold text-gray-100 drop-shadow whitespace-nowrap overflow-hidden text-ellipsis hover:text-yellow-400 transition-colors">
+              {{ mod.title }}
+            </h3>
+            <div class="flex items-center space-x-1.5 text-yellow-400 rating">
+              <span class="text-base font-medium">{{ mod.rating }}</span>
+              <div class="flex items-center space-x-0.5 opacity-95">
+                {% assign rating = mod.rating %}
+                {% assign full_stars = rating | floor %}
+                {% assign half_star = rating | minus: full_stars %}
+                {% for i in (1..5) %}
+                  {% if i <= full_stars %}
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                  {% elsif i == full_stars | plus: 1 and half_star >= 0.5 %}
+                    <svg class="w-4 h-4" viewBox="0 0 20 20"><defs><linearGradient id="halfGrad{{ forloop.parentloop.index }}{{ forloop.index }}" x1="0" x2="100%" y1="0" y2="0"><stop offset="50%" stop-color="#facc15"/><stop offset="50%" stop-color="#4b5563"/></linearGradient></defs><path fill="url(#halfGrad{{ forloop.parentloop.index }}{{ forloop.index }})" d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                  {% else %}
+                    <svg class="w-4 h-4 fill-gray-600" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Title and rating for cards-4 (stacked vertically) -->
+          <div class="mb-3 title-rating-vertical">
+            <h3 class="text-2xl font-semibold text-gray-100 drop-shadow hover:text-yellow-400 transition-colors">
+              {{ mod.title }}
+            </h3>
+            <div class="flex items-center space-x-1.5 text-yellow-400 rating mt-1">
+              <span class="text-base font-medium">{{ mod.rating }}</span>
+              <div class="flex items-center space-x-0.5 opacity-95">
+                {% assign rating = mod.rating %}
+                {% assign full_stars = rating | floor %}
+                {% assign half_star = rating | minus: full_stars %}
+                {% for i in (1..5) %}
+                  {% if i <= full_stars %}
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                  {% elsif i == full_stars | plus: 1 and half_star >= 0.5 %}
+                    <svg class="w-4 h-4" viewBox="0 0 20 20"><defs><linearGradient id="halfGrad{{ forloop.parentloop.index }}{{ forloop.index }}" x1="0" x2="100%" y1="0" y2="0"><stop offset="50%" stop-color="#facc15"/><stop offset="50%" stop-color="#4b5563"/></linearGradient></defs><path fill="url(#halfGrad{{ forloop.parentloop.index }}{{ forloop.index }})" d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                  {% else %}
+                    <svg class="w-4 h-4 fill-gray-600" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.122-6.545L.487 6.91l6.561-.955L10 0l2.952 5.955 6.561.955-4.757 4.635 1.122 6.545z"/></svg>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="text-xs text-white mb-2 flex items-baseline gap-2">
+            <span class="leading-tight">Standalone:</span>
+            <div class="flex items-center gap-1">
+              <span class="{% if mod.standalone %}border border-white px-2 py-0.5 rounded-sm text-[10px] text-white leading-tight{% else %}text-gray-400 text-[10px] leading-tight{% endif %}" {% if mod.standalone %}style="background-color: rgba(250, 204, 21, 0.45);"{% endif %}>Yes</span>
+              <span class="text-gray-400 text-[10px] leading-tight">|</span>
+              <span class="{% unless mod.standalone %}border border-white px-2 py-0.5 rounded-sm text-[10px] text-white leading-tight{% else %}text-gray-400 text-[10px] leading-tight{% endunless %}" {% unless mod.standalone %}style="background-color: rgba(250, 204, 21, 0.45);"{% endunless %}>No</span>
+            </div>
+          </div>
+
+          <div class="text-xs text-white mb-2 flex items-baseline gap-2 platform-block">
+            <span class="leading-tight">Platform:</span>
+            <div class="flex items-center gap-1">
+              {% assign platforms = "Shadow of Chernobyl,Clear Sky,Call of Pripyat" | split: ',' %}
+              
+              <!-- Show only active platform when cards are smallest (cards-4) -->
+              <div class="platform-full">
+                {% for platform in platforms %}
+                  <span class="{% if mod.platform == platform %}border border-white bg-yellow-400 bg-opacity-50 px-2 py-0.5 rounded-sm text-[10px] text-white leading-tight{% else %}text-gray-400 text-[10px] leading-tight{% endif %}">{{ platform }}</span>
+                  {% unless forloop.last %}<span class="text-gray-400 text-[10px] leading-tight">|</span>{% endunless %}
+                {% endfor %}
+              </div>
+              
+              <!-- Show only highlighted platform when cards are smallest -->
+              <div class="platform-compact hidden">
+                <span class="border border-white bg-yellow-400 bg-opacity-50 px-2 py-0.5 rounded-sm text-[10px] text-white leading-tight">{{ mod.platform }}</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-gray-400 mb-3 text-sm flex-grow">{{ mod.short_description | default: mod.description }}</p>
+
+          {% if mod.video %}
+            {% assign video_id = mod.video | split: '/' | last | split: '?' | first %}
+            <div class="video-container mt-auto">
+              <div class="video-thumbnail" data-video-id="{{ video_id }}" data-video-url="{{ mod.video }}" onclick="event.preventDefault(); event.stopPropagation();">
+                <img src="https://img.youtube.com/vi/{{ video_id }}/hqdefault.jpg" alt="Video thumbnail" loading="lazy" width="480" height="360" class="w-full h-full object-cover rounded">
+                <div class="play-button"></div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <footer class="mt-8 text-center text-sm text-gray-500">
+    Cheeki's Mods Archive - <a href="https://linktr.ee/cheekibreekii" target="_blank" class="text-blue-400 hover:underline">Check me Out!</a>
+  </footer>
 </div>
 
 {% include about-popup.html %}
 {% include essentials-popup.html %}
-
-<script src="{{ '/assets/js/map.js' | relative_url }}"></script>
