@@ -1,596 +1,273 @@
----
-layout: default
-body_class: map-page
-seo_title: "Interactive Mod Map - S.T.A.L.K.E.R. Mods Archive"
-seo_description: "Interactive family tree visualization of S.T.A.L.K.E.R. story modifications"
-keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
----
-
-<style>
-/* Interactive Map Specific Styles - Embedded */
-
-.mod-tree {
-  min-width: 100%;
-  padding: 40px 20px;
-}
-
-.tree-level {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 60px;
-  position: relative;
-  flex-wrap: wrap;
-}
-
-.mod-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  flex: 0 1 auto;
-}
-
-.mod-card {
-  background: #1f2937;
-  border: 2px solid #374151;
-  border-radius: 8px;
-  padding: 12px 16px;
-  min-width: 260px;
-  max-width: 260px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 10;
-}
-
-.mod-card:hover {
-  border-color: #fbbf24;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
-}
-
-.mod-card.expanded {
-  border-color: #fbbf24;
-  background: #374151;
-}
-
-.mod-card.base-game {
-  border-color: #10b981;
-  background: #065f46;
-}
-
-.mod-card.engine-family {
-  border-color: #8b5cf6;
-  background: #5b21b6;
-}
-
-.mod-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.mod-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f3f4f6;
-  flex: 1;
-}
-
-.mod-badge {
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-.badge-standalone {
-  background: #065f46;
-  color: #d1fae5;
-}
-
-.badge-requires {
-  background: #92400e;
-  color: #fef3c7;
-}
-
-.mod-details {
-  height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
-              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              padding-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 0;
-  padding-top: 0;
-}
-
-.mod-details.expanded {
-  opacity: 1;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #4b5563;
-}
-
-.mod-info {
-  font-size: 12px;
-  color: #d1d5db;
-  margin-bottom: 8px;
-}
-
-.mod-info span {
-  color: #9ca3af;
-}
-
-.mod-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.star {
-  color: #fbbf24;
-  font-size: 12px;
-}
-
-.mod-description {
-  font-size: 11px;
-  color: #9ca3af;
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
-
-.mod-link {
-  display: inline-block;
-  font-size: 11px;
-  color: #60a5fa;
-  text-decoration: underline;
-  margin-top: 4px;
-}
-
-.connection-line {
-  position: absolute;
-  background: #4b5563;
-  z-index: 1;
-}
-
-.connection-line.vertical {
-  width: 2px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.expand-icon {
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.expand-icon.rotated {
-  transform: rotate(180deg);
-}
-
-.map-legend {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #1f2937;
-  border: 2px solid #374151;
-  border-radius: 8px;
-  padding: 16px;
-  z-index: 100;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  font-size: 12px;
-  color: #d1d5db;
-}
-
-.legend-box {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 2px solid;
-}
-
-@media (max-width: 768px) {
-  .mod-tree {
-    padding: 20px 10px;
-    min-width: auto;
-  }
-
-  .tree-level {
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-
-  .mod-card {
-    min-width: 240px;
-    max-width: 240px;
-  }
-
-  .map-legend {
-    top: 10px;
-    right: 10px;
-    padding: 12px;
-  }
-}
-</style>
-
-<div class="max-w-4xl mx-auto">
-  <!-- Header Section with Site Title -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-2">
-    <a href="{{ '/' | relative_url }}" class="text-3xl font-bold hover:text-yellow-400 transition-colors">
-      Cheeki's Mods Archive
-    </a>
-  </div>
-
-  <!-- Breadcrumb Navigation -->
-  <nav class="mb-6" aria-label="Breadcrumb">
-    <ol class="flex items-center space-x-2 text-sm">
-      <li>
-        <a href="{{ '/' | relative_url }}" class="text-blue-400 hover:text-blue-300 transition-colors font-medium flex items-center">
-          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-          </svg>
-          Archive
-        </a>
-      </li>
-      <li>
-        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-        </svg>
-      </li>
-      <li class="text-gray-300" aria-current="page">
-        Interactive Map
-      </li>
-    </ol>
-  </nav>
-</div>
-
-<div class="map-legend">
-  <div class="text-sm font-bold mb-3 text-yellow-400">Legend</div>
-  <div class="legend-item">
-    <div class="legend-box" style="border-color: #10b981; background: #065f46;"></div>
-    <span>Base Game</span>
-  </div>
-  <div class="legend-item">
-    <div class="legend-box" style="border-color: #8b5cf6; background: #5b21b6;"></div>
-    <span>Engine Family</span>
-  </div>
-  <div class="legend-item">
-    <div class="legend-box" style="border-color: #374151; background: #1f2937;"></div>
-    <span>Mod</span>
-  </div>
-</div>
-
-<div style="overflow-x: auto;">
-  <div class="mod-tree">
-    <h1 class="text-3xl font-bold text-center mb-4 text-yellow-400">S.T.A.L.K.E.R. Mod Family Tree</h1>
-    <p class="text-center text-gray-400 mb-12 text-sm">Click on any mod to expand and see details</p>
-    
-    <!-- Level 1: Base Games -->
-    <div class="tree-level">
-      <div class="mod-branch">
-        <div class="mod-card base-game" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Shadow of Chernobyl</div>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Release:</span> 2007</div>
-            <div class="mod-info"><span>Platform:</span> PC</div>
-            <div class="mod-description">The original game that started it all. Features the iconic story of the Marked One exploring the Chernobyl Exclusion Zone.</div>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card base-game" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Clear Sky</div>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Release:</span> 2008</div>
-            <div class="mod-info"><span>Platform:</span> PC</div>
-            <div class="mod-description">The prequel featuring faction wars and the story of Scar before the events of Shadow of Chernobyl.</div>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card base-game" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Call of Pripyat</div>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Release:</span> 2009</div>
-            <div class="mod-info"><span>Platform:</span> PC</div>
-            <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters in Pripyat and surrounding areas.</div>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-    </div>
-    
-    <!-- Level 2: Early Mods & Engine Families -->
-    <div class="tree-level">
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Vector of Alienation</div>
-            <span class="mod-badge badge-standalone">Standalone</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.2</span>
-              <span class="star">★★★★☆</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> SoC (OLR)</div>
-            <div class="mod-info"><span>Released:</span> 2015</div>
-            <div class="mod-description">Deep sci-fi thriller reimagining the 2004 storyline with overhauled environments and alternate endings.</div>
-            <a href="{{ '/mods/vector-of-alienation/' | relative_url }}" class="mod-link">View Details →</a>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">AMK Autumn Edition</div>
-            <span class="mod-badge badge-requires">Requires SoC</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.5</span>
-              <span class="star">★★★★★</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> Shadow of Chernobyl</div>
-            <div class="mod-info"><span>Released:</span> 2010</div>
-            <div class="mod-description">Enhanced gameplay with improved AI, new weapons, and atmospheric autumn weather system.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card engine-family" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Call of Chernobyl</div>
-            <span class="mod-badge badge-standalone">Engine</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Base:</span> Call of Pripyat</div>
-            <div class="mod-info"><span>Released:</span> 2015</div>
-            <div class="mod-description">Freeplay mod merging all three games' maps. Foundation for many modern sandbox mods.</div>
-            <div class="mod-info"><span>Children:</span> Anomaly, Dead Air, etc.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card engine-family" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">OGSR Engine</div>
-            <span class="mod-badge badge-standalone">Engine</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Base:</span> Shadow of Chernobyl</div>
-            <div class="mod-info"><span>Released:</span> 2016</div>
-            <div class="mod-description">Modernized SoC engine with improved graphics, stability, and modding capabilities.</div>
-            <div class="mod-info"><span>Children:</span> Multiple story mods</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-    </div>
-    
-    <!-- Level 3: Modern Mods -->
-    <div class="tree-level">
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Spatial Anomaly</div>
-            <span class="mod-badge badge-standalone">Standalone</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.8</span>
-              <span class="star">★★★★★</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> OGSR Engine</div>
-            <div class="mod-info"><span>Released:</span> 2021</div>
-            <div class="mod-description">Horror-focused story mod with psychological elements and unique anomaly mechanics.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card engine-family" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Anomaly</div>
-            <span class="mod-badge badge-standalone">Engine</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-            <div class="mod-info"><span>Released:</span> 2018</div>
-            <div class="mod-description">Most popular sandbox mod with extensive addon support. Became the foundation for countless submods.</div>
-            <div class="mod-info"><span>Children:</span> GAMMA, EFP, etc.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-        <div class="connection-line vertical" style="height: 50px; top: 100%;"></div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Dead Air</div>
-            <span class="mod-badge badge-standalone">Standalone</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.3</span>
-              <span class="star">★★★★☆</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> Call of Chernobyl</div>
-            <div class="mod-info"><span>Released:</span> 2017</div>
-            <div class="mod-description">Hardcore survival focused mod with punishing difficulty and atmospheric tension.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Road to the North</div>
-            <span class="mod-badge badge-standalone">Standalone</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.6</span>
-              <span class="star">★★★★★</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> OGSR Engine</div>
-            <div class="mod-info"><span>Released:</span> 2020</div>
-            <div class="mod-description">Story mod featuring new northern territories with expanded lore and factions.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Level 4: Latest Generation -->
-    <div class="tree-level">
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">GAMMA</div>
-            <span class="mod-badge badge-standalone">Modpack</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.7</span>
-              <span class="star">★★★★★</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> Anomaly 1.5.1</div>
-            <div class="mod-info"><span>Released:</span> 2022</div>
-            <div class="mod-description">Massive modpack with 300+ addons providing enhanced graphics, survival mechanics, and gameplay systems.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mod-branch">
-        <div class="mod-card" onclick="toggleExpand(this)">
-          <div class="mod-header">
-            <div class="mod-title">Escape from Pripyat</div>
-            <span class="mod-badge badge-standalone">Standalone</span>
-            <svg class="expand-icon w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <div class="mod-details">
-            <div class="mod-rating">
-              <span class="text-yellow-400 font-bold">4.4</span>
-              <span class="star">★★★★☆</span>
-            </div>
-            <div class="mod-info"><span>Base:</span> Anomaly</div>
-            <div class="mod-info"><span>Released:</span> 2023</div>
-            <div class="mod-description">Story-focused addon adding a narrative campaign to Anomaly's sandbox gameplay.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </div>
-</div>
-
-{% include about-popup.html %}
-{% include essentials-popup.html %}
-
-<script>
-  function toggleExpand(card) {
-    const details = card.querySelector('.mod-details');
-    const icon = card.querySelector('.expand-icon');
-    
-    if (details.classList.contains('expanded')) {
-      // Collapsing
-      details.style.height = details.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        details.style.height = '0';
-        details.classList.remove('expanded');
-        icon.classList.remove('rotated');
-        card.classList.remove('expanded');
-      });
-    } else {
-      // Expanding
-      details.classList.add('expanded');
-      icon.classList.add('rotated');
-      card.classList.add('expanded');
-      const height = details.scrollHeight;
-      details.style.height = '0';
-      requestAnimationFrame(() => {
-        details.style.height = height + 'px';
-      });
-      
-      // Remove inline height after transition
-      setTimeout(() => {
-        if (details.classList.contains('expanded')) {
-          details.style.height = 'auto';
-        }
-      }, 350);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Mod Map - S.T.A.L.K.E.R. Mods Archive</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #f5f5f5;
+      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-  }
-</script>
+
+    .mod-card {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 11px;
+      min-width: 140px;
+      max-width: 160px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .mod-card.base-game {
+      background: #e8f5e9;
+      border-color: #4caf50;
+    }
+
+    .mod-card.blue {
+      background: #e3f2fd;
+      border-color: #2196f3;
+    }
+
+    .mod-card.yellow {
+      background: #fff9c4;
+      border-color: #fbc02d;
+    }
+
+    .mod-card.red {
+      background: #ffebee;
+      border-color: #f44336;
+    }
+
+    .mod-card.orange {
+      background: #fff3e0;
+      border-color: #ff9800;
+    }
+
+    .mod-card.purple {
+      background: #f3e5f5;
+      border-color: #9c27b0;
+    }
+
+    .mod-card.gray {
+      background: #f5f5f5;
+      border-color: #9e9e9e;
+    }
+
+    .connector {
+      stroke: #999;
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 20px;
+      padding: 8px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .flow-container {
+      position: relative;
+      min-height: 3000px;
+    }
+  </style>
+</head>
+<body class="p-8">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-8">S.T.A.L.K.E.R. Mod Family Tree</h1>
+    
+    <div class="flow-container" id="flowChart">
+      <svg id="connectorSvg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></svg>
+      
+      <!-- Base Games Section -->
+      <div style="position: absolute; left: 20px; top: 100px;">
+        <div class="section-title">Base Games</div>
+        <div class="space-y-4">
+          <div class="mod-card base-game">Shadow of Chernobyl</div>
+          <div class="mod-card base-game">Clear Sky</div>
+          <div class="mod-card base-game">Call of Pripyat</div>
+        </div>
+      </div>
+
+      <!-- Early Mods Column 1 -->
+      <div style="position: absolute; left: 220px; top: 200px;" class="space-y-3">
+        <div class="mod-card gray">Oblivion Lost</div>
+        <div class="mod-card gray">Complete mods</div>
+        <div class="mod-card gray">Faction wars</div>
+        <div class="mod-card yellow">AMK</div>
+        <div class="mod-card blue">OGSM</div>
+        <div class="mod-card yellow">OGSR</div>
+      </div>
+
+      <!-- Freeplay Section -->
+      <div style="position: absolute; left: 420px; top: 150px;">
+        <div class="section-title">Freeplay</div>
+        <div class="space-y-3 mt-4">
+          <div class="mod-card gray">Everything mod</div>
+          <div class="mod-card gray">The "original" setup mod</div>
+          <div class="mod-card gray">Awarded to all factions</div>
+        </div>
+      </div>
+
+      <!-- Middle Mods Column -->
+      <div style="position: absolute; left: 620px; top: 200px;" class="space-y-3">
+        <div class="mod-card yellow">Zone of Alienation</div>
+        <div class="mod-card blue">STCS/STCOP Weapon Pack</div>
+        <div class="mod-card blue">Arsenal Overhaul</div>
+        <div class="mod-card blue">Original Weapons Renewal</div>
+        <div class="mod-card gray">Shoker</div>
+        <div class="mod-card gray">Darkscape</div>
+      </div>
+
+      <!-- Story Mods Section -->
+      <div style="position: absolute; left: 820px; top: 100px;">
+        <div class="section-title">Story Mods</div>
+        <div class="space-y-3 mt-4">
+          <div class="mod-card yellow">The Faction War</div>
+          <div class="mod-card yellow">Echo of Chernobyl 2: Mercenary</div>
+          <div class="mod-card yellow">Doun's Mod Merge</div>
+          <div class="mod-card yellow">Narodnaya Solyanka: Phoenix Song</div>
+          <div class="mod-card yellow">STALKER/SOUP</div>
+          <div class="mod-card yellow">New Arsenal 6.1</div>
+          <div class="mod-card yellow">OP 2.1</div>
+          <div class="mod-card yellow">NLC 7</div>
+          <div class="mod-card blue">REBORN</div>
+          <div class="mod-card blue">Oberpershing</div>
+          <div class="mod-card gray">SGM 2.2 Lost Soul</div>
+        </div>
+      </div>
+
+      <!-- Additional Story Mods -->
+      <div style="position: absolute; left: 1020px; top: 200px;" class="space-y-3">
+        <div class="mod-card gray">Content mod</div>
+        <div class="mod-card blue">Wormwood</div>
+        <div class="mod-card gray">AI Merge</div>
+        <div class="mod-card gray">Road to Limansk</div>
+        <div class="mod-card yellow">Autumn Aurora 2</div>
+        <div class="mod-card gray">Unknown Last Remnants</div>
+        <div class="mod-card yellow">Vector of Alienation</div>
+        <div class="mod-card yellow">RMA Atmospheric Addon</div>
+        <div class="mod-card yellow">Lost Alpha</div>
+      </div>
+
+      <!-- OGSE Section -->
+      <div style="position: absolute; left: 1220px; top: 100px;">
+        <div class="section-title">OGSE Branch</div>
+        <div class="space-y-3 mt-4">
+          <div class="mod-card yellow">OGSR/OGSE</div>
+          <div class="mod-card yellow">OGSR Mod</div>
+          <div class="mod-card blue">Misery 1.x</div>
+          <div class="mod-card blue">Remake</div>
+          <div class="mod-card blue">Old Story</div>
+          <div class="mod-card yellow">OGSR</div>
+          <div class="mod-card yellow">OGSR MM2</div>
+        </div>
+      </div>
+
+      <!-- Call of Chernobyl Branch -->
+      <div style="position: absolute; left: 1420px; top: 200px;">
+        <div class="section-title">Call of Chernobyl</div>
+        <div class="space-y-3 mt-4">
+          <div class="mod-card base-game">Call of Chernobyl 1.4/1.5</div>
+          <div class="mod-card base-game">Gunslinger</div>
+          <div class="mod-card base-game">Call of Misery</div>
+          <div class="mod-card base-game">Last Day</div>
+          <div class="mod-card base-game">Legend Returns</div>
+          <div class="mod-card base-game">Dead Air</div>
+          <div class="mod-card base-game">Road to the North</div>
+        </div>
+      </div>
+
+      <!-- Anomaly Section -->
+      <div style="position: absolute; left: 1620px; top: 300px;">
+        <div class="section-title">Anomaly</div>
+        <div class="space-y-3 mt-4">
+          <div class="mod-card base-game">Anomaly</div>
+          <div class="mod-card gray">Weapon Packs</div>
+          <div class="mod-card gray">Repackaged addons</div>
+          <div class="mod-card gray">Repackaged 400 addons</div>
+          <div class="mod-card gray">EFP 2/3/4</div>
+          <div class="mod-card base-game">Arsenal Overhaul</div>
+        </div>
+      </div>
+
+      <!-- STALKER 2 Section -->
+      <div style="position: absolute; left: 20px; top: 800px;">
+        <div class="section-title">STALKER 2 (late 2024)</div>
+      </div>
+
+      <!-- Modern Mods Red Section -->
+      <div style="position: absolute; left: 220px; top: 900px;" class="space-y-3">
+        <div class="mod-card red">Companions with Mutants</div>
+        <div class="mod-card red">Worth playing but not for everyone</div>
+        <div class="mod-card red">Arguably best story mod</div>
+        <div class="mod-card red">Set on post-apocalyptic map</div>
+        <div class="mod-card red">Hardcore, long, quest, no markers</div>
+        <div class="mod-card red">Not so epic, just play previous</div>
+        <div class="mod-card red">Basically new world</div>
+      </div>
+
+      <!-- Yellow Modern Mods -->
+      <div style="position: absolute; left: 420px; top: 900px;" class="space-y-3">
+        <div class="mod-card yellow">Death Defying Gameplay</div>
+        <div class="mod-card yellow">Story of Disappear</div>
+        <div class="mod-card yellow">New Arsenal Design</div>
+        <div class="mod-card yellow">Recent Tredje 3</div>
+        <div class="mod-card yellow">Preter Story</div>
+        <div class="mod-card yellow">Lost World Origin</div>
+        <div class="mod-card yellow">FOTOGR4M</div>
+        <div class="mod-card yellow">Tales by Cherni</div>
+      </div>
+
+      <!-- Additional Mods -->
+      <div style="position: absolute; left: 620px; top: 900px;" class="space-y-3">
+        <div class="mod-card orange">OGSEONOMICS</div>
+        <div class="mod-card red">Huge craft grind</div>
+        <div class="mod-card red">Progression too slow</div>
+        <div class="mod-card red">Non Reflector</div>
+        <div class="mod-card red">The city RPG</div>
+        <div class="mod-card orange">Anomic MMN</div>
+        <div class="mod-card red">Russia's storyline</div>
+      </div>
+
+      <!-- More Modern Mods -->
+      <div style="position: absolute; left: 820px; top: 900px;" class="space-y-3">
+        <div class="mod-card red">Dream Realizer</div>
+        <div class="mod-card red">AV2 Zone Repopulated</div>
+        <div class="mod-card yellow">Fallen War</div>
+        <div class="mod-card yellow">Moment City</div>
+        <div class="mod-card red">Dead City</div>
+        <div class="mod-card red">Mystery Survivor</div>
+        <div class="mod-card red">Links World</div>
+        <div class="mod-card yellow">New Arsenal</div>
+      </div>
+
+      <!-- Right Side Mods -->
+      <div style="position: absolute; left: 1420px; top: 900px;" class="space-y-3">
+        <div class="mod-card gray">Complete Restoration</div>
+        <div class="mod-card base-game">Reloaded</div>
+        <div class="mod-card base-game">Warfare</div>
+        <div class="mod-card base-game">Call of Chernobyl</div>
+      </div>
+
+      <!-- Final Column -->
+      <div style="position: absolute; left: 1620px; top: 900px;" class="space-y-3">
+        <div class="mod-card base-game">Original Coop</div>
+        <div class="mod-card base-game">Original Weapons</div>
+        <div class="mod-card base-game">SPCOF 2.0</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
