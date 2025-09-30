@@ -19,32 +19,42 @@
   transition: all 0.2s ease;
 }
 
+/* Ensure ALL control buttons have uniform height and alignment */
 #sort-button,
 #cards-less,
 #cards-more,
 #toggle-grades,
 #toggle-videos {
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.25rem 0.75rem !important;
+  box-sizing: border-box !important;
 }
 
 #controls-container button,
 #controls-container input {
   height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
-/* Toggle button icon states */
+/* Toggle button icon states - DEFAULT ICONS ARE WHITE */
 #toggle-grades svg {
   transition: fill 0.2s ease;
+  color: #ffffff !important; /* White by default */
 }
 
 #toggle-videos svg {
   transition: fill 0.2s ease;
+  color: #ffffff !important; /* White by default */
 }
 
 /* When grades are hidden, turn star gray */
