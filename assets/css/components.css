@@ -38,6 +38,25 @@
   justify-content: center;
 }
 
+/* Toggle button icon states */
+#toggle-grades svg {
+  transition: fill 0.2s ease;
+}
+
+#toggle-videos svg {
+  transition: fill 0.2s ease;
+}
+
+/* When grades are hidden, turn star gray */
+.hide-grades #toggle-grades svg {
+  color: #4b5563 !important;
+}
+
+/* When videos are hidden, turn play icon gray */
+.hide-videos #toggle-videos svg {
+  color: #4b5563 !important;
+}
+
 /* Mod Cards */
 .mod-card {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
