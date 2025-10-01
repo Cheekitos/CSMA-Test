@@ -191,40 +191,71 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 }
 
 .map-legend {
+  position: fixed;
+  top: 20px;
+  right: 20px;
   background: #1f2937;
   border: 2px solid #374151;
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 24px;
+  padding: 12px;
+  z-index: 100;
+  width: 200px;
 }
 
 .legend-title {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   color: #fbbf24;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .legend-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 11px;
   color: #d1d5db;
 }
 
 .legend-box {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
   border: 2px solid;
   flex-shrink: 0;
+}
+
+.legend-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid #374151;
+}
+
+.legend-button {
+  background: #374151;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: #f3f4f6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.legend-button:hover {
+  background: #4b5563;
+  border-color: #fbbf24;
+  color: #fbbf24;
 }
 
 .hidden {
