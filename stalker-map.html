@@ -12,6 +12,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   max-width: 64rem;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
 }
 
 .flowchart-container {
@@ -201,11 +202,15 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 }
 
 .map-legend {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   background: #1f2937;
   border: 1px solid #374151;
   border-radius: 6px;
   padding: 8px 10px;
   width: 140px;
+  z-index: 10;
 }
 
 .legend-title {
@@ -280,6 +285,13 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   .base-column {
     width: 100%;
   }
+  
+  .map-legend {
+    position: static;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -292,37 +304,41 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   }
 
   .map-legend {
+    position: static;
     width: 100%;
     margin-top: 12px;
+    margin-bottom: 12px;
   }
 }
 </style>
 
 <div class="mod-tree-container">
-  <!-- Header Section with Site Title and Buttons -->
+  <!-- Header Section with Site Title -->
   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-2">
     <a href="{{ '/' | relative_url }}" class="text-3xl font-bold hover:text-yellow-400 transition-colors">
       Cheeki's Mods Archive
     </a>
-    <div class="map-legend">
-      <div class="legend-title">Legend</div>
-      <div class="legend-items">
-        <div class="legend-item">
-          <div class="legend-box" style="border-color: #10b981; background: #065f46;"></div>
-          <span>Base Game</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-box" style="border-color: #8b5cf6; background: #5b21b6;"></div>
-          <span>Engine</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-box" style="border-color: #374151; background: #1f2937;"></div>
-          <span>Mod</span>
-        </div>
+  </div>
+
+  <!-- Legend Box (positioned absolutely in top right) -->
+  <div class="map-legend">
+    <div class="legend-title">Legend</div>
+    <div class="legend-items">
+      <div class="legend-item">
+        <div class="legend-box" style="border-color: #10b981; background: #065f46;"></div>
+        <span>Base Game</span>
       </div>
-      <div class="legend-controls">
-        <button class="legend-button" id="toggleAllBtn" onclick="toggleAll()">Expand All</button>
+      <div class="legend-item">
+        <div class="legend-box" style="border-color: #8b5cf6; background: #5b21b6;"></div>
+        <span>Engine</span>
       </div>
+      <div class="legend-item">
+        <div class="legend-box" style="border-color: #374151; background: #1f2937;"></div>
+        <span>Mod</span>
+      </div>
+    </div>
+    <div class="legend-controls">
+      <button class="legend-button" id="toggleAllBtn" onclick="toggleAll()">Expand All</button>
     </div>
   </div>
 
