@@ -203,64 +203,67 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 
 .map-legend {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   background: #1f2937;
-  border: 2px solid #374151;
-  border-radius: 8px;
-  padding: 12px;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  padding: 8px 10px;
   z-index: 100;
-  width: 200px;
+  width: 140px;
 }
 
 .legend-title {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   color: #fbbf24;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .legend-items {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 4px;
+  margin-bottom: 8px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
+  gap: 5px;
+  font-size: 9px;
   color: #d1d5db;
 }
 
 .legend-box {
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  border: 2px solid;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid;
   flex-shrink: 0;
 }
 
 .legend-controls {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-top: 10px;
+  padding-top: 6px;
   border-top: 1px solid #374151;
 }
 
 .legend-button {
   background: #374151;
   border: 1px solid #4b5563;
-  border-radius: 4px;
-  padding: 6px 10px;
-  font-size: 11px;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 9px;
   color: #f3f4f6;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .legend-button:hover {
@@ -276,6 +279,15 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 @media (max-width: 768px) {
   .mod-tree-container {
     padding: 12px;
+  }
+
+  .flowchart-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .base-column {
+    width: 100%;
   }
 
   .flow-row {
@@ -355,18 +367,15 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
       </div>
     </div>
     <div class="legend-controls">
-      <button class="legend-button" onclick="expandAll()">Expand All</button>
-      <button class="legend-button" onclick="collapseAll()">Collapse All</button>
+      <button class="legend-button" id="toggleAllBtn" onclick="toggleAll()">Expand All</button>
     </div>
   </div>
 
   <!-- Flowchart -->
   <div class="flowchart-container">
     
-    <!-- Row 1: Base Games -->
-    <div class="flow-row">
-      
-      <!-- Shadow of Chernobyl Branch -->
+    <!-- Column 1: Shadow of Chernobyl -->
+    <div class="base-column">
       <div class="flow-branch">
         <div class="mod-card base-game" onclick="toggleCard(this)" data-id="soc">
           <div class="mod-header">
@@ -510,6 +519,11 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
             <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009.</div>
           </div>
         </div>
+      </div>
+    </div>
+
+  </div>
+</div>
         
         <div class="branch-connector hidden" data-parent="cop"></div>
         
@@ -669,43 +683,53 @@ function toggleCard(card) {
   }
 }
 
-function expandAll() {
+function toggleAll() {
+  const button = document.getElementById('toggleAllBtn');
   const allCards = document.querySelectorAll('.mod-card[data-id]');
-  allCards.forEach(card => {
-    const details = card.querySelector(':scope > .mod-details');
-    const icon = card.querySelector(':scope > .mod-header .expand-icon');
-    const cardId = card.getAttribute('data-id');
-    const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-    const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
-    
-    if (!details.classList.contains('expanded')) {
-      details.classList.add('expanded');
-      if (icon) icon.classList.add('rotated');
-      card.classList.add('expanded');
-      if (connector) connector.classList.remove('hidden');
-      if (childrenRow) childrenRow.classList.remove('hidden');
-      details.style.height = 'auto';
-    }
-  });
-}
-
-function collapseAll() {
-  const allCards = document.querySelectorAll('.mod-card[data-id]');
-  allCards.forEach(card => {
-    const details = card.querySelector(':scope > .mod-details');
-    const icon = card.querySelector(':scope > .mod-header .expand-icon');
-    const cardId = card.getAttribute('data-id');
-    const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-    const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
-    
-    if (details.classList.contains('expanded')) {
-      details.style.height = '0';
-      details.classList.remove('expanded');
-      if (icon) icon.classList.remove('rotated');
-      card.classList.remove('expanded');
-      if (connector) connector.classList.add('hidden');
-      if (childrenRow) childrenRow.classList.add('hidden');
-    }
-  });
+  
+  // Check if any card is expanded
+  const anyExpanded = Array.from(allCards).some(card => 
+    card.querySelector(':scope > .mod-details').classList.contains('expanded')
+  );
+  
+  if (anyExpanded) {
+    // Collapse all
+    allCards.forEach(card => {
+      const details = card.querySelector(':scope > .mod-details');
+      const icon = card.querySelector(':scope > .mod-header .expand-icon');
+      const cardId = card.getAttribute('data-id');
+      const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+      
+      if (details.classList.contains('expanded')) {
+        details.style.height = '0';
+        details.classList.remove('expanded');
+        if (icon) icon.classList.remove('rotated');
+        card.classList.remove('expanded');
+        if (connector) connector.classList.add('hidden');
+        if (childrenRow) childrenRow.classList.add('hidden');
+      }
+    });
+    button.textContent = 'Expand All';
+  } else {
+    // Expand all
+    allCards.forEach(card => {
+      const details = card.querySelector(':scope > .mod-details');
+      const icon = card.querySelector(':scope > .mod-header .expand-icon');
+      const cardId = card.getAttribute('data-id');
+      const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+      
+      if (!details.classList.contains('expanded')) {
+        details.classList.add('expanded');
+        if (icon) icon.classList.add('rotated');
+        card.classList.add('expanded');
+        if (connector) connector.classList.remove('hidden');
+        if (childrenRow) childrenRow.classList.remove('hidden');
+        details.style.height = 'auto';
+      }
+    });
+    button.textContent = 'Collapse All';
+  }
 }
 </script>
