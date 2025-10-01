@@ -14,12 +14,51 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   padding: 20px;
 }
 
+.flowchart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 20px 0;
+}
+
+.flow-row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.flow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.branch-connector {
+  width: 2px;
+  height: 30px;
+  background: #4b5563;
+  margin: 8px 0;
+}
+
+.children-row {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .mod-card {
   background: #1f2937;
   border: 2px solid #374151;
   border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
+  padding: 12px 16px;
+  min-width: 260px;
+  max-width: 260px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -27,8 +66,8 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 
 .mod-card:hover {
   border-color: #fbbf24;
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
 }
 
 .mod-card.expanded {
@@ -58,11 +97,11 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .mod-title {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   color: #f3f4f6;
   flex: 1;
@@ -70,16 +109,15 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 
 .mod-badges {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
 }
 
 .mod-badge {
-  font-size: 11px;
-  padding: 3px 8px;
+  font-size: 10px;
+  padding: 2px 6px;
   border-radius: 4px;
   white-space: nowrap;
-  font-weight: 500;
 }
 
 .badge-standalone {
@@ -103,8 +141,8 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 }
 
 .expand-icon {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   color: #fbbf24;
   transition: transform 0.3s ease;
   flex-shrink: 0;
@@ -115,56 +153,41 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 }
 
 .mod-details {
-  max-height: 0;
+  height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              padding-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 0;
+  padding-top: 0;
 }
 
 .mod-details.expanded {
-  max-height: 500px;
   opacity: 1;
-  margin-top: 16px;
-  padding-top: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid #4b5563;
 }
 
 .mod-description {
-  font-size: 14px;
-  color: #d1d5db;
-  line-height: 1.6;
-  margin-bottom: 12px;
+  font-size: 11px;
+  color: #9ca3af;
+  line-height: 1.4;
+  margin-bottom: 8px;
 }
 
 .mod-link {
   display: inline-block;
-  font-size: 13px;
+  font-size: 11px;
   color: #60a5fa;
   text-decoration: underline;
-  font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .mod-link:hover {
   color: #93c5fd;
-}
-
-.mod-children {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
-  margin-top: 0;
-  margin-left: 24px;
-  padding-left: 16px;
-  border-left: 3px solid #4b5563;
-}
-
-.mod-children.expanded {
-  max-height: 5000px;
-  opacity: 1;
-  margin-top: 16px;
 }
 
 .map-legend {
@@ -204,17 +227,8 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   flex-shrink: 0;
 }
 
-.level-section {
-  margin-bottom: 32px;
-}
-
-.level-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #fbbf24;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #374151;
+.hidden {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -222,13 +236,17 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
     padding: 12px;
   }
 
-  .mod-title {
-    font-size: 16px;
+  .flow-row {
+    gap: 15px;
   }
 
-  .mod-children {
-    margin-left: 12px;
-    padding-left: 12px;
+  .children-row {
+    gap: 15px;
+  }
+
+  .mod-card {
+    min-width: 240px;
+    max-width: 240px;
   }
 
   .legend-items {
@@ -289,187 +307,69 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
     </div>
   </div>
 
-  <!-- Base Games Section -->
-  <div class="level-section">
-    <h2 class="level-title">Base Games</h2>
+  <!-- Flowchart -->
+  <div class="flowchart-container">
     
-    <!-- Shadow of Chernobyl -->
-    <div class="mod-card base-game" onclick="toggleCard(this)">
-      <div class="mod-header">
-        <div class="mod-title">Shadow of Chernobyl</div>
-        <div class="mod-badges">
-          <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
+    <!-- Row 1: Base Games -->
+    <div class="flow-row">
+      
+      <!-- Shadow of Chernobyl Branch -->
+      <div class="flow-branch">
+        <div class="mod-card base-game" onclick="toggleCard(this)" data-id="soc">
+          <div class="mod-header">
+            <div class="mod-title">Shadow of Chernobyl</div>
+            <div class="mod-badges">
+              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mod-details">
+            <div class="mod-description">The original game that started it all. Released in 2007.</div>
+          </div>
         </div>
-      </div>
-      <div class="mod-details">
-        <div class="mod-description">The original game that started it all. Released in 2007, it features the iconic story of the Marked One exploring the Chernobyl Exclusion Zone.</div>
-      </div>
-      <div class="mod-children">
         
-        <!-- Vector of Alienation -->
-        <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
-          <div class="mod-header">
-            <div class="mod-title">Vector of Alienation</div>
-            <div class="mod-badges">
-              <span class="mod-badge badge-standalone">Standalone</span>
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          </div>
-          <div class="mod-details">
-            <div class="mod-description">Deep sci-fi thriller reimagining the 2004 storyline with overhauled environments and alternate endings. Based on OLR engine.</div>
-            <a href="{{ '/mods/vector-of-alienation/' | relative_url }}" class="mod-link">View Details →</a>
-          </div>
-        </div>
-
-        <!-- AMK Autumn Edition -->
-        <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
-          <div class="mod-header">
-            <div class="mod-title">AMK Autumn Edition</div>
-            <div class="mod-badges">
-              <span class="mod-badge badge-requires">Requires SoC</span>
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          </div>
-          <div class="mod-details">
-            <div class="mod-description">Enhanced gameplay with improved AI, new weapons, and atmospheric autumn weather system. Released in 2010.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-        </div>
-
-        <!-- OGSR Engine -->
-        <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();">
-          <div class="mod-header">
-            <div class="mod-title">OGSR Engine</div>
-            <div class="mod-badges">
-              <span class="mod-badge badge-engine">Engine</span>
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          </div>
-          <div class="mod-details">
-            <div class="mod-description">Modernized SoC engine with improved graphics, stability, and modding capabilities. Foundation for multiple story mods.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-          <div class="mod-children">
-            
-            <!-- Spatial Anomaly -->
-            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
-              <div class="mod-header">
-                <div class="mod-title">Spatial Anomaly</div>
-                <div class="mod-badges">
-                  <span class="mod-badge badge-standalone">Standalone</span>
-                  <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="mod-details">
-                <div class="mod-description">Horror-focused story mod with psychological elements and unique anomaly mechanics. Released in 2021.</div>
-                <a href="#" class="mod-link">View Details →</a>
-              </div>
-            </div>
-
-            <!-- Road to the North -->
-            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
-              <div class="mod-header">
-                <div class="mod-title">Road to the North</div>
-                <div class="mod-badges">
-                  <span class="mod-badge badge-standalone">Standalone</span>
-                  <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="mod-details">
-                <div class="mod-description">Story mod featuring new northern territories with expanded lore and factions. Released in 2020.</div>
-                <a href="#" class="mod-link">View Details →</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Clear Sky -->
-    <div class="mod-card base-game" onclick="toggleCard(this)">
-      <div class="mod-header">
-        <div class="mod-title">Clear Sky</div>
-        <div class="mod-badges">
-          <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-      </div>
-      <div class="mod-details">
-        <div class="mod-description">The prequel featuring faction wars and the story of Scar before the events of Shadow of Chernobyl. Released in 2008.</div>
-      </div>
-      <div class="mod-children">
-        <!-- Add Clear Sky children here if needed -->
-      </div>
-    </div>
-
-    <!-- Call of Pripyat -->
-    <div class="mod-card base-game" onclick="toggleCard(this)">
-      <div class="mod-header">
-        <div class="mod-title">Call of Pripyat</div>
-        <div class="mod-badges">
-          <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-      </div>
-      <div class="mod-details">
-        <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters in Pripyat and surrounding areas. Released in 2009.</div>
-      </div>
-      <div class="mod-children">
+        <div class="branch-connector hidden" data-parent="soc"></div>
         
-        <!-- Call of Chernobyl -->
-        <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();">
-          <div class="mod-header">
-            <div class="mod-title">Call of Chernobyl</div>
-            <div class="mod-badges">
-              <span class="mod-badge badge-engine">Engine</span>
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          </div>
-          <div class="mod-details">
-            <div class="mod-description">Freeplay mod merging all three games' maps. Foundation for many modern sandbox mods. Released in 2015.</div>
-            <a href="#" class="mod-link">View Details →</a>
-          </div>
-          <div class="mod-children">
-            
-            <!-- Dead Air -->
-            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
+        <div class="children-row hidden" data-parent="soc">
+          
+          <!-- Vector of Alienation -->
+          <div class="flow-branch">
+            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="voa">
               <div class="mod-header">
-                <div class="mod-title">Dead Air</div>
+                <div class="mod-title">Vector of Alienation</div>
                 <div class="mod-badges">
                   <span class="mod-badge badge-standalone">Standalone</span>
-                  <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
                 </div>
               </div>
               <div class="mod-details">
-                <div class="mod-description">Hardcore survival focused mod with punishing difficulty and atmospheric tension. Released in 2017.</div>
+                <div class="mod-description">Deep sci-fi thriller reimagining the 2004 storyline with overhauled environments.</div>
+                <a href="{{ '/mods/vector-of-alienation/' | relative_url }}" class="mod-link">View Details →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- AMK Autumn Edition -->
+          <div class="flow-branch">
+            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="amk">
+              <div class="mod-header">
+                <div class="mod-title">AMK Autumn Edition</div>
+                <div class="mod-badges">
+                  <span class="mod-badge badge-requires">Requires SoC</span>
+                </div>
+              </div>
+              <div class="mod-details">
+                <div class="mod-description">Enhanced gameplay with improved AI, new weapons, and atmospheric autumn weather.</div>
                 <a href="#" class="mod-link">View Details →</a>
               </div>
             </div>
+          </div>
 
-            <!-- Anomaly -->
-            <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();">
+          <!-- OGSR Engine -->
+          <div class="flow-branch">
+            <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogsr">
               <div class="mod-header">
-                <div class="mod-title">Anomaly</div>
+                <div class="mod-title">OGSR Engine</div>
                 <div class="mod-badges">
                   <span class="mod-badge badge-engine">Engine</span>
                   <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -478,52 +378,191 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
                 </div>
               </div>
               <div class="mod-details">
-                <div class="mod-description">Most popular sandbox mod with extensive addon support. Became the foundation for countless submods. Released in 2018.</div>
+                <div class="mod-description">Modernized SoC engine with improved graphics and modding capabilities.</div>
                 <a href="#" class="mod-link">View Details →</a>
               </div>
-              <div class="mod-children">
-                
-                <!-- GAMMA -->
-                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
+            </div>
+            
+            <div class="branch-connector hidden" data-parent="ogsr"></div>
+            
+            <div class="children-row hidden" data-parent="ogsr">
+              
+              <!-- Spatial Anomaly -->
+              <div class="flow-branch">
+                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial">
                   <div class="mod-header">
-                    <div class="mod-title">GAMMA</div>
-                    <div class="mod-badges">
-                      <span class="mod-badge badge-modpack">Modpack</span>
-                      <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="mod-details">
-                    <div class="mod-description">Massive modpack with 300+ addons providing enhanced graphics, survival mechanics, and gameplay systems. Released in 2022.</div>
-                    <a href="#" class="mod-link">View Details →</a>
-                  </div>
-                </div>
-
-                <!-- Escape from Pripyat -->
-                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();">
-                  <div class="mod-header">
-                    <div class="mod-title">Escape from Pripyat</div>
+                    <div class="mod-title">Spatial Anomaly</div>
                     <div class="mod-badges">
                       <span class="mod-badge badge-standalone">Standalone</span>
+                    </div>
+                  </div>
+                  <div class="mod-details">
+                    <div class="mod-description">Horror-focused story mod with psychological elements and unique anomaly mechanics.</div>
+                    <a href="#" class="mod-link">View Details →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Road to the North -->
+              <div class="flow-branch">
+                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn">
+                  <div class="mod-header">
+                    <div class="mod-title">Road to the North</div>
+                    <div class="mod-badges">
+                      <span class="mod-badge badge-standalone">Standalone</span>
+                    </div>
+                  </div>
+                  <div class="mod-details">
+                    <div class="mod-description">Story mod featuring new northern territories with expanded lore and factions.</div>
+                    <a href="#" class="mod-link">View Details →</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Clear Sky Branch -->
+      <div class="flow-branch">
+        <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cs">
+          <div class="mod-header">
+            <div class="mod-title">Clear Sky</div>
+            <div class="mod-badges">
+              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mod-details">
+            <div class="mod-description">The prequel featuring faction wars and the story of Scar. Released in 2008.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call of Pripyat Branch -->
+      <div class="flow-branch">
+        <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cop">
+          <div class="mod-header">
+            <div class="mod-title">Call of Pripyat</div>
+            <div class="mod-badges">
+              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mod-details">
+            <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009.</div>
+          </div>
+        </div>
+        
+        <div class="branch-connector hidden" data-parent="cop"></div>
+        
+        <div class="children-row hidden" data-parent="cop">
+          
+          <!-- Call of Chernobyl -->
+          <div class="flow-branch">
+            <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="coc">
+              <div class="mod-header">
+                <div class="mod-title">Call of Chernobyl</div>
+                <div class="mod-badges">
+                  <span class="mod-badge badge-engine">Engine</span>
+                  <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="mod-details">
+                <div class="mod-description">Freeplay mod merging all three games' maps. Foundation for modern sandbox mods.</div>
+                <a href="#" class="mod-link">View Details →</a>
+              </div>
+            </div>
+            
+            <div class="branch-connector hidden" data-parent="coc"></div>
+            
+            <div class="children-row hidden" data-parent="coc">
+              
+              <!-- Dead Air -->
+              <div class="flow-branch">
+                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="deadair">
+                  <div class="mod-header">
+                    <div class="mod-title">Dead Air</div>
+                    <div class="mod-badges">
+                      <span class="mod-badge badge-standalone">Standalone</span>
+                    </div>
+                  </div>
+                  <div class="mod-details">
+                    <div class="mod-description">Hardcore survival focused mod with punishing difficulty and atmospheric tension.</div>
+                    <a href="#" class="mod-link">View Details →</a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Anomaly -->
+              <div class="flow-branch">
+                <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
+                  <div class="mod-header">
+                    <div class="mod-title">Anomaly</div>
+                    <div class="mod-badges">
+                      <span class="mod-badge badge-engine">Engine</span>
                       <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                       </svg>
                     </div>
                   </div>
                   <div class="mod-details">
-                    <div class="mod-description">Story-focused addon adding a narrative campaign to Anomaly's sandbox gameplay. Released in 2023.</div>
+                    <div class="mod-description">Most popular sandbox mod with extensive addon support and modding foundation.</div>
                     <a href="#" class="mod-link">View Details →</a>
                   </div>
                 </div>
+                
+                <div class="branch-connector hidden" data-parent="anomaly"></div>
+                
+                <div class="children-row hidden" data-parent="anomaly">
+                  
+                  <!-- GAMMA -->
+                  <div class="flow-branch">
+                    <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="gamma">
+                      <div class="mod-header">
+                        <div class="mod-title">GAMMA</div>
+                        <div class="mod-badges">
+                          <span class="mod-badge badge-modpack">Modpack</span>
+                        </div>
+                      </div>
+                      <div class="mod-details">
+                        <div class="mod-description">Massive modpack with 300+ addons providing enhanced graphics and survival mechanics.</div>
+                        <a href="#" class="mod-link">View Details →</a>
+                      </div>
+                    </div>
+                  </div>
 
+                  <!-- Escape from Pripyat -->
+                  <div class="flow-branch">
+                    <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="efp">
+                      <div class="mod-header">
+                        <div class="mod-title">Escape from Pripyat</div>
+                        <div class="mod-badges">
+                          <span class="mod-badge badge-standalone">Standalone</span>
+                        </div>
+                      </div>
+                      <div class="mod-details">
+                        <div class="mod-description">Story-focused addon adding a narrative campaign to Anomaly's sandbox gameplay.</div>
+                        <a href="#" class="mod-link">View Details →</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
+
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
+
     </div>
 
   </div>
@@ -535,27 +574,45 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 <script>
 function toggleCard(card) {
   const details = card.querySelector(':scope > .mod-details');
-  const children = card.querySelector(':scope > .mod-children');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
+  
+  // Find children elements
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
   
   const isExpanded = details.classList.contains('expanded');
   
   if (isExpanded) {
     // Collapse
-    details.classList.remove('expanded');
-    if (children) {
-      children.classList.remove('expanded');
-    }
-    icon.classList.remove('rotated');
-    card.classList.remove('expanded');
+    details.style.height = details.scrollHeight + 'px';
+    requestAnimationFrame(() => {
+      details.style.height = '0';
+      details.classList.remove('expanded');
+      if (icon) icon.classList.remove('rotated');
+      card.classList.remove('expanded');
+      if (connector) connector.classList.add('hidden');
+      if (childrenRow) childrenRow.classList.add('hidden');
+    });
   } else {
     // Expand
     details.classList.add('expanded');
-    if (children) {
-      children.classList.add('expanded');
-    }
-    icon.classList.add('rotated');
+    if (icon) icon.classList.add('rotated');
     card.classList.add('expanded');
+    if (connector) connector.classList.remove('hidden');
+    if (childrenRow) childrenRow.classList.remove('hidden');
+    
+    const height = details.scrollHeight;
+    details.style.height = '0';
+    requestAnimationFrame(() => {
+      details.style.height = height + 'px';
+    });
+    
+    setTimeout(() => {
+      if (details.classList.contains('expanded')) {
+        details.style.height = 'auto';
+      }
+    }, 350);
   }
 }
 </script>
