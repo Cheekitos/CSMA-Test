@@ -16,10 +16,19 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 
 .flowchart-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
   gap: 40px;
   padding: 20px 0;
+}
+
+.base-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 260px;
 }
 
 .flow-row {
@@ -27,7 +36,8 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   justify-content: center;
   gap: 30px;
   width: 100%;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: flex-start;
 }
 
 .flow-branch {
@@ -35,6 +45,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   flex-direction: column;
   align-items: center;
   position: relative;
+  flex: 0 0 auto;
 }
 
 .branch-connector {
@@ -269,6 +280,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 
   .flow-row {
     gap: 15px;
+    flex-wrap: wrap;
   }
 
   .children-row {
@@ -280,8 +292,14 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
     max-width: 240px;
   }
 
+  .map-legend {
+    position: static;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
   .legend-items {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }
 </style>
@@ -329,12 +347,16 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
       </div>
       <div class="legend-item">
         <div class="legend-box" style="border-color: #8b5cf6; background: #5b21b6;"></div>
-        <span>Engine Family</span>
+        <span>Engine</span>
       </div>
       <div class="legend-item">
         <div class="legend-box" style="border-color: #374151; background: #1f2937;"></div>
         <span>Mod</span>
       </div>
+    </div>
+    <div class="legend-controls">
+      <button class="legend-button" onclick="expandAll()">Expand All</button>
+      <button class="legend-button" onclick="collapseAll()">Collapse All</button>
     </div>
   </div>
 
@@ -645,5 +667,45 @@ function toggleCard(card) {
       }
     }, 350);
   }
+}
+
+function expandAll() {
+  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  allCards.forEach(card => {
+    const details = card.querySelector(':scope > .mod-details');
+    const icon = card.querySelector(':scope > .mod-header .expand-icon');
+    const cardId = card.getAttribute('data-id');
+    const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+    const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+    
+    if (!details.classList.contains('expanded')) {
+      details.classList.add('expanded');
+      if (icon) icon.classList.add('rotated');
+      card.classList.add('expanded');
+      if (connector) connector.classList.remove('hidden');
+      if (childrenRow) childrenRow.classList.remove('hidden');
+      details.style.height = 'auto';
+    }
+  });
+}
+
+function collapseAll() {
+  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  allCards.forEach(card => {
+    const details = card.querySelector(':scope > .mod-details');
+    const icon = card.querySelector(':scope > .mod-header .expand-icon');
+    const cardId = card.getAttribute('data-id');
+    const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+    const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+    
+    if (details.classList.contains('expanded')) {
+      details.style.height = '0';
+      details.classList.remove('expanded');
+      if (icon) icon.classList.remove('rotated');
+      card.classList.remove('expanded');
+      if (connector) connector.classList.add('hidden');
+      if (childrenRow) childrenRow.classList.add('hidden');
+    }
+  });
 }
 </script>
