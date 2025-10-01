@@ -299,12 +299,11 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
 </style>
 
 <div class="mod-tree-container">
-  <!-- Header Section -->
-  <div class="flex flex-row justify-between items-start mb-4 gap-4">
+  <!-- Header Section with Site Title and Buttons -->
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-2">
     <a href="{{ '/' | relative_url }}" class="text-3xl font-bold hover:text-yellow-400 transition-colors">
       Cheeki's Mods Archive
     </a>
-    <!-- Legend in header area -->
     <div class="map-legend">
       <div class="legend-title">Legend</div>
       <div class="legend-items">
@@ -327,8 +326,10 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
     </div>
   </div>
 
-  <!-- Breadcrumb Navigation -->
-  <nav class="mb-6" aria-label="Breadcrumb">
+  <article class="max-w-4xl mx-auto">
+    
+    <!-- Breadcrumb Navigation -->
+    <nav class="mb-6" aria-label="Breadcrumb">
     <ol class="flex items-center space-x-2 text-sm">
       <li>
         <a href="{{ '/' | relative_url }}" class="text-blue-400 hover:text-blue-300 transition-colors font-medium flex items-center">
