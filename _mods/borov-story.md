@@ -10,6 +10,9 @@ release_date: "2022-10-12"
 short_description: "Play as Borov, an ambitious bartender on his way to become the leader of the Bandits in the Zone. Gather your crew, pull off robberies, and fight through gang wars in this very short but fun story-driven mod."
 description: "Set between Clear Sky and Shadow of Chernobyl, Borov's Story tells the rise of Borov to become the bandit leader in the Dark Valley. Starting as a small-time bartender, you'll gather a crew, rob stalkers, and challenge Yoga for control of the faction.<br>The mod features OGSR engine graphics, a new weapon pack, voiced dialogue, and a handful of linear missions mixing robberies, escorting NPCs, and firefights. There's no trading or fancy mechanics, looting the bodies of your ennemies will be your main source of gear.<br>While the concept and premise of the mod are great, the execution falls flat: buggy companions, poor weapon balance, and a weak storyline where Borov feels more like an errand boy than a crime boss. A short (~2-3hrs), uneven, but unique adventure, offering a bandit's perspective in the Zone."
 
+gallery_images:
+  - ""
+
 seo_title: "Borov's Story - Download & Install Guide | Cheeki's S.T.A.L.K.E.R. Mods Archive"
 seo_description: "Download Borov's Story for S.T.A.L.K.E.R. Shadow of Chernobyl. Complete installation guide, gameplay features, and detailed review on Cheeki's S.T.A.L.K.E.R. Mods Archive"
 keywords: "S.T.A.L.K.E.R. Borov Story, STALKER Borov Story, S.T.A.L.K.E.R. story mods, STALKER story mods, Shadow of Chernobyl mods, STALKER Shadow of Chernobyl mods, Best STALKER Shadow of Chernobyl mods, best S.T.A.L.K.E.R. mods 2025, best STALKER mods 2025, History of Borov, best STALKER mod, История Борова, Cheeki Breeki"
