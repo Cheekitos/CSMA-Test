@@ -1,323 +1,455 @@
----
-layout: default
-body_class: map-page
-seo_title: "Interactive Mod Map - S.T.A.L.K.E.R. Mods Archive"
-seo_description: "Interactive family tree visualization of S.T.A.L.K.E.R. story modifications"
-keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Mod Map - S.T.A.L.K.E.R. Mods Archive</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-/* Interactive Map Specific Styles */
-.mod-tree-container {
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 20px;
-  position: relative;
-}
+    body {
+      background: #111827;
+      color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+    }
 
-.flowchart-container {
-  display: grid;
-  grid-template-columns: repeat(3, 280px);
-  gap: 40px;
-  padding: 20px 0;
-  justify-content: center;
-}
+    /* Interactive Map Specific Styles */
+    .mod-tree-container {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
 
-.base-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
+    .flowchart-container {
+      display: grid;
+      grid-template-columns: repeat(3, 280px);
+      gap: 40px;
+      padding: 20px 0;
+      justify-content: center;
+    }
 
-.flow-row {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  width: 100%;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-}
+    .base-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
 
-.flow-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  flex: 0 0 auto;
-  width: 100%;
-}
+    .flow-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+    }
 
-.branch-connector {
-  width: 2px;
-  height: 30px;
-  background: #4b5563;
-  margin: 8px 0;
-}
+    .flow-branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex: 0 0 auto;
+      width: 100%;
+    }
 
-.children-row {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 8px;
-  width: 100%;
-  align-items: center;
-}
+    .branch-connector {
+      width: 2px;
+      height: 30px;
+      background: #4b5563;
+      margin: 8px 0;
+    }
 
-.mod-card {
-  background: #1f2937;
-  border: 2px solid #374151;
-  border-radius: 8px;
-  padding: 12px 16px;
-  width: 260px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-}
+    .children-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 8px;
+      width: 100%;
+      align-items: center;
+    }
 
-.mod-card:hover {
-  border-color: #fbbf24;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
-}
+    /* Hierarchical children with connectors */
+    .hierarchical-children {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 8px;
+      width: 100%;
+      position: relative;
+      padding-left: 20px;
+    }
 
-.mod-card.expanded {
-  border-color: #fbbf24;
-  background: #374151;
-}
+    .hierarchical-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
 
-.mod-card.base-game {
-  border-color: #10b981;
-  background: #065f46;
-}
+    /* Vertical line for hierarchy */
+    .hierarchical-item::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 0;
+      bottom: 20px;
+      width: 2px;
+      background: #4b5563;
+    }
 
-.mod-card.base-game:hover {
-  border-color: #34d399;
-}
+    /* Remove line for last item */
+    .hierarchical-item:last-child::before {
+      bottom: 50%;
+    }
 
-.mod-card.engine-family {
-  border-color: #8b5cf6;
-  background: #5b21b6;
-}
+    /* Horizontal connector line */
+    .hierarchical-item::after {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 20px;
+      width: 20px;
+      height: 2px;
+      background: #4b5563;
+    }
 
-.mod-card.engine-family:hover {
-  border-color: #a78bfa;
-}
+    .mod-card {
+      background: #1f2937;
+      border: 2px solid #374151;
+      border-radius: 8px;
+      padding: 12px 16px;
+      width: 240px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-.mod-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
+    .mod-card:hover {
+      border-color: #fbbf24;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+    }
 
-.mod-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f3f4f6;
-  flex: 1;
-}
+    .mod-card.expanded {
+      border-color: #fbbf24;
+      background: #374151;
+    }
 
-.mod-badges {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
+    .mod-card.base-game {
+      border-color: #10b981;
+      background: #065f46;
+      width: 260px;
+    }
 
-.mod-badge {
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
+    .mod-card.base-game:hover {
+      border-color: #34d399;
+    }
 
-.badge-standalone {
-  background: #065f46;
-  color: #d1fae5;
-}
+    .mod-card.engine-family {
+      border-color: #8b5cf6;
+      background: #5b21b6;
+    }
 
-.badge-requires {
-  background: #92400e;
-  color: #fef3c7;
-}
+    .mod-card.engine-family:hover {
+      border-color: #a78bfa;
+    }
 
-.badge-engine {
-  background: #5b21b6;
-  color: #e9d5ff;
-}
+    .mod-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
 
-.badge-modpack {
-  background: #be185d;
-  color: #fce7f3;
-}
+    .mod-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f3f4f6;
+      flex: 1;
+    }
 
-.expand-icon {
-  width: 16px;
-  height: 16px;
-  color: #fbbf24;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
+    .mod-badges {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
 
-.expand-icon.rotated {
-  transform: rotate(180deg);
-}
+    .mod-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
 
-.mod-details {
-  height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
-              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              padding-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 0;
-  padding-top: 0;
-}
+    .badge-standalone {
+      background: #065f46;
+      color: #d1fae5;
+    }
 
-.mod-details.expanded {
-  opacity: 1;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #4b5563;
-}
+    .badge-requires {
+      background: #92400e;
+      color: #fef3c7;
+    }
 
-.mod-description {
-  font-size: 11px;
-  color: #9ca3af;
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
+    .badge-engine {
+      background: #5b21b6;
+      color: #e9d5ff;
+    }
 
-.mod-link {
-  display: inline-block;
-  font-size: 11px;
-  color: #60a5fa;
-  text-decoration: underline;
-  transition: color 0.2s ease;
-}
+    .badge-modpack {
+      background: #be185d;
+      color: #fce7f3;
+    }
 
-.mod-link:hover {
-  color: #93c5fd;
-}
+    .expand-icon {
+      width: 16px;
+      height: 16px;
+      color: #fbbf24;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
 
-.map-legend {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #1f2937;
-  border: 1px solid #374151;
-  border-radius: 6px;
-  padding: 8px 10px;
-  width: 140px;
-  z-index: 10;
-}
+    .expand-icon.rotated {
+      transform: rotate(180deg);
+    }
 
-.legend-title {
-  font-size: 10px;
-  font-weight: 700;
-  color: #fbbf24;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+    .mod-details {
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                  opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                  padding-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 0;
+      padding-top: 0;
+    }
 
-.legend-items {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 8px;
-}
+    .mod-details.expanded {
+      opacity: 1;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #4b5563;
+    }
 
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 9px;
-  color: #d1d5db;
-}
+    .mod-description {
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
 
-.legend-box {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  border: 1px solid;
-  flex-shrink: 0;
-}
+    .mod-link {
+      display: inline-block;
+      font-size: 11px;
+      color: #60a5fa;
+      text-decoration: underline;
+      transition: color 0.2s ease;
+    }
 
-.legend-controls {
-  display: flex;
-  flex-direction: column;
-  padding-top: 6px;
-  border-top: 1px solid #374151;
-}
+    .mod-link:hover {
+      color: #93c5fd;
+    }
 
-.legend-button {
-  background: #374151;
-  border: 1px solid #4b5563;
-  border-radius: 3px;
-  padding: 4px 8px;
-  font-size: 9px;
-  color: #f3f4f6;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
+    .map-legend {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      padding: 8px 10px;
+      width: 140px;
+      z-index: 10;
+    }
 
-.legend-button:hover {
-  background: #4b5563;
-  border-color: #fbbf24;
-  color: #fbbf24;
-}
+    .legend-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #fbbf24;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-.hidden {
-  display: none;
-}
+    .legend-items {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
 
-@media (max-width: 968px) {
-  .flowchart-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .base-column {
-    width: 100%;
-  }
-  
-  .map-legend {
-    position: static;
-    width: 100%;
-    margin-top: 12px;
-    margin-bottom: 12px;
-  }
-}
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      color: #d1d5db;
+    }
 
-@media (max-width: 768px) {
-  .mod-tree-container {
-    padding: 12px;
-  }
+    .legend-box {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border: 1px solid;
+      flex-shrink: 0;
+    }
 
-  .mod-card {
-    width: 240px;
-  }
+    .legend-controls {
+      display: flex;
+      flex-direction: column;
+      padding-top: 6px;
+      border-top: 1px solid #374151;
+    }
 
-  .map-legend {
-    position: static;
-    width: 100%;
-    margin-top: 12px;
-    margin-bottom: 12px;
-  }
-}
-</style>
+    .legend-button {
+      background: #374151;
+      border: 1px solid #4b5563;
+      border-radius: 3px;
+      padding: 4px 8px;
+      font-size: 9px;
+      color: #f3f4f6;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .legend-button:hover {
+      background: #4b5563;
+      border-color: #fbbf24;
+      color: #fbbf24;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .site-title {
+      font-size: 1.875rem;
+      font-weight: bold;
+      color: #f3f4f6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .site-title:hover {
+      color: #fbbf24;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      margin-bottom: 24px;
+    }
+
+    .breadcrumb a {
+      color: #60a5fa;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .breadcrumb a:hover {
+      color: #93c5fd;
+    }
+
+    .breadcrumb svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .breadcrumb-separator {
+      color: #9ca3af;
+    }
+
+    .page-title {
+      font-size: 1.875rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 12px;
+      color: #fbbf24;
+    }
+
+    .page-subtitle {
+      text-align: center;
+      color: #f3f4f6;
+      margin-bottom: 8px;
+      font-size: 0.875rem;
+    }
+
+    .page-description {
+      text-align: center;
+      color: #9ca3af;
+      margin-bottom: 32px;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 968px) {
+      .flowchart-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .base-column {
+        width: 100%;
+      }
+      
+      .map-legend {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mod-tree-container {
+        padding: 12px;
+      }
+
+      .mod-card {
+        width: 220px;
+      }
+
+      .mod-card.base-game {
+        width: 240px;
+      }
+
+      .map-legend {
+        position: static;
+        width: 100%;
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
 
 <div class="mod-tree-container">
   <!-- Header Section with Site Title -->
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1 gap-2">
-    <a href="{{ '/' | relative_url }}" class="text-3xl font-bold hover:text-yellow-400 transition-colors">
-      Cheeki's Mods Archive
-    </a>
+  <div class="page-header">
+    <a href="/" class="site-title">Cheeki's Mods Archive</a>
   </div>
 
   <!-- Legend Box (positioned absolutely in top right) -->
@@ -342,33 +474,21 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
     </div>
   </div>
 
-  <article class="max-w-4xl mx-auto">
-    
-    <!-- Breadcrumb Navigation -->
-    <nav class="mb-6" aria-label="Breadcrumb">
-    <ol class="flex items-center space-x-2 text-sm">
-      <li>
-        <a href="{{ '/' | relative_url }}" class="text-blue-400 hover:text-blue-300 transition-colors font-medium flex items-center">
-          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-          </svg>
-          Archive
-        </a>
-      </li>
-      <li>
-        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-        </svg>
-      </li>
-      <li class="text-gray-300" aria-current="page">
-        Interactive Map
-      </li>
-    </ol>
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">
+      <svg fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+      </svg>
+      Archive
+    </a>
+    <span class="breadcrumb-separator">›</span>
+    <span style="color: #d1d5db;">Interactive Map</span>
   </nav>
 
-  <h1 class="text-3xl font-bold text-center mb-3 text-yellow-400">S.T.A.L.K.E.R. Mod Family Tree</h1>
-  <p class="text-center text-white mb-2 text-sm">This is obviously not ALL the S.T.A.L.K.E.R. mods, but a lot of the relevant ones and a good overview of what fun projects are available to play</p>
-  <p class="text-center text-gray-400 mb-8 text-sm">Click on any mod to expand and see details & children mods</p>
+  <h1 class="page-title">S.T.A.L.K.E.R. Mod Family Tree</h1>
+  <p class="page-subtitle">This is obviously not ALL the S.T.A.L.K.E.R. mods, but a lot of the relevant ones and a good overview of what fun projects are available to play</p>
+  <p class="page-description">Click on any mod to expand and see details & children mods</p>
 
   <!-- Flowchart -->
   <div class="flowchart-container">
@@ -405,7 +525,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
               </div>
               <div class="mod-details">
                 <div class="mod-description">Deep sci-fi thriller reimagining the 2004 storyline with overhauled environments.</div>
-                <a href="{{ '/mods/vector-of-alienation/' | relative_url }}" class="mod-link">View Details →</a>
+                <a href="#" class="mod-link">View Details →</a>
               </div>
             </div>
           </div>
@@ -446,10 +566,10 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
             
             <div class="branch-connector hidden" data-parent="ogsr"></div>
             
-            <div class="children-row hidden" data-parent="ogsr">
+            <div class="hierarchical-children hidden" data-parent="ogsr">
               
               <!-- Spatial Anomaly -->
-              <div class="flow-branch">
+              <div class="hierarchical-item">
                 <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial">
                   <div class="mod-header">
                     <div class="mod-title">Spatial Anomaly</div>
@@ -465,7 +585,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
               </div>
 
               <!-- Road to the North -->
-              <div class="flow-branch">
+              <div class="hierarchical-item">
                 <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn">
                   <div class="mod-header">
                     <div class="mod-title">Road to the North</div>
@@ -547,10 +667,10 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
             
             <div class="branch-connector hidden" data-parent="coc"></div>
             
-            <div class="children-row hidden" data-parent="coc">
+            <div class="hierarchical-children hidden" data-parent="coc">
               
               <!-- Dead Air -->
-              <div class="flow-branch">
+              <div class="hierarchical-item">
                 <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="deadair">
                   <div class="mod-header">
                     <div class="mod-title">Dead Air</div>
@@ -566,7 +686,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
               </div>
 
               <!-- Anomaly -->
-              <div class="flow-branch">
+              <div class="hierarchical-item">
                 <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
                   <div class="mod-header">
                     <div class="mod-title">Anomaly</div>
@@ -585,10 +705,10 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
                 
                 <div class="branch-connector hidden" data-parent="anomaly"></div>
                 
-                <div class="children-row hidden" data-parent="anomaly">
+                <div class="hierarchical-children hidden" data-parent="anomaly">
                   
                   <!-- GAMMA -->
-                  <div class="flow-branch">
+                  <div class="hierarchical-item">
                     <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="gamma">
                       <div class="mod-header">
                         <div class="mod-title">GAMMA</div>
@@ -604,7 +724,7 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
                   </div>
 
                   <!-- Escape from Pripyat -->
-                  <div class="flow-branch">
+                  <div class="hierarchical-item">
                     <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="efp">
                       <div class="mod-header">
                         <div class="mod-title">Escape from Pripyat</div>
@@ -632,18 +752,15 @@ keywords: "STALKER mods, interactive map, mod visualization, mod family tree"
   </div>
 </div>
 
-{% include about-popup.html %}
-{% include essentials-popup.html %}
-
 <script>
 function toggleCard(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
   
-  // Find children elements
+  // Find children elements (support both children-row and hierarchical-children)
   const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   const isExpanded = details.classList.contains('expanded');
   
@@ -696,7 +813,7 @@ function toggleAll() {
       const icon = card.querySelector(':scope > .mod-header .expand-icon');
       const cardId = card.getAttribute('data-id');
       const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
       
       if (details.classList.contains('expanded')) {
         details.style.height = '0';
@@ -715,7 +832,7 @@ function toggleAll() {
       const icon = card.querySelector(':scope > .mod-header .expand-icon');
       const cardId = card.getAttribute('data-id');
       const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"]`);
+      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
       
       if (!details.classList.contains('expanded')) {
         details.classList.add('expanded');
@@ -730,3 +847,6 @@ function toggleAll() {
   }
 }
 </script>
+
+</body>
+</html>
