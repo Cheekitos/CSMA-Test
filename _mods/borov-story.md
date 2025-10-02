@@ -39,6 +39,7 @@ links:
 
 mod_creator: "imcrazyhoudini"
 translation_by: "PsyWarVeteran"
+
 ---
 
 ### Installation Instructions
