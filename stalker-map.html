@@ -83,7 +83,7 @@
       margin-top: 8px;
       width: 100%;
       position: relative;
-      padding-left: 20px;
+      padding-left: 30px;
     }
 
     .hierarchical-item {
@@ -93,24 +93,19 @@
       width: 100%;
     }
 
-    /* Vertical line for hierarchy */
-    .hierarchical-item::before {
+    /* Vertical line for hierarchy - connects all siblings */
+    .hierarchical-children::before {
       content: '';
       position: absolute;
-      left: -20px;
+      left: 10px;
       top: 0;
       bottom: 20px;
       width: 2px;
       background: #4b5563;
     }
 
-    /* Remove line for last item */
-    .hierarchical-item:last-child::before {
-      bottom: 50%;
-    }
-
-    /* Horizontal connector line */
-    .hierarchical-item::after {
+    /* Horizontal connector line - from vertical line to card */
+    .hierarchical-item::before {
       content: '';
       position: absolute;
       left: -20px;
