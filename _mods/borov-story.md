@@ -7,7 +7,7 @@ must_play: false
 platform: "Shadow of Chernobyl"
 engine: "OGSR"
 release_date: "2022-10-12"
-short_description: "Play as Borov, an ambitious bartender on his way to become the leader of the Bandits in the Zone. Gather your crew, pull off robberies, and fight through gang wars in this very short but fun story-driven mod."
+short_description: "Play as Borov, the ambitious bartender that became the leader of the Bandits in the Zone! Gather your crew, pull off robberies, and fight through gang wars to become the new Kingpin. A very short, flawed, but fun story-driven mod."
 description: "Set between Clear Sky and Shadow of Chernobyl, Borov's Story tells the rise of Borov and how he became the bandit leader in Dark Valley. Starting as a small-time bartender, you'll gather your crew, rob stalkers, and challenge Yoga for control of the faction.<br>Build on the OGSR engine with the beautiful Autumn Aurora graphics, it's a stable, good looking mod that will run pretty well on low-spec computers. There's no trading or fancy mechanics here, just following a very linear main questline, looting the bodies of your ennemies for gear on the way.<br>The concept and premise of the mod are great, but the execution is just average: buggy companions, janky missions, poor weapon balance, and an overall weak storyline where Borov feels more like an errand boy than a rising crime boss. It's very short (~2-3hrs), so despite being flawed and uneven, it's still a fun and unique adventure, offering a bandit's perspective in the Zone."
 
 seo_title: "Borov's Story - Download & Install Guide | Cheeki's S.T.A.L.K.E.R. Mods Archive"
@@ -39,7 +39,6 @@ links:
 
 mod_creator: "imcrazyhoudini"
 translation_by: "PsyWarVeteran"
-additional_credits: ""
 ---
 
 ### Installation Instructions
