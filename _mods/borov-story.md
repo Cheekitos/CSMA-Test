@@ -8,10 +8,7 @@ platform: "Shadow of Chernobyl"
 engine: "OGSR"
 release_date: "2022-10-12"
 short_description: "Play as Borov, an ambitious bartender on his way to become the leader of the Bandits in the Zone. Gather your crew, pull off robberies, and fight through gang wars in this very short but fun story-driven mod."
-description: "Set between Clear Sky and Shadow of Chernobyl, Borov's Story tells the rise of Borov to become the bandit leader in the Dark Valley. Starting as a small-time bartender, you'll gather a crew, rob stalkers, and challenge Yoga for control of the faction.<br>The mod features OGSR engine graphics, a new weapon pack, voiced dialogue, and a handful of linear missions mixing robberies, escorting NPCs, and firefights. There's no trading or fancy mechanics, looting the bodies of your ennemies will be your main source of gear.<br>While the concept and premise of the mod are great, the execution falls flat: buggy companions, poor weapon balance, and a weak storyline where Borov feels more like an errand boy than a crime boss. A short (~2-3hrs), uneven, but unique adventure, offering a bandit's perspective in the Zone."
-
-gallery_images:
-  - ""
+description: "Set between Clear Sky and Shadow of Chernobyl, Borov's Story tells the rise of Borov and how he became the bandit leader in Dark Valley. Starting as a small-time bartender, you'll gather your crew, rob stalkers, and challenge Yoga for control of the faction.<br>Build on the OGSR engine with the beautiful Autumn Aurora graphics, it's a stable, good looking mod that will run pretty well on low-spec computers. There's no trading or fancy mechanics here, just following a very linear main questline, looting the bodies of your ennemies for gear on the way.<br>The concept and premise of the mod are great, but the execution is just average: buggy companions, janky missions, poor weapon balance, and an overall weak storyline where Borov feels more like an errand boy than a rising crime boss. It's very short (~2-3hrs), so despite being flawed and uneven, it's still a fun and unique adventure, offering a bandit's perspective in the Zone."
 
 seo_title: "Borov's Story - Download & Install Guide | Cheeki's S.T.A.L.K.E.R. Mods Archive"
 seo_description: "Download Borov's Story for S.T.A.L.K.E.R. Shadow of Chernobyl. Complete installation guide, gameplay features, and detailed review on Cheeki's S.T.A.L.K.E.R. Mods Archive"
@@ -19,7 +16,7 @@ keywords: "S.T.A.L.K.E.R. Borov Story, STALKER Borov Story, S.T.A.L.K.E.R. story
 
 pros:
   - "Play as a bandit!"
-  - "Robbing people"
+  - "Rob people"
 cons:
   - "Weak story"
   - "Poor balance"
@@ -35,6 +32,10 @@ links:
     url: "https://ap-pro.ru/stuff/ten_chernobylja/istoriya-borova-35-r180/"
   - label: "Mod Donation Page"
     url: "https://www.donationalerts.com/r/imcrazyhoudini"
+  
+  - title: "Resources"
+  - label: "Translated Ending"
+    url: "https://www.youtube.com/watch?v=9CbQ2jNBeZM-&t=6397"
 
 mod_creator: "imcrazyhoudini"
 translation_by: "PsyWarVeteran"
