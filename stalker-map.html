@@ -18,7 +18,6 @@
       min-height: 100vh;
     }
 
-    /* Interactive Map Specific Styles */
     .mod-tree-container {
       max-width: 64rem;
       margin: 0 auto;
@@ -41,19 +40,10 @@
       width: 100%;
     }
 
-    .flow-row {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      width: 100%;
-      flex-wrap: nowrap;
-      align-items: flex-start;
-    }
-
     .flow-branch {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       position: relative;
       flex: 0 0 auto;
       width: 100%;
@@ -64,12 +54,15 @@
       height: 30px;
       background: #4b5563;
       margin: 8px 0;
+      align-self: center;
     }
 
-    /* Connector for engine families - aligned to left */
-    .branch-connector.hierarchical {
+    /* Connector for hierarchical structures - left aligned */
+    .branch-connector.left-aligned {
       align-self: flex-start;
-      margin-left: 40px;
+      margin-left: 10px;
+      margin-top: 8px;
+      margin-bottom: 0;
     }
 
     .children-row {
@@ -81,15 +74,17 @@
       align-items: center;
     }
 
-    /* Hierarchical children with connectors */
+    /* Hierarchical children with tree connectors */
     .hierarchical-children {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      margin-top: 8px;
+      margin-top: 0;
       width: 100%;
       position: relative;
-      padding-left: 30px;
+      padding-left: 40px;
+      align-items: flex-start;
+      margin-left: 0;
     }
 
     .hierarchical-item {
@@ -99,7 +94,7 @@
       width: 100%;
     }
 
-    /* Vertical line for hierarchy - connects all siblings */
+    /* Vertical line connecting all children */
     .hierarchical-children::before {
       content: '';
       position: absolute;
@@ -110,15 +105,24 @@
       background: #4b5563;
     }
 
-    /* Horizontal connector line - from vertical line to card */
+    /* Horizontal line from vertical to each card */
     .hierarchical-item::before {
       content: '';
       position: absolute;
-      left: -20px;
+      left: -30px;
       top: 20px;
-      width: 20px;
+      width: 30px;
       height: 2px;
       background: #4b5563;
+    }
+
+    /* Make engine cards also left-aligned when they have hierarchical children */
+    .flow-branch:has(.hierarchical-children) {
+      align-items: flex-start;
+    }
+
+    .flow-branch:has(.hierarchical-children) > .mod-card {
+      margin-left: 0;
     }
 
     .mod-card {
@@ -130,6 +134,11 @@
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
+    }
+
+    /* Smaller cards for hierarchical children */
+    .hierarchical-item .mod-card {
+      width: 200px;
     }
 
     .mod-card:hover {
@@ -436,6 +445,10 @@
         width: 240px;
       }
 
+      .hierarchical-item .mod-card {
+        width: 180px;
+      }
+
       .map-legend {
         position: static;
         width: 100%;
@@ -448,12 +461,10 @@
 <body>
 
 <div class="mod-tree-container">
-  <!-- Header Section with Site Title -->
   <div class="page-header">
     <a href="/" class="site-title">Cheeki's Mods Archive</a>
   </div>
 
-  <!-- Legend Box (positioned absolutely in top right) -->
   <div class="map-legend">
     <div class="legend-title">Legend</div>
     <div class="legend-items">
@@ -475,7 +486,6 @@
     </div>
   </div>
 
-  <!-- Breadcrumb Navigation -->
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="/">
       <svg fill="currentColor" viewBox="0 0 20 20">
@@ -491,7 +501,6 @@
   <p class="page-subtitle">This is obviously not ALL the S.T.A.L.K.E.R. mods, but a lot of the relevant ones and a good overview of what fun projects are available to play</p>
   <p class="page-description">Click on any mod to expand and see details & children mods</p>
 
-  <!-- Flowchart -->
   <div class="flowchart-container">
     
     <!-- Column 1: Shadow of Chernobyl -->
@@ -515,7 +524,6 @@
         
         <div class="children-row hidden" data-parent="soc">
           
-          <!-- Vector of Alienation -->
           <div class="flow-branch">
             <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="voa">
               <div class="mod-header">
@@ -531,7 +539,6 @@
             </div>
           </div>
 
-          <!-- AMK Autumn Edition -->
           <div class="flow-branch">
             <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="amk">
               <div class="mod-header">
@@ -547,7 +554,6 @@
             </div>
           </div>
 
-          <!-- OGSR Engine -->
           <div class="flow-branch">
             <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogsr">
               <div class="mod-header">
@@ -565,11 +571,10 @@
               </div>
             </div>
             
-            <div class="branch-connector hidden" data-parent="ogsr"></div>
+            <div class="branch-connector left-aligned hidden" data-parent="ogsr"></div>
             
             <div class="hierarchical-children hidden" data-parent="ogsr">
               
-              <!-- Spatial Anomaly -->
               <div class="hierarchical-item">
                 <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial">
                   <div class="mod-header">
@@ -585,7 +590,6 @@
                 </div>
               </div>
 
-              <!-- Road to the North -->
               <div class="hierarchical-item">
                 <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn">
                   <div class="mod-header">
@@ -648,7 +652,6 @@
         
         <div class="children-row hidden" data-parent="cop">
           
-          <!-- Call of Chernobyl -->
           <div class="flow-branch">
             <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="coc">
               <div class="mod-header">
@@ -666,11 +669,10 @@
               </div>
             </div>
             
-            <div class="branch-connector hidden" data-parent="coc"></div>
+            <div class="branch-connector left-aligned hidden" data-parent="coc"></div>
             
             <div class="hierarchical-children hidden" data-parent="coc">
               
-              <!-- Dead Air -->
               <div class="hierarchical-item">
                 <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="deadair">
                   <div class="mod-header">
@@ -686,7 +688,6 @@
                 </div>
               </div>
 
-              <!-- Anomaly -->
               <div class="hierarchical-item">
                 <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
                   <div class="mod-header">
@@ -704,11 +705,10 @@
                   </div>
                 </div>
                 
-                <div class="branch-connector hidden" data-parent="anomaly"></div>
+                <div class="branch-connector left-aligned hidden" data-parent="anomaly"></div>
                 
                 <div class="hierarchical-children hidden" data-parent="anomaly">
                   
-                  <!-- GAMMA -->
                   <div class="hierarchical-item">
                     <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="gamma">
                       <div class="mod-header">
@@ -724,7 +724,6 @@
                     </div>
                   </div>
 
-                  <!-- Escape from Pripyat -->
                   <div class="hierarchical-item">
                     <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="efp">
                       <div class="mod-header">
@@ -759,14 +758,12 @@ function toggleCard(card) {
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
   
-  // Find children elements (support both children-row and hierarchical-children)
   const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
   const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   const isExpanded = details.classList.contains('expanded');
   
   if (isExpanded) {
-    // Collapse
     details.style.height = details.scrollHeight + 'px';
     requestAnimationFrame(() => {
       details.style.height = '0';
@@ -777,7 +774,6 @@ function toggleCard(card) {
       if (childrenRow) childrenRow.classList.add('hidden');
     });
   } else {
-    // Expand
     details.classList.add('expanded');
     if (icon) icon.classList.add('rotated');
     card.classList.add('expanded');
@@ -802,13 +798,11 @@ function toggleAll() {
   const button = document.getElementById('toggleAllBtn');
   const allCards = document.querySelectorAll('.mod-card[data-id]');
   
-  // Check if any card is expanded
   const anyExpanded = Array.from(allCards).some(card => 
     card.querySelector(':scope > .mod-details').classList.contains('expanded')
   );
   
   if (anyExpanded) {
-    // Collapse all
     allCards.forEach(card => {
       const details = card.querySelector(':scope > .mod-details');
       const icon = card.querySelector(':scope > .mod-header .expand-icon');
@@ -827,7 +821,6 @@ function toggleAll() {
     });
     button.textContent = 'Expand All';
   } else {
-    // Expand all
     allCards.forEach(card => {
       const details = card.querySelector(':scope > .mod-details');
       const icon = card.querySelector(':scope > .mod-header .expand-icon');
