@@ -14,22 +14,14 @@
   </div>
 
   <div class="map-legend">
-    <div class="legend-title">Legend</div>
-    <div class="legend-items">
-      <div class="legend-item">
-        <div class="legend-box" style="border-color: #10b981; background: #065f46;"></div>
-        <span>Base Game</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-box" style="border-color: #8b5cf6; background: #5b21b6;"></div>
-        <span>Engine</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-box" style="border-color: #374151; background: #1f2937;"></div>
-        <span>Mod</span>
-      </div>
-    </div>
+    <div class="legend-title">Controls</div>
     <div class="legend-controls">
+      <div class="zoom-controls">
+        <button class="zoom-button" id="zoomOutBtn" onclick="zoomOut()">−</button>
+        <span class="zoom-indicator" id="zoomLevel">100%</span>
+        <button class="zoom-button" id="zoomInBtn" onclick="zoomIn()">+</button>
+      </div>
+      <button class="legend-button" id="defaultViewBtn" onclick="resetView()">Default View</button>
       <button class="legend-button" id="toggleAllBtn" onclick="toggleAll()">Expand All</button>
     </div>
   </div>
@@ -49,254 +41,466 @@
   <p class="page-subtitle">This is obviously not ALL the S.T.A.L.K.E.R. mods, but a lot of the relevant ones and a good overview of what fun projects are available to play</p>
   <p class="page-description">Click on any mod to expand and see details & children mods</p>
 
-  <div class="flowchart-container">
-    
-    <!-- Column 1: Shadow of Chernobyl -->
-    <div class="base-column">
-      <div class="flow-branch">
-        <div class="mod-card base-game" onclick="toggleCard(this)" data-id="soc">
-          <div class="mod-header">
-            <div class="mod-title">Shadow of Chernobyl</div>
-            <div class="mod-badges">
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
+  <div class="flowchart-wrapper" id="flowchartWrapper">
+    <div class="flowchart-container" id="flowchartContainer">
+      
+      <!-- Column 1: Shadow of Chernobyl -->
+      <div class="base-column">
+        <div class="flow-branch">
+          <div class="mod-card base-game" onclick="toggleCard(this)" data-id="soc">
+            <div class="mod-header">
+              <div class="mod-title">Shadow of Chernobyl</div>
+              <div class="mod-badges">
+                <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+            <div class="mod-details">
+              <div class="mod-description">The original game that started it all. Released in 2007.</div>
             </div>
           </div>
-          <div class="mod-details">
-            <div class="mod-description">The original game that started it all. Released in 2007.</div>
-          </div>
-        </div>
-        
-        <div class="branch-connector hidden" data-parent="soc"></div>
-        
-        <div class="children-row hidden" data-parent="soc">
           
-          <div class="flow-branch">
-            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="voa">
-              <div class="mod-header">
-                <div class="mod-title">Vector of Alienation</div>
-                <div class="mod-badges">
-                  <span class="mod-badge badge-standalone">Standalone</span>
-                </div>
-              </div>
-              <div class="mod-details">
-                <div class="mod-description">Deep sci-fi thriller reimagining the 2004 storyline with overhauled environments.</div>
-                <a href="#" class="mod-link">View Details →</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="flow-branch">
-            <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="amk">
-              <div class="mod-header">
-                <div class="mod-title">AMK Autumn Edition</div>
-                <div class="mod-badges">
-                  <span class="mod-badge badge-requires">Requires SoC</span>
-                </div>
-              </div>
-              <div class="mod-details">
-                <div class="mod-description">Enhanced gameplay with improved AI, new weapons, and atmospheric autumn weather.</div>
-                <a href="#" class="mod-link">View Details →</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="flow-branch">
-            <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogsr">
-              <div class="mod-header">
-                <div class="mod-title">OGSR Engine</div>
-                <div class="mod-badges">
-                  <span class="mod-badge badge-engine">Engine</span>
-                  <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="mod-details">
-                <div class="mod-description">Modernized SoC engine with improved graphics and modding capabilities.</div>
-                <a href="#" class="mod-link">View Details →</a>
-              </div>
-            </div>
+          <div class="branch-connector hidden" data-parent="soc"></div>
+          
+          <div class="children-row hidden" data-parent="soc">
             
-            <div class="branch-connector left-aligned hidden" data-parent="ogsr"></div>
-            
-            <div class="hierarchical-children hidden" data-parent="ogsr">
+            <div class="flow-branch">
+              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="voa">
+                <div class="mod-header">
+                  <div class="mod-title">Vector of Alienation</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-story">Story</span>
+                  </div>
+                </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - Vector of Alienation description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-branch">
+              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="amk">
+                <div class="mod-header">
+                  <div class="mod-title">AMK Autumn Edition</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-overhaul">Overhaul</span>
+                  </div>
+                </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - AMK Autumn Edition description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-branch">
+              <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogsr">
+                <div class="mod-header">
+                  <div class="mod-title">OGSR Engine</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-engine">Engine</span>
+                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - OGSR Engine description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
+                </div>
+              </div>
               
-              <div class="hierarchical-item">
-                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial">
-                  <div class="mod-header">
-                    <div class="mod-title">Spatial Anomaly</div>
-                    <div class="mod-badges">
-                      <span class="mod-badge badge-standalone">Standalone</span>
+              <div class="branch-connector left-aligned hidden" data-parent="ogsr"></div>
+              
+              <div class="hierarchical-children hidden" data-parent="ogsr">
+                
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial">
+                    <div class="mod-header">
+                      <div class="mod-title">Spatial Anomaly</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-story">Story</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Spatial Anomaly description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
                     </div>
                   </div>
-                  <div class="mod-details">
-                    <div class="mod-description">Horror-focused story mod with psychological elements and unique anomaly mechanics.</div>
-                    <a href="#" class="mod-link">View Details →</a>
-                  </div>
                 </div>
-              </div>
 
-              <div class="hierarchical-item">
-                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn">
-                  <div class="mod-header">
-                    <div class="mod-title">Road to the North</div>
-                    <div class="mod-badges">
-                      <span class="mod-badge badge-standalone">Standalone</span>
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn">
+                    <div class="mod-header">
+                      <div class="mod-title">Road to the North</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-story">Story</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Road to the North description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
                     </div>
                   </div>
-                  <div class="mod-details">
-                    <div class="mod-description">Story mod featuring new northern territories with expanded lore and factions.</div>
-                    <a href="#" class="mod-link">View Details →</a>
-                  </div>
                 </div>
+
               </div>
-
             </div>
-          </div>
 
-        </div>
-      </div>
-    </div>
-
-    <!-- Column 2: Clear Sky -->
-    <div class="base-column">
-      <div class="flow-branch">
-        <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cs">
-          <div class="mod-header">
-            <div class="mod-title">Clear Sky</div>
-            <div class="mod-badges">
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          </div>
-          <div class="mod-details">
-            <div class="mod-description">The prequel featuring faction wars and the story of Scar. Released in 2008.</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Column 3: Call of Pripyat -->
-    <div class="base-column">
-      <div class="flow-branch">
-        <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cop">
-          <div class="mod-header">
-            <div class="mod-title">Call of Pripyat</div>
-            <div class="mod-badges">
-              <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
+      <!-- Column 2: Clear Sky -->
+      <div class="base-column">
+        <div class="flow-branch">
+          <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cs">
+            <div class="mod-header">
+              <div class="mod-title">Clear Sky</div>
+              <div class="mod-badges">
+                <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </div>
             </div>
-          </div>
-          <div class="mod-details">
-            <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009.</div>
+            <div class="mod-details">
+              <div class="mod-description">The prequel featuring faction wars and the story of Scar. Released in 2008.</div>
+            </div>
           </div>
         </div>
-        
-        <div class="branch-connector hidden" data-parent="cop"></div>
-        
-        <div class="children-row hidden" data-parent="cop">
-          
-          <div class="flow-branch">
-            <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="coc">
-              <div class="mod-header">
-                <div class="mod-title">Call of Chernobyl</div>
-                <div class="mod-badges">
-                  <span class="mod-badge badge-engine">Engine</span>
-                  <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="mod-details">
-                <div class="mod-description">Freeplay mod merging all three games' maps. Foundation for modern sandbox mods.</div>
-                <a href="#" class="mod-link">View Details →</a>
+      </div>
+
+      <!-- Column 3: Call of Pripyat -->
+      <div class="base-column">
+        <div class="flow-branch">
+          <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cop">
+            <div class="mod-header">
+              <div class="mod-title">Call of Pripyat</div>
+              <div class="mod-badges">
+                <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
               </div>
             </div>
+            <div class="mod-details">
+              <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009.</div>
+            </div>
+          </div>
+          
+          <div class="branch-connector hidden" data-parent="cop"></div>
+          
+          <div class="children-row hidden" data-parent="cop">
             
-            <div class="branch-connector left-aligned hidden" data-parent="coc"></div>
-            
-            <div class="hierarchical-children hidden" data-parent="coc">
-              
-              <div class="hierarchical-item">
-                <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="deadair">
-                  <div class="mod-header">
-                    <div class="mod-title">Dead Air</div>
-                    <div class="mod-badges">
-                      <span class="mod-badge badge-standalone">Standalone</span>
-                    </div>
+            <div class="flow-branch">
+              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial-cop">
+                <div class="mod-header">
+                  <div class="mod-title">Spatial Anomaly</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-story">Story</span>
                   </div>
-                  <div class="mod-details">
-                    <div class="mod-description">Hardcore survival focused mod with punishing difficulty and atmospheric tension.</div>
-                    <a href="#" class="mod-link">View Details →</a>
-                  </div>
+                </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - Spatial Anomaly description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
                 </div>
               </div>
+            </div>
 
-              <div class="hierarchical-item">
-                <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
-                  <div class="mod-header">
-                    <div class="mod-title">Anomaly</div>
-                    <div class="mod-badges">
-                      <span class="mod-badge badge-engine">Engine</span>
-                      <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="mod-details">
-                    <div class="mod-description">Most popular sandbox mod with extensive addon support and modding foundation.</div>
-                    <a href="#" class="mod-link">View Details →</a>
+            <div class="flow-branch">
+              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="windoftime">
+                <div class="mod-header">
+                  <div class="mod-title">Wind of Time</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-story">Story</span>
                   </div>
                 </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - Wind of Time description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-branch">
+              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="thejourney">
+                <div class="mod-header">
+                  <div class="mod-title">The Journey</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-story">Story</span>
+                  </div>
+                </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - The Journey description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-branch">
+              <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="coc">
+                <div class="mod-header">
+                  <div class="mod-title">Call of Chernobyl</div>
+                  <div class="mod-badges">
+                    <span class="mod-badge badge-engine">Engine</span>
+                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="mod-details">
+                  <div class="mod-description">Work in progress - Call of Chernobyl description coming soon</div>
+                  <a href="#" class="mod-link">View Details →</a>
+                </div>
+              </div>
+              
+              <div class="branch-connector left-aligned hidden" data-parent="coc"></div>
+              
+              <div class="hierarchical-children hidden" data-parent="coc">
                 
-                <div class="branch-connector left-aligned hidden" data-parent="anomaly"></div>
-                
-                <div class="hierarchical-children hidden" data-parent="anomaly">
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="deadair-coc">
+                    <div class="mod-header">
+                      <div class="mod-title">Dead Air</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-overhaul">Overhaul</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Dead Air description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="callofthezone">
+                    <div class="mod-header">
+                      <div class="mod-title">Call of the Zone</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-freeplay">Freeplay</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Call of the Zone description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="callofmisery">
+                    <div class="mod-header">
+                      <div class="mod-title">Call of Misery</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-overhaul">Overhaul</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Call of Misery description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="lastday">
+                    <div class="mod-header">
+                      <div class="mod-title">Last Day</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-overhaul">Overhaul</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Last Day description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn-coc">
+                    <div class="mod-header">
+                      <div class="mod-title">Road to the North</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-story">Story</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Road to the North description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hierarchical-item">
+                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="warfare">
+                    <div class="mod-header">
+                      <div class="mod-title">Warfare</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-freeplay">Freeplay</span>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Warfare description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hierarchical-item">
+                  <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
+                    <div class="mod-header">
+                      <div class="mod-title">Anomaly</div>
+                      <div class="mod-badges">
+                        <span class="mod-badge badge-engine">Engine</span>
+                        <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mod-details">
+                      <div class="mod-description">Work in progress - Anomaly description coming soon</div>
+                      <a href="#" class="mod-link">View Details →</a>
+                    </div>
+                  </div>
                   
-                  <div class="hierarchical-item">
-                    <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="gamma">
-                      <div class="mod-header">
-                        <div class="mod-title">GAMMA</div>
-                        <div class="mod-badges">
-                          <span class="mod-badge badge-modpack">Modpack</span>
+                  <div class="branch-connector left-aligned hidden" data-parent="anomaly"></div>
+                  
+                  <div class="hierarchical-children hidden" data-parent="anomaly">
+                    
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="gamma">
+                        <div class="mod-header">
+                          <div class="mod-title">GAMMA</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - GAMMA description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
                         </div>
                       </div>
-                      <div class="mod-details">
-                        <div class="mod-description">Massive modpack with 300+ addons providing enhanced graphics and survival mechanics.</div>
-                        <a href="#" class="mod-link">View Details →</a>
-                      </div>
                     </div>
-                  </div>
 
-                  <div class="hierarchical-item">
-                    <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="efp">
-                      <div class="mod-header">
-                        <div class="mod-title">Escape from Pripyat</div>
-                        <div class="mod-badges">
-                          <span class="mod-badge badge-standalone">Standalone</span>
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="efp">
+                        <div class="mod-header">
+                          <div class="mod-title">Escape from Pripyat</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - Escape from Pripyat description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
                         </div>
                       </div>
-                      <div class="mod-details">
-                        <div class="mod-description">Story-focused addon adding a narrative campaign to Anomaly's sandbox gameplay.</div>
-                        <a href="#" class="mod-link">View Details →</a>
+                    </div>
+
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="darksignal">
+                        <div class="mod-header">
+                          <div class="mod-title">Dark Signal</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - Dark Signal description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="hcar">
+                        <div class="mod-header">
+                          <div class="mod-title">HCAR</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - HCAR description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="oldworld">
+                        <div class="mod-header">
+                          <div class="mod-title">Old World Addon</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - Old World Addon description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="bosspack">
+                        <div class="mod-header">
+                          <div class="mod-title">Bosspack</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - Bosspack description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="redux">
+                        <div class="mod-header">
+                          <div class="mod-title">Anomaly Redux</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - Anomaly Redux description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hierarchical-item">
+                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="zona">
+                        <div class="mod-header">
+                          <div class="mod-title">Zona</div>
+                          <div class="mod-badges">
+                            <span class="mod-badge badge-modpack">Modpack</span>
+                          </div>
+                        </div>
+                        <div class="mod-details">
+                          <div class="mod-description">Work in progress - Zona description coming soon</div>
+                          <a href="#" class="mod-link">View Details →</a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
+
               </div>
-
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>
 
