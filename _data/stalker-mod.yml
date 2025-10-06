@@ -1,0 +1,193 @@
+# S.T.A.L.K.E.R. Mods Family Tree Data
+# Structure: base_games -> children -> hierarchical_children (nested as needed)
+
+base_games:
+  - id: soc
+    name: "Shadow of Chernobyl"
+    type: base-game
+    description: "The original game that started it all. Released in 2007."
+    link: null
+    children:
+      - id: zrp
+        name: "Zone Reclamation Project"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Zone Reclamation Project description coming soon"
+        link: "#"
+        
+      - id: aa2
+        name: "Autumn Aurora 2"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Autumn Aurora 2 description coming soon"
+        link: "#"
+        
+      - id: amk
+        name: "AMK"
+        type: platform-family
+        badge: overhaul
+        description: "Work in progress - AMK description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: nlc7
+            name: "NLC7"
+            type: regular
+            badge: soup
+            description: "Work in progress - NLC7 description coming soon"
+            link: "#"
+            
+      - id: oblivion
+        name: "Oblivion Lost Remake"
+        type: platform-family
+        badge: overhaul
+        description: "Work in progress - Oblivion Lost Remake description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: voa
+            name: "Vector of Alienation"
+            type: regular
+            badge: story
+            description: "Work in progress - Vector of Alienation description coming soon"
+            link: "#"
+            is_story: true
+            
+      - id: ogse
+        name: "OGSE 0692"
+        type: engine-family
+        badge: engine
+        description: "Work in progress - OGSE 0692 description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: radiophobia3
+            name: "Radiophobia 3"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Radiophobia 3 description coming soon"
+            link: "#"
+            
+          - id: ogsr
+            name: "OGSR"
+            type: engine-family
+            badge: engine
+            description: "Work in progress - OGSR description coming soon"
+            link: "#"
+            hierarchical_children:
+              - id: sfz
+                name: "SFZ Project"
+                type: regular
+                badge: story
+                description: "Work in progress - SFZ Project description coming soon"
+                link: "#"
+                is_story: true
+                
+      - id: narodnaya
+        name: "Narodnaya Soljanka"
+        type: platform-family
+        badge: soup
+        description: "Work in progress - Narodnaya Soljanka description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: stalkersoup
+            name: "STALKERSOUP"
+            type: regular
+            badge: soup
+            description: "Work in progress - STALKERSOUP description coming soon"
+            link: "#"
+            
+          - id: ns2016
+            name: "NS2016"
+            type: regular
+            badge: soup
+            description: "Work in progress - NS2016 description coming soon"
+            link: "#"
+
+  - id: cs
+    name: "Clear Sky"
+    type: base-game
+    description: "The prequel featuring faction wars and the story of Scar. Released in 2008."
+    link: null
+    children:
+      - id: srp
+        name: "Sky Reclamation Project"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Sky Reclamation Project description coming soon"
+        link: "#"
+        
+      - id: rtl
+        name: "Road to Limansk"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Road to Limansk description coming soon"
+        link: "#"
+        
+      - id: ogsm
+        name: "OGSM"
+        type: engine-family
+        badge: engine
+        description: "Work in progress - OGSM description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: oldstory
+            name: "Old Story"
+            type: regular
+            badge: story
+            description: "Work in progress - Old Story description coming soon"
+            link: "#"
+            is_story: true
+            
+      - id: reborn
+        name: "REBORN"
+        type: regular
+        badge: soup
+        description: "Work in progress - REBORN description coming soon"
+        link: "#"
+
+  - id: cop
+    name: "Call of Pripyat"
+    type: base-game
+    description: "The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009."
+    link: null
+    children:
+      - id: thejourney
+        name: "The Journey"
+        type: regular
+        badge: story
+        description: "Work in progress - The Journey description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: coc
+        name: "Call of Chernobyl"
+        type: engine-family
+        badge: engine
+        description: "Work in progress - Call of Chernobyl description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: deadair-coc
+            name: "Dead Air"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Dead Air description coming soon"
+            link: "#"
+            
+          - id: anomaly
+            name: "Anomaly"
+            type: engine-family
+            badge: engine
+            description: "Work in progress - Anomaly description coming soon"
+            link: "#"
+            hierarchical_children:
+              - id: gamma
+                name: "GAMMA"
+                type: regular
+                badge: modpack
+                description: "Work in progress - GAMMA description coming soon"
+                link: "#"
+                
+              - id: efp
+                name: "Escape from Pripyat"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Escape from Pripyat description coming soon"
+                link: "#"
