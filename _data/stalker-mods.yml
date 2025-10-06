@@ -36,6 +36,13 @@ base_games:
             description: "Work in progress - NLC7 description coming soon"
             link: "#"
             
+          - id: lost-alpha
+            name: "Lost Alpha"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Lost Alpha description coming soon"
+            link: "#"
+            
       - id: oblivion
         name: "Oblivion Lost Remake"
         type: platform-family
@@ -50,6 +57,22 @@ base_games:
             description: "Work in progress - Vector of Alienation description coming soon"
             link: "#"
             is_story: true
+            
+          - id: priboi-story
+            name: "Priboi Story"
+            type: platform-family
+            badge: story
+            description: "Work in progress - Priboi Story description coming soon"
+            link: "#"
+            is_story: true
+            hierarchical_children:
+              - id: priboi-2020
+                name: "Priboi Story: 2020 Overhaul"
+                type: regular
+                badge: story
+                description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon"
+                link: "#"
+                is_story: true
             
       - id: ogse
         name: "OGSE 0692"
@@ -80,14 +103,6 @@ base_games:
             description: "Work in progress - OGSR description coming soon"
             link: "#"
             hierarchical_children:
-              - id: sfz
-                name: "SFZ Project"
-                type: regular
-                badge: story
-                description: "Work in progress - SFZ Project description coming soon"
-                link: "#"
-                is_story: true
-                
               - id: borov-story
                 name: "Borov's Story"
                 type: regular
