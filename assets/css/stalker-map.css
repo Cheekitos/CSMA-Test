@@ -190,6 +190,20 @@ body {
   background: #6d28d9;
 }
 
+.mod-card.platform-family {
+  border-color: #0ea5e9;
+  background: #1f2937;
+}
+
+.mod-card.platform-family:hover {
+  border-color: #38bdf8;
+}
+
+.mod-card.platform-family.expanded {
+  border-color: #38bdf8;
+  background: #374151;
+}
+
 .mod-header {
   display: flex;
   justify-content: space-between;
@@ -233,8 +247,8 @@ body {
 }
 
 .badge-soup {
-  background: #5b21b6;
-  color: #e9d5ff;
+  background: #854d0e;
+  color: #fef3c7;
 }
 
 .badge-modpack {
