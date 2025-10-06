@@ -311,52 +311,37 @@ body {
   color: #93c5fd;
 }
 
-.map-legend {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   background: #1f2937;
   border: 1px solid #374151;
   border-radius: 6px;
-  padding: 8px 10px;
-  width: 160px;
-  z-index: 10;
-}
-
-.legend-title {
-  font-size: 10px;
-  font-weight: 700;
-  color: #fbbf24;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.legend-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  padding: 7.5px 12px; /* reduced from 10px 16px by ~25% */
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .zoom-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
-  justify-content: space-between;
+  gap: 8px;
   background: #374151;
   border: 1px solid #4b5563;
-  border-radius: 3px;
-  padding: 4px 6px;
-  height: 28px;
+  border-radius: 4px;
+  padding: 3px 6px; /* reduced by 25% */
+  height: 27px; /* was 36px */
 }
 
 .zoom-button {
   background: #1f2937;
   border: 1px solid #4b5563;
   border-radius: 3px;
-  width: 22px;
-  height: 20px;
-  font-size: 16px;
+  width: 20px; /* was 26px */
+  height: 20px; /* was 26px */
+  font-size: 12px; /* slightly smaller for balance */
   color: #f3f4f6;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -369,55 +354,102 @@ body {
   flex-shrink: 0;
 }
 
-.zoom-button:hover {
-  background: #4b5563;
-  border-color: #fbbf24;
-  color: #fbbf24;
-}
-
-.zoom-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.zoom-button:disabled:hover {
-  background: #1f2937;
-  border-color: #4b5563;
-  color: #f3f4f6;
-}
-
 .zoom-indicator {
   font-size: 10px;
   color: #f3f4f6;
   font-weight: 600;
   text-align: center;
-  flex: 1;
-  min-width: 35px;
+  min-width: 32px; /* scaled with others */
 }
 
-.legend-button {
+.control-button {
   background: #374151;
   border: 1px solid #4b5563;
-  border-radius: 3px;
-  padding: 6px 8px;
-  font-size: 9px;
+  border-radius: 4px;
+  padding: 6px 9px; /* reduced from 8px 12px */
+  height: 27px; /* was 36px */
+  font-size: 9px; /* reduced from 11px */
   color: #f3f4f6;
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  width: 100%;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.legend-button:hover {
+.control-button:hover {
   background: #4b5563;
   border-color: #fbbf24;
   color: #fbbf24;
 }
 
+.control-button.active {
+  background: #065f46;
+  border-color: #10b981;
+  color: #d1fae5;
+}
+
+.control-button.active:hover {
+  background: #047857;
+  border-color: #34d399;
+}
+
 .hidden {
   display: none;
+}
+
+.story-mod-container.story-hidden {
+  display: none;
+}
+
+.legend-box {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  padding: 10px 12px;
+  width: 160px;
+  z-index: 10;
+}
+
+.legend-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-item span {
+  font-size: 10px;
+  color: #d1d5db;
+  line-height: 1.3;
 }
 
 .page-header {
@@ -487,7 +519,7 @@ body {
 .page-description {
   text-align: center;
   color: #9ca3af;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   font-size: 0.875rem;
 }
 
@@ -501,10 +533,18 @@ body {
     width: 100%;
   }
   
-  .map-legend {
+  .controls-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .control-button {
+    width: 100%;
+  }
+  
+  .legend-box {
     position: static;
     width: 100%;
-    margin-top: 12px;
     margin-bottom: 12px;
   }
 }
@@ -526,10 +566,18 @@ body {
     max-width: 200px;
   }
 
-  .map-legend {
+  .controls-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .control-button {
+    width: 100%;
+  }
+  
+  .legend-box {
     position: static;
     width: 100%;
-    margin-top: 12px;
     margin-bottom: 12px;
   }
 }
