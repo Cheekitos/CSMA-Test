@@ -9,6 +9,9 @@ let startY = 0;
 let translateX = 0;
 let translateY = 0;
 
+// 0 = collapsed, 1 = overview (base games + parents), 2 = fully expanded
+let expandState = 0;
+
 function toggleCard(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
@@ -52,48 +55,75 @@ function toggleCard(card) {
 
 function toggleAll() {
   const button = document.getElementById('toggleAllBtn');
-  const allCards = document.querySelectorAll('.mod-card[data-id]');
   
-  const anyExpanded = Array.from(allCards).some(card => 
-    card.querySelector(':scope > .mod-details').classList.contains('expanded')
-  );
-  
-  if (anyExpanded) {
-    allCards.forEach(card => {
-      const details = card.querySelector(':scope > .mod-details');
-      const icon = card.querySelector(':scope > .mod-header .expand-icon');
-      const cardId = card.getAttribute('data-id');
-      const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-      
-      if (details.classList.contains('expanded')) {
-        details.style.height = '0';
-        details.classList.remove('expanded');
-        if (icon) icon.classList.remove('rotated');
-        card.classList.remove('expanded');
-        if (connector) connector.classList.add('hidden');
-        if (childrenRow) childrenRow.classList.add('hidden');
-      }
-    });
+  if (expandState === 0) {
+    // State 1: Expand base games and parent mods only
+    expandOverview();
+    expandState = 1;
     button.textContent = 'Expand All';
-  } else {
-    allCards.forEach(card => {
-      const details = card.querySelector(':scope > .mod-details');
-      const icon = card.querySelector(':scope > .mod-header .expand-icon');
-      const cardId = card.getAttribute('data-id');
-      const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-      const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-      
-      if (!details.classList.contains('expanded')) {
-        details.classList.add('expanded');
-        if (icon) icon.classList.add('rotated');
-        card.classList.add('expanded');
-        if (connector) connector.classList.remove('hidden');
-        if (childrenRow) childrenRow.classList.remove('hidden');
-        details.style.height = 'auto';
-      }
-    });
+  } else if (expandState === 1) {
+    // State 2: Expand everything
+    expandAll();
+    expandState = 2;
     button.textContent = 'Collapse All';
+  } else {
+    // State 0: Collapse everything
+    collapseAll();
+    expandState = 0;
+    button.textContent = 'Overview';
+  }
+}
+
+function expandOverview() {
+  // Expand only base games and cards that have children (engine-family, platform-family)
+  const baseGames = document.querySelectorAll('.mod-card.base-game');
+  const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
+  
+  baseGames.forEach(card => expandCard(card));
+  parentMods.forEach(card => expandCard(card));
+}
+
+function expandAll() {
+  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  allCards.forEach(card => expandCard(card));
+}
+
+function collapseAll() {
+  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  allCards.forEach(card => collapseCard(card));
+}
+
+function expandCard(card) {
+  const details = card.querySelector(':scope > .mod-details');
+  const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
+  
+  if (!details.classList.contains('expanded')) {
+    details.classList.add('expanded');
+    if (icon) icon.classList.add('rotated');
+    card.classList.add('expanded');
+    if (connector) connector.classList.remove('hidden');
+    if (childrenRow) childrenRow.classList.remove('hidden');
+    details.style.height = 'auto';
+  }
+}
+
+function collapseCard(card) {
+  const details = card.querySelector(':scope > .mod-details');
+  const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
+  
+  if (details.classList.contains('expanded')) {
+    details.style.height = '0';
+    details.classList.remove('expanded');
+    if (icon) icon.classList.remove('rotated');
+    card.classList.remove('expanded');
+    if (connector) connector.classList.add('hidden');
+    if (childrenRow) childrenRow.classList.add('hidden');
   }
 }
 
@@ -106,7 +136,6 @@ function updateZoom() {
   updateTransform();
   zoomLevel.textContent = `${currentZoom}%`;
   
-  // Disable buttons at limits
   zoomInBtn.disabled = currentZoom >= maxZoom;
   zoomOutBtn.disabled = currentZoom <= minZoom;
 }
@@ -136,40 +165,17 @@ function resetView() {
   translateY = 0;
   updateZoom();
   
-  // Collapse all cards
-  const button = document.getElementById('toggleAllBtn');
-  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  collapseAll();
+  expandState = 0;
+  document.getElementById('toggleAllBtn').textContent = 'Overview';
   
-  allCards.forEach(card => {
-    const details = card.querySelector(':scope > .mod-details');
-    const icon = card.querySelector(':scope > .mod-header .expand-icon');
-    const cardId = card.getAttribute('data-id');
-    const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-    const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-    
-    if (details.classList.contains('expanded')) {
-      details.style.height = '0';
-      details.classList.remove('expanded');
-      if (icon) icon.classList.remove('rotated');
-      card.classList.remove('expanded');
-      if (connector) connector.classList.add('hidden');
-      if (childrenRow) childrenRow.classList.add('hidden');
-    }
-  });
-  
-  button.textContent = 'Expand All';
-  
-  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Pan/drag functionality
 function initPanZoom() {
   const wrapper = document.getElementById('flowchartWrapper');
   
-  // Mouse events
   wrapper.addEventListener('mousedown', (e) => {
-    // Ignore if clicking on a mod card or link
     if (e.target.closest('.mod-card') || e.target.closest('a')) {
       return;
     }
@@ -196,9 +202,7 @@ function initPanZoom() {
     }
   });
   
-  // Touch events for mobile
   wrapper.addEventListener('touchstart', (e) => {
-    // Ignore if touching a mod card
     if (e.target.closest('.mod-card')) {
       return;
     }
@@ -223,7 +227,6 @@ function initPanZoom() {
   });
 }
 
-// Initialize zoom display and pan functionality on page load
 document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
