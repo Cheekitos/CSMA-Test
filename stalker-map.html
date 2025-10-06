@@ -1,16 +1,21 @@
+---
+layout: default
+title: Interactive Mod Map
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Mod Map - S.T.A.L.K.E.R. Mods Archive</title>
-  <link rel="stylesheet" href="assets/css/stalker-map.css">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/stalker-map.css">
 </head>
 <body>
 
 <div class="mod-tree-container">
   <div class="page-header">
-    <a href="index.html" class="site-title">Cheeki's Mods Archive</a>
+    <a href="{{ site.baseurl }}/index.html" class="site-title">Cheeki's Mods Archive</a>
   </div>
 
   <div class="legend-box">
@@ -32,7 +37,7 @@
   </div>
 
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="index.html">
+    <a href="{{ site.baseurl }}/index.html">
       <svg fill="currentColor" viewBox="0 0 20 20">
         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
       </svg>
@@ -60,12 +65,13 @@
   <div class="flowchart-wrapper" id="flowchartWrapper">
     <div class="flowchart-container" id="flowchartContainer">
       
-      <!-- Column 1: Shadow of Chernobyl -->
+      {% for base_game in site.data.stalker-mods.base_games %}
+      <!-- Column {{ forloop.index }}: {{ base_game.name }} -->
       <div class="base-column">
         <div class="flow-branch">
-          <div class="mod-card base-game" onclick="toggleCard(this)" data-id="soc">
+          <div class="mod-card {{ base_game.type }}" onclick="toggleCard(this)" data-id="{{ base_game.id }}">
             <div class="mod-header">
-              <div class="mod-title">Shadow of Chernobyl</div>
+              <div class="mod-title">{{ base_game.name }}</div>
               <div class="mod-badges">
                 <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
@@ -73,505 +79,28 @@
               </div>
             </div>
             <div class="mod-details">
-              <div class="mod-description">The original game that started it all. Released in 2007.</div>
+              <div class="mod-description">{{ base_game.description }}</div>
             </div>
           </div>
           
-          <div class="branch-connector hidden" data-parent="soc"></div>
+          <div class="branch-connector hidden" data-parent="{{ base_game.id }}"></div>
           
-          <div class="children-row hidden" data-parent="soc">
-            
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="zrp">
-                <div class="mod-header">
-                  <div class="mod-title">Zone Reclamation Project</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Zone Reclamation Project description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="aa2">
-                <div class="mod-header">
-                  <div class="mod-title">Autumn Aurora 2</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Autumn Aurora 2 description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card platform-family" onclick="toggleCard(this); event.stopPropagation();" data-id="amk">
-                <div class="mod-header">
-                  <div class="mod-title">AMK</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - AMK description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="amk"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="amk">
-                
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="nlc7">
-                    <div class="mod-header">
-                      <div class="mod-title">NLC7</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-soup">Soup</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - NLC7 description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card platform-family" onclick="toggleCard(this); event.stopPropagation();" data-id="oblivion">
-                <div class="mod-header">
-                  <div class="mod-title">Oblivion Lost Remake</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Oblivion Lost Remake description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="oblivion"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="oblivion">
-                
-                <div class="hierarchical-item story-mod-container">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="voa">
-                    <div class="mod-header">
-                      <div class="mod-title">Vector of Alienation</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-story">Story</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Vector of Alienation description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogse">
-                <div class="mod-header">
-                  <div class="mod-title">OGSE 0692</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-engine">Engine</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - OGSE 0692 description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="ogse"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="ogse">
-                
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="radiophobia3">
-                    <div class="mod-header">
-                      <div class="mod-title">Radiophobia 3</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-overhaul">Overhaul</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Radiophobia 3 description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogsr">
-                    <div class="mod-header">
-                      <div class="mod-title">OGSR</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-engine">Engine</span>
-                        <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - OGSR description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                  
-                  <div class="branch-connector left-aligned hidden" data-parent="ogsr"></div>
-                  
-                  <div class="hierarchical-children hidden" data-parent="ogsr">
-                    
-                    <div class="hierarchical-item story-mod-container">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="sfz">
-                        <div class="mod-header">
-                          <div class="mod-title">SFZ Project</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-story">Story</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - SFZ Project description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card platform-family" onclick="toggleCard(this); event.stopPropagation();" data-id="narodnaya">
-                <div class="mod-header">
-                  <div class="mod-title">Narodnaya Soljanka</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-soup">Soup</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Narodnaya Soljanka description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="narodnaya"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="narodnaya">
-                
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="stalkersoup">
-                    <div class="mod-header">
-                      <div class="mod-title">STALKERSOUP</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-soup">Soup</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - STALKERSOUP description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="ns2016">
-                    <div class="mod-header">
-                      <div class="mod-title">NS2016</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-soup">Soup</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - NS2016 description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
+          <div class="children-row hidden" data-parent="{{ base_game.id }}">
+            {% if base_game.children %}
+              {% for child in base_game.children %}
+                {% include mod-card.html mod=child %}
+              {% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>
-
-      <!-- Column 2: Clear Sky -->
-      <div class="base-column">
-        <div class="flow-branch">
-          <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cs">
-            <div class="mod-header">
-              <div class="mod-title">Clear Sky</div>
-              <div class="mod-badges">
-                <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-            </div>
-            <div class="mod-details">
-              <div class="mod-description">The prequel featuring faction wars and the story of Scar. Released in 2008.</div>
-            </div>
-          </div>
-          
-          <div class="branch-connector hidden" data-parent="cs"></div>
-          
-          <div class="children-row hidden" data-parent="cs">
-            
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="srp">
-                <div class="mod-header">
-                  <div class="mod-title">Sky Reclamation Project</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Sky Reclamation Project description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtl">
-                <div class="mod-header">
-                  <div class="mod-title">Road to Limansk</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Road to Limansk description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="ogsm">
-                <div class="mod-header">
-                  <div class="mod-title">OGSM</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-engine">Engine</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - OGSM description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="ogsm"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="ogsm">
-                
-                <div class="hierarchical-item story-mod-container">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="oldstory">
-                    <div class="mod-header">
-                      <div class="mod-title">Old Story</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-story">Story</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Old Story description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="reborn">
-                <div class="mod-header">
-                  <div class="mod-title">REBORN</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-soup">Soup</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - REBORN description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Column 3: Call of Pripyat -->
-      <div class="base-column">
-        <div class="flow-branch">
-          <div class="mod-card base-game" onclick="toggleCard(this)" data-id="cop">
-            <div class="mod-header">
-              <div class="mod-title">Call of Pripyat</div>
-              <div class="mod-badges">
-                <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-            </div>
-            <div class="mod-details">
-              <div class="mod-description">The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009.</div>
-            </div>
-          </div>
-          
-          <div class="branch-connector hidden" data-parent="cop"></div>
-          
-          <div class="children-row hidden" data-parent="cop">
-            
-            <div class="flow-branch story-mod-container">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="thejourney">
-                <div class="mod-header">
-                  <div class="mod-title">The Journey</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-story">Story</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - The Journey description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="coc">
-                <div class="mod-header">
-                  <div class="mod-title">Call of Chernobyl</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-engine">Engine</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Call of Chernobyl description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="coc"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="coc">
-                
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="deadair-coc">
-                    <div class="mod-header">
-                      <div class="mod-title">Dead Air</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-overhaul">Overhaul</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Dead Air description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
-                    <div class="mod-header">
-                      <div class="mod-title">Anomaly</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-engine">Engine</span>
-                        <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Anomaly description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                  
-                  <div class="branch-connector left-aligned hidden" data-parent="anomaly"></div>
-                  
-                  <div class="hierarchical-children hidden" data-parent="anomaly">
-                    
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="gamma">
-                        <div class="mod-header">
-                          <div class="mod-title">GAMMA</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - GAMMA description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="efp">
-                        <div class="mod-header">
-                          <div class="mod-title">Escape from Pripyat</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - Escape from Pripyat description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+      {% endfor %}
 
     </div>
   </div>
 </div>
 
-<script src="assets/js/stalker-map.js"></script>
+<script src="{{ site.baseurl }}/assets/js/stalker-map.js"></script>
 
 </body>
 </html>
