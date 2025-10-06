@@ -9,8 +9,11 @@ let startY = 0;
 let translateX = 0;
 let translateY = 0;
 
-// 0 = collapsed, 1 = overview (base games + parents), 2 = fully expanded
+// 0 = collapsed, 1 = full view (base games + parents), 2 = fully expanded
 let expandState = 0;
+
+// Story mods visibility state
+let storyModsHidden = false;
 
 function toggleCard(card) {
   const details = card.querySelector(':scope > .mod-details');
@@ -57,8 +60,8 @@ function toggleAll() {
   const button = document.getElementById('toggleAllBtn');
   
   if (expandState === 0) {
-    // State 1: Expand base games and parent mods only
-    expandOverview();
+    // State 1: Expand base games and parent mods only (Full View)
+    expandFullView();
     expandState = 1;
     button.textContent = 'Expand All';
   } else if (expandState === 1) {
@@ -70,11 +73,11 @@ function toggleAll() {
     // State 0: Collapse everything
     collapseAll();
     expandState = 0;
-    button.textContent = 'Overview';
+    button.textContent = 'Full View';
   }
 }
 
-function expandOverview() {
+function expandFullView() {
   // Expand only base games and cards that have children (engine-family, platform-family)
   const baseGames = document.querySelectorAll('.mod-card.base-game');
   const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
@@ -127,6 +130,29 @@ function collapseCard(card) {
   }
 }
 
+function toggleStoryMods() {
+  const button = document.getElementById('toggleStoryBtn');
+  const storyContainers = document.querySelectorAll('.story-mod-container');
+  
+  storyModsHidden = !storyModsHidden;
+  
+  storyContainers.forEach(container => {
+    if (storyModsHidden) {
+      container.classList.add('story-hidden');
+    } else {
+      container.classList.remove('story-hidden');
+    }
+  });
+  
+  if (storyModsHidden) {
+    button.textContent = 'Show Story Mods';
+    button.classList.add('active');
+  } else {
+    button.textContent = 'Hide Story Mods';
+    button.classList.remove('active');
+  }
+}
+
 function updateZoom() {
   const container = document.getElementById('flowchartContainer');
   const zoomLevel = document.getElementById('zoomLevel');
@@ -167,7 +193,12 @@ function resetView() {
   
   collapseAll();
   expandState = 0;
-  document.getElementById('toggleAllBtn').textContent = 'Overview';
+  document.getElementById('toggleAllBtn').textContent = 'Full View';
+  
+  // Reset story mods visibility
+  if (storyModsHidden) {
+    toggleStoryMods();
+  }
   
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
