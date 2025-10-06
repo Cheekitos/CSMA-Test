@@ -41,6 +41,11 @@ exclude:
   - vendor
   - "*.gem"
   - "*.gemspec"
+  - SETUP-INSTRUCTIONS.md
+
+# Include settings (ensure _data folder is processed)
+include:
+  - _data
 
 # GitHub Pages specific settings
 github: [metadata]
