@@ -13,16 +13,21 @@
     <a href="index.html" class="site-title">Cheeki's Mods Archive</a>
   </div>
 
-  <div class="map-legend">
-    <div class="legend-title">Controls</div>
-    <div class="legend-controls">
-      <div class="zoom-controls">
-        <button class="zoom-button" id="zoomOutBtn" onclick="zoomOut()">−</button>
-        <span class="zoom-indicator" id="zoomLevel">100%</span>
-        <button class="zoom-button" id="zoomInBtn" onclick="zoomIn()">+</button>
+  <div class="legend-box">
+    <div class="legend-title">Legend</div>
+    <div class="legend-items">
+      <div class="legend-item">
+        <div class="legend-color" style="background: #065f46; border: 2px solid #10b981;"></div>
+        <span>Base Game</span>
       </div>
-      <button class="legend-button" id="defaultViewBtn" onclick="resetView()">Default View</button>
-      <button class="legend-button" id="toggleAllBtn" onclick="toggleAll()">Expand All</button>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #5b21b6; border: 2px solid #8b5cf6;"></div>
+        <span>Engine Mod</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #1f2937; border: 2px solid #0ea5e9;"></div>
+        <span>Parent Mod</span>
+      </div>
     </div>
   </div>
 
@@ -40,6 +45,17 @@
   <h1 class="page-title">S.T.A.L.K.E.R. Mod Family Tree</h1>
   <p class="page-subtitle">This is obviously not ALL the S.T.A.L.K.E.R. mods, but a lot of the relevant ones and a good overview of what fun projects are available to play</p>
   <p class="page-description">Click on any mod to expand and see details & children mods</p>
+
+  <div class="controls-bar">
+    <div class="zoom-controls">
+      <button class="zoom-button" id="zoomOutBtn" onclick="zoomOut()">−</button>
+      <span class="zoom-indicator" id="zoomLevel">100%</span>
+      <button class="zoom-button" id="zoomInBtn" onclick="zoomIn()">+</button>
+    </div>
+    <button class="control-button" id="toggleAllBtn" onclick="toggleAll()">Full View</button>
+    <button class="control-button" id="toggleStoryBtn" onclick="toggleStoryMods()">Hide Story Mods</button>
+    <button class="control-button" id="defaultViewBtn" onclick="resetView()">Default View</button>
+  </div>
 
   <div class="flowchart-wrapper" id="flowchartWrapper">
     <div class="flowchart-container" id="flowchartContainer">
@@ -135,21 +151,6 @@
             </div>
 
             <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="lostalpha">
-                <div class="mod-header">
-                  <div class="mod-title">Lost Alpha</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-overhaul">Overhaul</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Lost Alpha description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
               <div class="mod-card platform-family" onclick="toggleCard(this); event.stopPropagation();" data-id="oblivion">
                 <div class="mod-header">
                   <div class="mod-title">Oblivion Lost Remake</div>
@@ -170,7 +171,7 @@
               
               <div class="hierarchical-children hidden" data-parent="oblivion">
                 
-                <div class="hierarchical-item">
+                <div class="hierarchical-item story-mod-container">
                   <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="voa">
                     <div class="mod-header">
                       <div class="mod-title">Vector of Alienation</div>
@@ -245,7 +246,7 @@
                   
                   <div class="hierarchical-children hidden" data-parent="ogsr">
                     
-                    <div class="hierarchical-item">
+                    <div class="hierarchical-item story-mod-container">
                       <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="sfz">
                         <div class="mod-header">
                           <div class="mod-title">SFZ Project</div>
@@ -317,36 +318,6 @@
                   </div>
                 </div>
 
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="newarsenal7">
-                <div class="mod-header">
-                  <div class="mod-title">New Arsenal 7</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-soup">Soup</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - New Arsenal 7 description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="op22">
-                <div class="mod-header">
-                  <div class="mod-title">OP 2.2</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-soup">Soup</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - OP 2.2 description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
               </div>
             </div>
 
@@ -426,7 +397,7 @@
               
               <div class="hierarchical-children hidden" data-parent="ogsm">
                 
-                <div class="hierarchical-item">
+                <div class="hierarchical-item story-mod-container">
                   <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="oldstory">
                     <div class="mod-header">
                       <div class="mod-title">Old Story</div>
@@ -445,56 +416,17 @@
             </div>
 
             <div class="flow-branch">
-              <div class="mod-card platform-family" onclick="toggleCard(this); event.stopPropagation();" data-id="reborn">
+              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="reborn">
                 <div class="mod-header">
                   <div class="mod-title">REBORN</div>
                   <div class="mod-badges">
                     <span class="mod-badge badge-soup">Soup</span>
-                    <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                    </svg>
                   </div>
                 </div>
                 <div class="mod-details">
                   <div class="mod-description">Work in progress - REBORN description coming soon</div>
                   <a href="#" class="mod-link">View Details →</a>
                 </div>
-              </div>
-              
-              <div class="branch-connector left-aligned hidden" data-parent="reborn"></div>
-              
-              <div class="hierarchical-children hidden" data-parent="reborn">
-                
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="reborn-doppelganger">
-                    <div class="mod-header">
-                      <div class="mod-title">REBORN Doppelganger</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-soup">Soup</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - REBORN Doppelganger description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="reborn-source">
-                    <div class="mod-header">
-                      <div class="mod-title">REBORN Source</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-soup">Soup</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - REBORN Source description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
 
@@ -523,37 +455,7 @@
           
           <div class="children-row hidden" data-parent="cop">
             
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="spatial-cop">
-                <div class="mod-header">
-                  <div class="mod-title">Spatial Anomaly</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-story">Story</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Spatial Anomaly description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
-              <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="windoftime">
-                <div class="mod-header">
-                  <div class="mod-title">Wind of Time</div>
-                  <div class="mod-badges">
-                    <span class="mod-badge badge-story">Story</span>
-                  </div>
-                </div>
-                <div class="mod-details">
-                  <div class="mod-description">Work in progress - Wind of Time description coming soon</div>
-                  <a href="#" class="mod-link">View Details →</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flow-branch">
+            <div class="flow-branch story-mod-container">
               <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="thejourney">
                 <div class="mod-header">
                   <div class="mod-title">The Journey</div>
@@ -605,81 +507,6 @@
                 </div>
 
                 <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="callofthezone">
-                    <div class="mod-header">
-                      <div class="mod-title">Call of the Zone</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-freeplay">Freeplay</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Call of the Zone description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="callofmisery">
-                    <div class="mod-header">
-                      <div class="mod-title">Call of Misery</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-overhaul">Overhaul</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Call of Misery description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="lastday">
-                    <div class="mod-header">
-                      <div class="mod-title">Last Day</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-overhaul">Overhaul</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Last Day description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="rtn-coc">
-                    <div class="mod-header">
-                      <div class="mod-title">Road to the North</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-story">Story</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Road to the North description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
-                  <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="warfare">
-                    <div class="mod-header">
-                      <div class="mod-title">Warfare</div>
-                      <div class="mod-badges">
-                        <span class="mod-badge badge-freeplay">Freeplay</span>
-                      </div>
-                    </div>
-                    <div class="mod-details">
-                      <div class="mod-description">Work in progress - Warfare description coming soon</div>
-                      <a href="#" class="mod-link">View Details →</a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="hierarchical-item">
                   <div class="mod-card engine-family" onclick="toggleCard(this); event.stopPropagation();" data-id="anomaly">
                     <div class="mod-header">
                       <div class="mod-title">Anomaly</div>
@@ -725,96 +552,6 @@
                         </div>
                         <div class="mod-details">
                           <div class="mod-description">Work in progress - Escape from Pripyat description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="darksignal">
-                        <div class="mod-header">
-                          <div class="mod-title">Dark Signal</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - Dark Signal description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="hcar">
-                        <div class="mod-header">
-                          <div class="mod-title">H.C.A.R.</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - H.C.A.R. description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="oldworld">
-                        <div class="mod-header">
-                          <div class="mod-title">Old World Addon</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - Old World Addon description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="bosspack">
-                        <div class="mod-header">
-                          <div class="mod-title">Bosspack</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - Bosspack description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="redux">
-                        <div class="mod-header">
-                          <div class="mod-title">Anomaly Redux</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - Anomaly Redux description coming soon</div>
-                          <a href="#" class="mod-link">View Details →</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="hierarchical-item">
-                      <div class="mod-card" onclick="toggleCard(this); event.stopPropagation();" data-id="zona">
-                        <div class="mod-header">
-                          <div class="mod-title">Zona</div>
-                          <div class="mod-badges">
-                            <span class="mod-badge badge-modpack">Modpack</span>
-                          </div>
-                        </div>
-                        <div class="mod-details">
-                          <div class="mod-description">Work in progress - Zona description coming soon</div>
                           <a href="#" class="mod-link">View Details →</a>
                         </div>
                       </div>
