@@ -65,6 +65,14 @@ base_games:
             description: "Work in progress - Radiophobia 3 description coming soon"
             link: "#"
             
+          - id: goldsphere-completion
+            name: "Goldsphere: Completion"
+            type: regular
+            badge: story
+            description: "Work in progress - Goldsphere: Completion description coming soon"
+            link: "#"
+            is_story: true
+            
           - id: ogsr
             name: "OGSR"
             type: engine-family
@@ -79,6 +87,38 @@ base_games:
                 description: "Work in progress - SFZ Project description coming soon"
                 link: "#"
                 is_story: true
+                
+              - id: borov-story
+                name: "Borov's Story"
+                type: regular
+                badge: story
+                description: "Work in progress - Borov's Story description coming soon"
+                link: "#"
+                is_story: true
+                
+              - id: goldsphere-ogsr
+                name: "Goldsphere OGSR"
+                type: regular
+                badge: story
+                description: "Work in progress - Goldsphere OGSR description coming soon"
+                link: "#"
+                is_story: true
+                
+              - id: sfz-e0
+                name: "SFZ Project E0"
+                type: regular
+                badge: story
+                description: "Work in progress - SFZ Project E0 description coming soon"
+                link: "#"
+                is_story: true
+                hierarchical_children:
+                  - id: sfz-e0-deluxe
+                    name: "SFZ Project E0 Deluxe Remake"
+                    type: regular
+                    badge: story
+                    description: "Work in progress - SFZ Project E0 Deluxe Remake description coming soon"
+                    link: "#"
+                    is_story: true
                 
       - id: narodnaya
         name: "Narodnaya Soljanka"
@@ -100,6 +140,43 @@ base_games:
             badge: soup
             description: "Work in progress - NS2016 description coming soon"
             link: "#"
+            
+      - id: priboi-story
+        name: "Priboi Story"
+        type: platform-family
+        badge: story
+        description: "Work in progress - Priboi Story description coming soon"
+        link: "#"
+        is_story: true
+        hierarchical_children:
+          - id: priboi-2020
+            name: "Priboi Story: 2020 Overhaul"
+            type: regular
+            badge: story
+            description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon"
+            link: "#"
+            is_story: true
+            
+      - id: lost-alpha
+        name: "Lost Alpha"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Lost Alpha description coming soon"
+        link: "#"
+        
+      - id: new-arsenal-7
+        name: "New Arsenal 7"
+        type: regular
+        badge: soup
+        description: "Work in progress - New Arsenal 7 description coming soon"
+        link: "#"
+        
+      - id: op-22
+        name: "OP 2.2"
+        type: regular
+        badge: soup
+        description: "Work in progress - OP 2.2 description coming soon"
+        link: "#"
 
   - id: cs
     name: "Clear Sky"
@@ -138,10 +215,24 @@ base_games:
             
       - id: reborn
         name: "REBORN"
-        type: regular
+        type: platform-family
         badge: soup
         description: "Work in progress - REBORN description coming soon"
         link: "#"
+        hierarchical_children:
+          - id: reborn-doppelganger
+            name: "Reborn Doppelganger"
+            type: regular
+            badge: soup
+            description: "Work in progress - Reborn Doppelganger description coming soon"
+            link: "#"
+            
+          - id: reborn-source
+            name: "Reborn Source"
+            type: regular
+            badge: soup
+            description: "Work in progress - Reborn Source description coming soon"
+            link: "#"
 
   - id: cop
     name: "Call of Pripyat"
@@ -157,6 +248,60 @@ base_games:
         link: "#"
         is_story: true
         
+      - id: spatial-anomaly
+        name: "Spatial Anomaly"
+        type: regular
+        badge: story
+        description: "Work in progress - Spatial Anomaly description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: wind-of-time
+        name: "Wind of time"
+        type: regular
+        badge: story
+        description: "Work in progress - Wind of time description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: dreamcatcher
+        name: "Dreamcatcher"
+        type: regular
+        badge: story
+        description: "Work in progress - Dreamcatcher description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: incubator
+        name: "Incubator"
+        type: regular
+        badge: story
+        description: "Work in progress - Incubator description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: misery-22
+        name: "Misery 2.2"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Misery 2.2 description coming soon"
+        link: "#"
+        
+      - id: openxray
+        name: "OpenXRay"
+        type: engine-family
+        badge: engine
+        description: "Work in progress - OpenXRay description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: true-stalker
+            name: "True Stalker"
+            type: regular
+            badge: story
+            description: "Work in progress - True Stalker description coming soon"
+            link: "#"
+            is_story: true
+        
       - id: coc
         name: "Call of Chernobyl"
         type: engine-family
@@ -169,6 +314,57 @@ base_games:
             type: regular
             badge: overhaul
             description: "Work in progress - Dead Air description coming soon"
+            link: "#"
+            
+          - id: legend-returns
+            name: "Legend Returns"
+            type: regular
+            badge: story
+            description: "Work in progress - Legend Returns description coming soon"
+            link: "#"
+            is_story: true
+            
+          - id: dollchan-8
+            name: "Dollchan 8: Infinity"
+            type: regular
+            badge: story
+            description: "Work in progress - Dollchan 8: Infinity description coming soon"
+            link: "#"
+            is_story: true
+            
+          - id: call-of-the-zone
+            name: "Call of the Zone"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Call of the Zone description coming soon"
+            link: "#"
+            
+          - id: call-of-misery
+            name: "Call of Misery"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Call of Misery description coming soon"
+            link: "#"
+            
+          - id: last-day
+            name: "Last Day"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Last Day description coming soon"
+            link: "#"
+            
+          - id: warfare
+            name: "Warfare"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Warfare description coming soon"
+            link: "#"
+            
+          - id: road-to-the-north
+            name: "Road to the North"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Road to the North description coming soon"
             link: "#"
             
           - id: anomaly
@@ -190,4 +386,46 @@ base_games:
                 type: regular
                 badge: modpack
                 description: "Work in progress - Escape from Pripyat description coming soon"
+                link: "#"
+                
+              - id: dark-signal
+                name: "Dark Signal"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Dark Signal description coming soon"
+                link: "#"
+                
+              - id: hcar
+                name: "H.C.A.R"
+                type: regular
+                badge: modpack
+                description: "Work in progress - H.C.A.R description coming soon"
+                link: "#"
+                
+              - id: old-world-addon
+                name: "Old World Addon"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Old World Addon description coming soon"
+                link: "#"
+                
+              - id: bosspack
+                name: "Bosspack"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Bosspack description coming soon"
+                link: "#"
+                
+              - id: anomaly-redux
+                name: "Anomaly Redux"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Anomaly Redux description coming soon"
+                link: "#"
+                
+              - id: zona
+                name: "Zona"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Zona description coming soon"
                 link: "#"
