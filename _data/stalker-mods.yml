@@ -88,6 +88,14 @@ base_games:
             link: "#"
             is_story: true
             
+      - id: fotograf
+        name: "F.O.T.O.G.R.A.F."
+        type: regular
+        badge: story
+        description: "Work in progress - F.O.T.O.G.R.A.F. description coming soon"
+        link: "#"
+        is_story: true
+            
       - id: ogse
         name: "OGSE 0692"
         type: engine-family
@@ -204,6 +212,13 @@ base_games:
         description: "Work in progress - Sky Reclamation Project description coming soon"
         link: "#"
         
+      - id: cs-lfo
+        name: "Clear Sky LFO"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Clear Sky LFO description coming soon"
+        link: "#"
+        
       - id: rtl
         name: "Road to Limansk"
         type: regular
@@ -317,6 +332,30 @@ base_games:
         link: "#"
         is_story: true
         
+      - id: another-zone-mod
+        name: "Another Zone Mod"
+        type: regular
+        badge: story
+        description: "Work in progress - Another Zone Mod description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: trapped
+        name: "Trapped"
+        type: regular
+        badge: story
+        description: "Work in progress - Trapped description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: return-to-the-zone
+        name: "Return to the Zone"
+        type: regular
+        badge: story
+        description: "Work in progress - Return to the Zone description coming soon"
+        link: "#"
+        is_story: true
+        
       - id: misery-22
         name: "Misery 2.2"
         type: regular
@@ -346,6 +385,13 @@ base_games:
         description: "Work in progress - Call of Chernobyl description coming soon"
         link: "#"
         hierarchical_children:
+          - id: iwp
+            name: "I.W.P."
+            type: regular
+            badge: freeplay
+            description: "Work in progress - I.W.P. description coming soon"
+            link: "#"
+            
           - id: deadair-coc
             name: "Dead Air"
             type: regular
