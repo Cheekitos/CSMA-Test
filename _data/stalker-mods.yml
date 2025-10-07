@@ -103,14 +103,6 @@ base_games:
             description: "Work in progress - OGSR description coming soon"
             link: "#"
             hierarchical_children:
-              - id: sfz
-                name: "SFZ Project"
-                type: regular
-                badge: story
-                description: "Work in progress - SFZ Project description coming soon"
-                link: "#"
-                is_story: true
-                
               - id: borov-story
                 name: "Borov's Story"
                 type: regular
@@ -274,35 +266,35 @@ base_games:
         
       - id: incubator
         name: "Incubator"
-        type: platform-family
+        type: regular
         badge: story
         description: "Work in progress - Incubator description coming soon"
         link: "#"
         is_story: true
-        hierarchical_children:
-          - id: path-in-the-mist
-            name: "Path in the Mist"
-            type: regular
-            badge: story
-            description: "Work in progress - Path in the Mist description coming soon"
-            link: "#"
-            is_story: true
-            
-          - id: valley-of-whispers
-            name: "Valley of Whispers"
-            type: regular
-            badge: story
-            description: "Work in progress - Valley of Whispers description coming soon"
-            link: "#"
-            is_story: true
-            
-          - id: ghosts-of-the-past
-            name: "Ghosts of the Past"
-            type: regular
-            badge: story
-            description: "Work in progress - Ghosts of the Past description coming soon"
-            link: "#"
-            is_story: true
+        
+      - id: path-in-the-mist
+        name: "Path in the Mist"
+        type: regular
+        badge: story
+        description: "Work in progress - Path in the Mist description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: valley-of-whispers
+        name: "Valley of Whispers"
+        type: regular
+        badge: story
+        description: "Work in progress - Valley of Whispers description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: ghosts-of-the-past
+        name: "Ghosts of the Past"
+        type: regular
+        badge: story
+        description: "Work in progress - Ghosts of the Past description coming soon"
+        link: "#"
+        is_story: true
         
       - id: misery-22
         name: "Misery 2.2"
