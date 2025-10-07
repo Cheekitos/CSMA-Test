@@ -22,6 +22,13 @@ base_games:
         description: "Work in progress - Autumn Aurora 2 description coming soon"
         link: "#"
         
+      - id: lost-alpha
+        name: "Lost Alpha"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Lost Alpha description coming soon"
+        link: "#"
+        
       - id: amk
         name: "AMK"
         type: platform-family
@@ -48,6 +55,22 @@ base_games:
             type: regular
             badge: story
             description: "Work in progress - Vector of Alienation description coming soon"
+            link: "#"
+            is_story: true
+            
+      - id: priboi-story
+        name: "Priboi Story"
+        type: platform-family
+        badge: story
+        description: "Work in progress - Priboi Story description coming soon"
+        link: "#"
+        is_story: true
+        hierarchical_children:
+          - id: priboi-2020
+            name: "Priboi Story: 2020 Overhaul"
+            type: regular
+            badge: story
+            description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon"
             link: "#"
             is_story: true
             
@@ -141,29 +164,6 @@ base_games:
             description: "Work in progress - NS2016 description coming soon"
             link: "#"
             
-      - id: priboi-story
-        name: "Priboi Story"
-        type: platform-family
-        badge: story
-        description: "Work in progress - Priboi Story description coming soon"
-        link: "#"
-        is_story: true
-        hierarchical_children:
-          - id: priboi-2020
-            name: "Priboi Story: 2020 Overhaul"
-            type: regular
-            badge: story
-            description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon"
-            link: "#"
-            is_story: true
-            
-      - id: lost-alpha
-        name: "Lost Alpha"
-        type: regular
-        badge: overhaul
-        description: "Work in progress - Lost Alpha description coming soon"
-        link: "#"
-        
       - id: new-arsenal-7
         name: "New Arsenal 7"
         type: regular
@@ -274,11 +274,35 @@ base_games:
         
       - id: incubator
         name: "Incubator"
-        type: regular
+        type: platform-family
         badge: story
         description: "Work in progress - Incubator description coming soon"
         link: "#"
         is_story: true
+        hierarchical_children:
+          - id: path-in-the-mist
+            name: "Path in the Mist"
+            type: regular
+            badge: story
+            description: "Work in progress - Path in the Mist description coming soon"
+            link: "#"
+            is_story: true
+            
+          - id: valley-of-whispers
+            name: "Valley of Whispers"
+            type: regular
+            badge: story
+            description: "Work in progress - Valley of Whispers description coming soon"
+            link: "#"
+            is_story: true
+            
+          - id: ghosts-of-the-past
+            name: "Ghosts of the Past"
+            type: regular
+            badge: story
+            description: "Work in progress - Ghosts of the Past description coming soon"
+            link: "#"
+            is_story: true
         
       - id: misery-22
         name: "Misery 2.2"
@@ -316,40 +340,24 @@ base_games:
             description: "Work in progress - Dead Air description coming soon"
             link: "#"
             
-          - id: legend-returns
-            name: "Legend Returns"
-            type: regular
-            badge: story
-            description: "Work in progress - Legend Returns description coming soon"
-            link: "#"
-            is_story: true
-            
-          - id: dollchan-8
-            name: "Dollchan 8: Infinity"
-            type: regular
-            badge: story
-            description: "Work in progress - Dollchan 8: Infinity description coming soon"
-            link: "#"
-            is_story: true
-            
           - id: call-of-the-zone
             name: "Call of the Zone"
             type: regular
-            badge: freeplay
+            badge: overhaul
             description: "Work in progress - Call of the Zone description coming soon"
             link: "#"
             
           - id: call-of-misery
             name: "Call of Misery"
             type: regular
-            badge: freeplay
+            badge: overhaul
             description: "Work in progress - Call of Misery description coming soon"
             link: "#"
             
           - id: last-day
             name: "Last Day"
             type: regular
-            badge: freeplay
+            badge: overhaul
             description: "Work in progress - Last Day description coming soon"
             link: "#"
             
@@ -362,10 +370,26 @@ base_games:
             
           - id: road-to-the-north
             name: "Road to the North"
-            type: regular
-            badge: freeplay
+            type: platform-family
+            badge: overhaul
             description: "Work in progress - Road to the North description coming soon"
             link: "#"
+            hierarchical_children:
+              - id: legend-returns
+                name: "Legend Returns"
+                type: regular
+                badge: story
+                description: "Work in progress - Legend Returns description coming soon"
+                link: "#"
+                is_story: true
+                
+              - id: dollchan-8
+                name: "Dollchan 8: Infinity"
+                type: regular
+                badge: story
+                description: "Work in progress - Dollchan 8: Infinity description coming soon"
+                link: "#"
+                is_story: true
             
           - id: anomaly
             name: "Anomaly"
