@@ -385,18 +385,11 @@ base_games:
         description: "Work in progress - Call of Chernobyl description coming soon"
         link: "#"
         hierarchical_children:
-          - id: iwp
-            name: "I.W.P."
-            type: regular
-            badge: freeplay
-            description: "Work in progress - I.W.P. description coming soon"
-            link: "#"
-            
-          - id: deadair-coc
-            name: "Dead Air"
+          - id: call-of-misery
+            name: "Call of Misery"
             type: regular
             badge: overhaul
-            description: "Work in progress - Dead Air description coming soon"
+            description: "Work in progress - Call of Misery description coming soon"
             link: "#"
             
           - id: call-of-the-zone
@@ -406,11 +399,26 @@ base_games:
             description: "Work in progress - Call of the Zone description coming soon"
             link: "#"
             
-          - id: call-of-misery
-            name: "Call of Misery"
+          - id: deadair-coc
+            name: "Dead Air"
             type: regular
             badge: overhaul
-            description: "Work in progress - Call of Misery description coming soon"
+            description: "Work in progress - Dead Air description coming soon"
+            link: "#"
+            
+          - id: dollchan-8
+            name: "Dollchan 8: Infinity"
+            type: regular
+            badge: story
+            description: "Work in progress - Dollchan 8: Infinity description coming soon"
+            link: "#"
+            is_story: true
+            
+          - id: iwp
+            name: "I.W.P."
+            type: regular
+            badge: freeplay
+            description: "Work in progress - I.W.P. description coming soon"
             link: "#"
             
           - id: last-day
@@ -418,20 +426,6 @@ base_games:
             type: regular
             badge: overhaul
             description: "Work in progress - Last Day description coming soon"
-            link: "#"
-            
-          - id: warfare
-            name: "Warfare"
-            type: regular
-            badge: freeplay
-            description: "Work in progress - Warfare description coming soon"
-            link: "#"
-            
-          - id: road-to-the-north
-            name: "Road to the North"
-            type: regular
-            badge: overhaul
-            description: "Work in progress - Road to the North description coming soon"
             link: "#"
             
           - id: legend-returns
@@ -442,13 +436,19 @@ base_games:
             link: "#"
             is_story: true
             
-          - id: dollchan-8
-            name: "Dollchan 8: Infinity"
+          - id: road-to-the-north
+            name: "Road to the North"
             type: regular
-            badge: story
-            description: "Work in progress - Dollchan 8: Infinity description coming soon"
+            badge: overhaul
+            description: "Work in progress - Road to the North description coming soon"
             link: "#"
-            is_story: true
+            
+          - id: warfare
+            name: "Warfare"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Warfare description coming soon"
+            link: "#"
             
           - id: anomaly
             name: "Anomaly"
@@ -457,11 +457,25 @@ base_games:
             description: "Work in progress - Anomaly description coming soon"
             link: "#"
             hierarchical_children:
-              - id: gamma
-                name: "GAMMA"
+              - id: anomaly-redux
+                name: "Anomaly Redux"
                 type: regular
                 badge: modpack
-                description: "Work in progress - GAMMA description coming soon"
+                description: "Work in progress - Anomaly Redux description coming soon"
+                link: "#"
+                
+              - id: bosspack
+                name: "Bosspack"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Bosspack description coming soon"
+                link: "#"
+                
+              - id: dark-signal
+                name: "Dark Signal"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Dark Signal description coming soon"
                 link: "#"
                 
               - id: efp
@@ -471,11 +485,11 @@ base_games:
                 description: "Work in progress - Escape from Pripyat description coming soon"
                 link: "#"
                 
-              - id: dark-signal
-                name: "Dark Signal"
+              - id: gamma
+                name: "GAMMA"
                 type: regular
                 badge: modpack
-                description: "Work in progress - Dark Signal description coming soon"
+                description: "Work in progress - GAMMA description coming soon"
                 link: "#"
                 
               - id: hcar
@@ -490,20 +504,6 @@ base_games:
                 type: regular
                 badge: modpack
                 description: "Work in progress - Old World Addon description coming soon"
-                link: "#"
-                
-              - id: bosspack
-                name: "Bosspack"
-                type: regular
-                badge: modpack
-                description: "Work in progress - Bosspack description coming soon"
-                link: "#"
-                
-              - id: anomaly-redux
-                name: "Anomaly Redux"
-                type: regular
-                badge: modpack
-                description: "Work in progress - Anomaly Redux description coming soon"
                 link: "#"
                 
               - id: zona
