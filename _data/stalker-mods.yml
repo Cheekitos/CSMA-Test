@@ -5,7 +5,7 @@ base_games:
   - id: soc
     name: "Shadow of Chernobyl"
     type: base-game
-    description: "The original game that started it all. Released in 2007."
+    description: "Work in progress - Shadow of Chernobyl description coming soon"
     link: null
     children:
       - id: zrp
@@ -202,7 +202,7 @@ base_games:
   - id: cs
     name: "Clear Sky"
     type: base-game
-    description: "The prequel featuring faction wars and the story of Scar. Released in 2008."
+    description: "Work in progress - Clear Sky description coming soon"
     link: null
     children:
       - id: srp
@@ -265,7 +265,7 @@ base_games:
   - id: cop
     name: "Call of Pripyat"
     type: base-game
-    description: "The sequel following Major Degtyarev investigating crashed helicopters. Released in 2009."
+    description: "Work in progress - Call of Pripyat description coming soon"
     link: null
     children:
       - id: another-zone-mod
