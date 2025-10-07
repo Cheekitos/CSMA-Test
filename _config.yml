@@ -43,11 +43,11 @@ exclude:
   - "*.gemspec"
   - SETUP-INSTRUCTIONS.md
 
-# Include settings (ensure _data folder is processed)
+# Include settings
 include:
   - _data
 
-# GitHub Pages specific settings
+# GitHub specific settings
 github: [metadata]
 kramdown:
   input: GFM
