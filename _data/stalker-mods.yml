@@ -362,26 +362,26 @@ base_games:
             
           - id: road-to-the-north
             name: "Road to the North"
-            type: platform-family
+            type: regular
             badge: overhaul
             description: "Work in progress - Road to the North description coming soon"
             link: "#"
-            hierarchical_children:
-              - id: legend-returns
-                name: "Legend Returns"
-                type: regular
-                badge: story
-                description: "Work in progress - Legend Returns description coming soon"
-                link: "#"
-                is_story: true
-                
-              - id: dollchan-8
-                name: "Dollchan 8: Infinity"
-                type: regular
-                badge: story
-                description: "Work in progress - Dollchan 8: Infinity description coming soon"
-                link: "#"
-                is_story: true
+            
+          - id: legend-returns
+            name: "Legend Returns"
+            type: regular
+            badge: story
+            description: "Work in progress - Legend Returns description coming soon"
+            link: "#"
+            is_story: true
+            
+          - id: dollchan-8
+            name: "Dollchan 8: Infinity"
+            type: regular
+            badge: story
+            description: "Work in progress - Dollchan 8: Infinity description coming soon"
+            link: "#"
+            is_story: true
             
           - id: anomaly
             name: "Anomaly"
