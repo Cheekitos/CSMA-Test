@@ -24,10 +24,24 @@ base_games:
         
       - id: lost-alpha
         name: "Lost Alpha"
-        type: regular
+        type: platform-family
         badge: overhaul
         description: "Work in progress - Lost Alpha description coming soon"
         link: "#"
+        hierarchical_children:
+          - id: lost-alpha-dc
+            name: "Lost Alpha DC"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Lost Alpha DC description coming soon"
+            link: "#"
+            
+          - id: lost-alpha-extended
+            name: "Lost Alpha Extended"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Lost Alpha Extended description coming soon"
+            link: "#"
         
       - id: amk
         name: "AMK"
@@ -168,6 +182,13 @@ base_games:
         type: regular
         badge: soup
         description: "Work in progress - OP 2.2 description coming soon"
+        link: "#"
+        
+      - id: alternativa
+        name: "Alternativa"
+        type: regular
+        badge: soup
+        description: "Work in progress - Alternativa description coming soon"
         link: "#"
 
   - id: cs
