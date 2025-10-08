@@ -104,10 +104,10 @@ base_games:
         is_story: true
             
       - id: ogse
-        name: "OGSE 0692"
+        name: "OGSE 0.6.9.3"
         type: engine-family
         badge: engine
-        description: "Work in progress - OGSE 0692 description coming soon"
+        description: "Work in progress - OGSE 0.6.9.3 description coming soon"
         link: "#"
         hierarchical_children:
           - id: radiophobia3
@@ -217,6 +217,13 @@ base_games:
         type: regular
         badge: bugfixes
         description: "Work in progress - Sky Reclamation Project description coming soon"
+        link: "#"
+        
+      - id: sky-renewal
+        name: "Sky Renewal"
+        type: regular
+        badge: vanillaplus
+        description: "Work in progress - Sky Renewal description coming soon"
         link: "#"
         
       - id: cs-complete
