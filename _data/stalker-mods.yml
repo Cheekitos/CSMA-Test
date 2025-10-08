@@ -226,6 +226,13 @@ base_games:
         description: "Work in progress - Sky Renewal description coming soon"
         link: "#"
         
+      - id: arsenal-overhaul
+        name: "Arsenal Overhaul"
+        type: regular
+        badge: vanillaplus
+        description: "Work in progress - Arsenal Overhaul description coming soon"
+        link: "#"
+        
       - id: cs-complete
         name: "Clear Sky Complete"
         type: regular
