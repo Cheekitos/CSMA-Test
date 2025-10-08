@@ -16,7 +16,11 @@
       <div class="mod-title">{{ mod.name }}</div>
       <div class="mod-badges">
         {% if mod.badge %}
-          <span class="mod-badge badge-{{ mod.badge }}">{{ mod.badge | capitalize }}</span>
+          {% if mod.badge == "vanillaplus" %}
+            <span class="mod-badge badge-{{ mod.badge }}">Vanilla+</span>
+          {% else %}
+            <span class="mod-badge badge-{{ mod.badge }}">{{ mod.badge | capitalize }}</span>
+          {% endif %}
         {% endif %}
         {% if mod.hierarchical_children %}
           <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
