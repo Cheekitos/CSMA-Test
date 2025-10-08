@@ -11,7 +11,7 @@ base_games:
       - id: zrp
         name: "Zone Reclamation Project"
         type: regular
-        badge: overhaul
+        badge: bugfixes
         description: "Work in progress - Zone Reclamation Project description coming soon"
         link: "#"
         
@@ -208,8 +208,22 @@ base_games:
       - id: srp
         name: "Sky Reclamation Project"
         type: regular
-        badge: overhaul
+        badge: bugfixes
         description: "Work in progress - Sky Reclamation Project description coming soon"
+        link: "#"
+        
+      - id: cs-complete
+        name: "Clear Sky Complete"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Clear Sky Complete description coming soon"
+        link: "#"
+        
+      - id: mystery
+        name: "Mystery"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Mystery description coming soon"
         link: "#"
         
       - id: cs-lfo
@@ -385,6 +399,13 @@ base_games:
         description: "Work in progress - Call of Chernobyl description coming soon"
         link: "#"
         hierarchical_children:
+          - id: area
+            name: "A.R.E.A."
+            type: regular
+            badge: overhaul
+            description: "Work in progress - A.R.E.A. description coming soon"
+            link: "#"
+            
           - id: call-of-misery
             name: "Call of Misery"
             type: regular
@@ -413,6 +434,13 @@ base_games:
             description: "Work in progress - Dollchan 8: Infinity description coming soon"
             link: "#"
             is_story: true
+            
+          - id: global-war
+            name: "Global War"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Global War description coming soon"
+            link: "#"
             
           - id: iwp
             name: "I.W.P."
