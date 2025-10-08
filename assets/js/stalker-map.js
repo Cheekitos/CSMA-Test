@@ -12,9 +12,6 @@ let translateY = 0;
 // 0 = collapsed, 1 = full view (base games + parents), 2 = fully expanded
 let expandState = 0;
 
-// Story mods visibility state
-let storyModsHidden = false;
-
 function toggleCard(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
@@ -130,29 +127,6 @@ function collapseCard(card) {
   }
 }
 
-function toggleStoryMods() {
-  const button = document.getElementById('toggleStoryBtn');
-  const storyContainers = document.querySelectorAll('.story-mod-container');
-  
-  storyModsHidden = !storyModsHidden;
-  
-  storyContainers.forEach(container => {
-    if (storyModsHidden) {
-      container.classList.add('story-hidden');
-    } else {
-      container.classList.remove('story-hidden');
-    }
-  });
-  
-  if (storyModsHidden) {
-    button.textContent = 'Show Story Mods';
-    button.classList.add('active');
-  } else {
-    button.textContent = 'Hide Story Mods';
-    button.classList.remove('active');
-  }
-}
-
 function updateZoom() {
   const container = document.getElementById('flowchartContainer');
   const zoomLevel = document.getElementById('zoomLevel');
@@ -194,11 +168,6 @@ function resetView() {
   collapseAll();
   expandState = 0;
   document.getElementById('toggleAllBtn').textContent = 'Full View';
-  
-  // Reset story mods visibility
-  if (storyModsHidden) {
-    toggleStoryMods();
-  }
   
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
