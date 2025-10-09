@@ -513,6 +513,13 @@ base_games:
                 description: "Work in progress - Anomaly Redux description coming soon | Work in progress - Anomaly Redux description coming soon | Work in progress - Anomaly Redux description coming soon"
                 link: "#"
                 
+              - id: anthology
+                name: "Anthology"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Anthology description coming soon | Work in progress - Anthology description coming soon | Work in progress - Anthology description coming soon"
+                link: "#"
+                
               - id: bosspack
                 name: "Bosspack"
                 type: regular
@@ -554,6 +561,13 @@ base_games:
                 badge: modpack
                 description: "Work in progress - Old World Addon description coming soon | Work in progress - Old World Addon description coming soon | Work in progress - Old World Addon description coming soon"
                 link: "#"
+                hierarchical_children:
+                  - id: forgotten-zone
+                    name: "Forgotten Zone"
+                    type: regular
+                    badge: overhaul
+                    description: "Work in progress - Forgotten Zone description coming soon | Work in progress - Forgotten Zone description coming soon | Work in progress - Forgotten Zone description coming soon"
+                    link: "#"
                 
               - id: zona
                 name: "Zona"
