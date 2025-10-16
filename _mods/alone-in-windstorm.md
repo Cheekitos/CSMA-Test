@@ -34,7 +34,7 @@ video: "https://youtu.be/XzOUWKjKMOI"
 download_url: "https://drive.google.com/file/d/1Ix8MjIOzAuHKjQMcwIYrxyLKCg8EK6vN/view?usp=sharing"
 
 links:
-  - label: "Moddb Official Page"
+  - label: "Moddb New Translation"
     url: "https://www.moddb.com/games/stalker-call-of-pripyat/addons/alone-in-windstorm-complete-english-audio-translation"
   - label: "Ap-pro Official Page"
     url: "https://ap-pro.ru/stuff/zov_pripjati/alone-in-windstorm-r345/"
