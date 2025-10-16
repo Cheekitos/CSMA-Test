@@ -8,7 +8,15 @@ platform: "Call of Pripyat"
 engine: "Call of Chernobyl"
 release_date: "2022-03-19"
 short_description: "Far from the Zone, you're a meterologist working a remote weather station in the Arctic. You recently lost all contact with civilization. When your only colleague vanishes trying to fix the radio, you step into the frozen wilderness to find answers."
-description: "Alone in Windstorm is a S.T.A.L.K.E.R. mod yes, but it's not your typical S.T.A.L.K.E.R. game. We're far from the Zone here, in a remote weather station lost on Russia's Kola Peninsula. There's no mutants, factions or anomalies. Only the bitter cold and wild animals waitng for their next meal.<br>Cut off from the outside world and running low on supplies, you'll have to find a way out of this freezing world. You'll have to navigate using a hand-drawn map and compass, manage hunger, thirst, cold, craft essential tools, weapons, and hunt and fish to survive.<br>Alone in Windstorm is a beautiful, atmospheric and deeply immersive experience for people who love slow, careful exploration and demanding survival mechanics. A fully voiced, original story that unfolds through letters, recordings, and the remains of the world you're trying to escape."
+description: "Alone in Windstorm is a S.T.A.L.K.E.R. mod yes, but it's not your typical S.T.A.L.K.E.R. game. We're far from the Zone here, in a remote weather station lost on Russia's Kola Peninsula. There's no mutants, factions or anomalies. Only the bitter cold and wild animals waitng for their next meal.<br>Cut off from the outside world and running low on supplies, you'll need to find a way out of this freezing world. You'll have to navigate using a hand-drawn map and compass, manage hunger, thirst, cold, craft essential tools, weapons, and hunt and fish to survive.<br>Alone in Windstorm is a beautiful, atmospheric and deeply immersive experience for people who love slow, careful exploration and demanding survival mechanics. A fully voiced, original story that unfolds through letters, recordings, and the remains of a world you're trying to escape."
+
+gallery_images:
+  - "screenshot01.jpg"
+  - "screenshot02.jpg"
+  - "screenshot03.jpg"
+  - "screenshot04.jpg"
+  - "screenshot05.jpg"
+  - "screenshot06.jpg"
 
 seo_title: "Alone in Windstorm - Download & Install Guide | Cheeki's S.T.A.L.K.E.R. Mods Archive"
 seo_description: "Download Alone in Windstorm for S.T.A.L.K.E.R. Call of Pripyat. Complete installation guide, gameplay features, and detailed review on Cheeki's S.T.A.L.K.E.R. Mods Archive"
@@ -77,14 +85,14 @@ additional_credits: |
   <div class="flex items-start" style="gap: 0.75rem; margin-bottom: 0.75rem;">
     <span style="color: #fbbf24 !important; font-weight: bold; font-size: 0.875rem; flex-shrink: 0; line-height: 1.5; min-width: 1.2rem;">1.</span>
     <div style="flex: 1; line-height: 1.5;">
-      <p style="margin: 0; color: #d1d5db;">(If using my Repack) Extract, move folder to the root of your drive, launch game with "Start game.bat"</p>
+      <p style="margin: 0; color: #d1d5db;">Download Archive, extract, move game folder to the root of your drive, launch game with "Start game.bat"</p>
     </div>
   </div>
 
   <div class="flex items-start" style="gap: 0.75rem; margin-bottom: 0.75rem;">
     <span style="color: #fbbf24 !important; font-weight: bold; font-size: 0.875rem; flex-shrink: 0; line-height: 1.5; min-width: 1.2rem;">2.</span>
     <div style="flex: 1; line-height: 1.5;">
-      <p style="margin: 0; color: #d1d5db;">(If not using the repack) Download the game and Tyvian translation, links are below</p>
+      <p style="margin: 0; color: #d1d5db;">(If not using the repack) Download the game files and Tyvian translation, links are below</p>
     </div>
   </div>
 
