@@ -15,6 +15,13 @@ base_games:
         description: "Work in progress - Zone Reclamation Project description coming soon | Work in progress - Zone Reclamation Project description coming soon | Work in progress - Zone Reclamation Project description coming soon"
         link: "#"
         
+      - id: memories-of-the-zone
+        name: "Memories of the Zone"
+        type: regular
+        badge: vanillaplus
+        description: "Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon"
+        link: "#"
+        
       - id: aa2
         name: "Autumn Aurora 2"
         type: regular
@@ -28,6 +35,20 @@ base_games:
         badge: overhaul
         description: "Work in progress - SoC Update 2.0 description coming soon | Work in progress - SoC Update 2.0 description coming soon | Work in progress - SoC Update 2.0 description coming soon"
         link: "#"
+        
+      - id: left-to-die
+        name: "Left to Die"
+        type: platform-family
+        badge: overhaul
+        description: "Work in progress - Left to Die description coming soon | Work in progress - Left to Die description coming soon | Work in progress - Left to Die description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: left-to-die-2-de
+            name: "Left to Die 2.0 - Definitive Edition"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Left to Die 2.0 - Definitive Edition description coming soon | Work in progress - Left to Die 2.0 - Definitive Edition description coming soon | Work in progress - Left to Die 2.0 - Definitive Edition description coming soon"
+            link: "#"
         
       - id: lost-alpha
         name: "Lost Alpha"
@@ -79,6 +100,13 @@ base_games:
             link: "#"
             is_story: true
             
+          - id: oblivion-lost-remake-3
+            name: "Oblivion Lost Remake 3.0"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Oblivion Lost Remake 3.0 description coming soon | Work in progress - Oblivion Lost Remake 3.0 description coming soon | Work in progress - Oblivion Lost Remake 3.0 description coming soon"
+            link: "#"
+            
       - id: priboi-story
         name: "Priboi Story"
         type: platform-family
@@ -94,6 +122,14 @@ base_games:
             description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon"
             link: "#"
             is_story: true
+            
+      - id: kill-zone
+        name: "Kill Zone"
+        type: regular
+        badge: story
+        description: "Work in progress - Kill Zone description coming soon | Work in progress - Kill Zone description coming soon | Work in progress - Kill Zone description coming soon"
+        link: "#"
+        is_story: true
             
       - id: fotograf
         name: "F.O.T.O.G.R.A.F."
@@ -247,6 +283,14 @@ base_games:
         description: "Work in progress - Mystery description coming soon | Work in progress - Mystery description coming soon | Work in progress - Mystery description coming soon"
         link: "#"
         
+      - id: hibernation-evil
+        name: "Hibernation Evil"
+        type: regular
+        badge: story
+        description: "Work in progress - Hibernation Evil description coming soon | Work in progress - Hibernation Evil description coming soon | Work in progress - Hibernation Evil description coming soon"
+        link: "#"
+        is_story: true
+        
       - id: cs-lfo
         name: "Clear Sky LFO"
         type: regular
@@ -263,8 +307,8 @@ base_games:
         
       - id: ogsm
         name: "OGSM"
-        type: engine-family
-        badge: engine
+        type: platform-family
+        badge: freeplay
         description: "Work in progress - OGSM description coming soon | Work in progress - OGSM description coming soon | Work in progress - OGSM description coming soon"
         link: "#"
         hierarchical_children:
@@ -497,6 +541,20 @@ base_games:
             type: regular
             badge: freeplay
             description: "Work in progress - Warfare description coming soon | Work in progress - Warfare description coming soon | Work in progress - Warfare description coming soon"
+            link: "#"
+            
+          - id: team-lite
+            name: "Team Lite"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Team Lite description coming soon | Work in progress - Team Lite description coming soon | Work in progress - Team Lite description coming soon"
+            link: "#"
+            
+          - id: demosfen
+            name: "Demosfen"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Demosfen description coming soon | Work in progress - Demosfen description coming soon | Work in progress - Demosfen description coming soon"
             link: "#"
             
           - id: anomaly
