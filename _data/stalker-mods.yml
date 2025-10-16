@@ -29,21 +29,12 @@ base_games:
         description: "Work in progress - Autumn Aurora 2 description coming soon | Work in progress - Autumn Aurora 2 description coming soon | Work in progress - Autumn Aurora 2 description coming soon"
         link: "#"
         
-      - id: fotograf
-        name: "F.O.T.O.G.R.A.F."
+      - id: soc-update-2
+        name: "SoC Update 2.0"
         type: regular
-        badge: story
-        description: "Work in progress - F.O.T.O.G.R.A.F. description coming soon | Work in progress - F.O.T.O.G.R.A.F. description coming soon | Work in progress - F.O.T.O.G.R.A.F. description coming soon"
+        badge: overhaul
+        description: "Work in progress - SoC Update 2.0 description coming soon | Work in progress - SoC Update 2.0 description coming soon | Work in progress - SoC Update 2.0 description coming soon"
         link: "#"
-        is_story: true
-        
-      - id: kill-zone
-        name: "Kill Zone"
-        type: regular
-        badge: story
-        description: "Work in progress - Kill Zone description coming soon | Work in progress - Kill Zone description coming soon | Work in progress - Kill Zone description coming soon"
-        link: "#"
-        is_story: true
         
       - id: left-to-die
         name: "Left to Die"
@@ -116,6 +107,38 @@ base_games:
             description: "Work in progress - Oblivion Lost Remake 3.0 description coming soon | Work in progress - Oblivion Lost Remake 3.0 description coming soon | Work in progress - Oblivion Lost Remake 3.0 description coming soon"
             link: "#"
             
+      - id: priboi-story
+        name: "Priboi Story"
+        type: platform-family
+        badge: story
+        description: "Work in progress - Priboi Story description coming soon | Work in progress - Priboi Story description coming soon | Work in progress - Priboi Story description coming soon"
+        link: "#"
+        is_story: true
+        hierarchical_children:
+          - id: priboi-2020
+            name: "Priboi Story: 2020 Overhaul"
+            type: regular
+            badge: story
+            description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon"
+            link: "#"
+            is_story: true
+            
+      - id: kill-zone
+        name: "Kill Zone"
+        type: regular
+        badge: story
+        description: "Work in progress - Kill Zone description coming soon | Work in progress - Kill Zone description coming soon | Work in progress - Kill Zone description coming soon"
+        link: "#"
+        is_story: true
+            
+      - id: fotograf
+        name: "F.O.T.O.G.R.A.F."
+        type: regular
+        badge: story
+        description: "Work in progress - F.O.T.O.G.R.A.F. description coming soon | Work in progress - F.O.T.O.G.R.A.F. description coming soon | Work in progress - F.O.T.O.G.R.A.F. description coming soon"
+        link: "#"
+        is_story: true
+            
       - id: ogse
         name: "OGSE 0.6.9.3"
         type: engine-family
@@ -123,6 +146,13 @@ base_games:
         description: "Work in progress - OGSE 0.6.9.3 description coming soon | Work in progress - OGSE 0.6.9.3 description coming soon | Work in progress - OGSE 0.6.9.3 description coming soon"
         link: "#"
         hierarchical_children:
+          - id: radiophobia3
+            name: "Radiophobia 3"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon"
+            link: "#"
+            
           - id: goldsphere-completion
             name: "Goldsphere: Completion"
             type: regular
@@ -169,44 +199,7 @@ base_games:
                     description: "Work in progress - SFZ Project E0 Deluxe Remake description coming soon | Work in progress - SFZ Project E0 Deluxe Remake description coming soon | Work in progress - SFZ Project E0 Deluxe Remake description coming soon"
                     link: "#"
                     is_story: true
-            
-          - id: radiophobia3
-            name: "Radiophobia 3"
-            type: regular
-            badge: overhaul
-            description: "Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon"
-            link: "#"
-        
-      - id: priboi-story
-        name: "Priboi Story"
-        type: platform-family
-        badge: story
-        description: "Work in progress - Priboi Story description coming soon | Work in progress - Priboi Story description coming soon | Work in progress - Priboi Story description coming soon"
-        link: "#"
-        is_story: true
-        hierarchical_children:
-          - id: priboi-2020
-            name: "Priboi Story: 2020 Overhaul"
-            type: regular
-            badge: story
-            description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon"
-            link: "#"
-            is_story: true
-        
-      - id: soc-update-2
-        name: "SoC Update 2.0"
-        type: regular
-        badge: overhaul
-        description: "Work in progress - SoC Update 2.0 description coming soon | Work in progress - SoC Update 2.0 description coming soon | Work in progress - SoC Update 2.0 description coming soon"
-        link: "#"
-        
-      - id: alternativa
-        name: "Alternativa"
-        type: regular
-        badge: soup
-        description: "Work in progress - Alternativa description coming soon | Work in progress - Alternativa description coming soon | Work in progress - Alternativa description coming soon"
-        link: "#"
-        
+                
       - id: narodnaya
         name: "Narodnaya Soljanka"
         type: platform-family
@@ -214,18 +207,18 @@ base_games:
         description: "Work in progress - Narodnaya Soljanka description coming soon | Work in progress - Narodnaya Soljanka description coming soon | Work in progress - Narodnaya Soljanka description coming soon"
         link: "#"
         hierarchical_children:
-          - id: ns2016
-            name: "NS2016"
-            type: regular
-            badge: soup
-            description: "Work in progress - NS2016 description coming soon | Work in progress - NS2016 description coming soon | Work in progress - NS2016 description coming soon"
-            link: "#"
-            
           - id: stalkersoup
             name: "STALKERSOUP"
             type: regular
             badge: soup
             description: "Work in progress - STALKERSOUP description coming soon | Work in progress - STALKERSOUP description coming soon | Work in progress - STALKERSOUP description coming soon"
+            link: "#"
+            
+          - id: ns2016
+            name: "NS2016"
+            type: regular
+            badge: soup
+            description: "Work in progress - NS2016 description coming soon | Work in progress - NS2016 description coming soon | Work in progress - NS2016 description coming soon"
             link: "#"
             
       - id: new-arsenal-7
@@ -240,6 +233,13 @@ base_games:
         type: regular
         badge: soup
         description: "Work in progress - OP 2.2 description coming soon | Work in progress - OP 2.2 description coming soon | Work in progress - OP 2.2 description coming soon"
+        link: "#"
+        
+      - id: alternativa
+        name: "Alternativa"
+        type: regular
+        badge: soup
+        description: "Work in progress - Alternativa description coming soon | Work in progress - Alternativa description coming soon | Work in progress - Alternativa description coming soon"
         link: "#"
 
   - id: cs
@@ -276,11 +276,11 @@ base_games:
         description: "Work in progress - Clear Sky Complete description coming soon | Work in progress - Clear Sky Complete description coming soon | Work in progress - Clear Sky Complete description coming soon"
         link: "#"
         
-      - id: cs-lfo
-        name: "Clear Sky LFO"
+      - id: mystery
+        name: "Mystery"
         type: regular
         badge: overhaul
-        description: "Work in progress - Clear Sky LFO description coming soon | Work in progress - Clear Sky LFO description coming soon | Work in progress - Clear Sky LFO description coming soon"
+        description: "Work in progress - Mystery description coming soon | Work in progress - Mystery description coming soon | Work in progress - Mystery description coming soon"
         link: "#"
         
       - id: hibernation-evil
@@ -291,11 +291,18 @@ base_games:
         link: "#"
         is_story: true
         
-      - id: mystery
-        name: "Mystery"
+      - id: cs-lfo
+        name: "Clear Sky LFO"
         type: regular
         badge: overhaul
-        description: "Work in progress - Mystery description coming soon | Work in progress - Mystery description coming soon | Work in progress - Mystery description coming soon"
+        description: "Work in progress - Clear Sky LFO description coming soon | Work in progress - Clear Sky LFO description coming soon | Work in progress - Clear Sky LFO description coming soon"
+        link: "#"
+        
+      - id: rtl
+        name: "Road to Limansk"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Road to Limansk description coming soon | Work in progress - Road to Limansk description coming soon | Work in progress - Road to Limansk description coming soon"
         link: "#"
         
       - id: ogsm
@@ -313,13 +320,6 @@ base_games:
             link: "#"
             is_story: true
             
-      - id: rtl
-        name: "Road to Limansk"
-        type: regular
-        badge: overhaul
-        description: "Work in progress - Road to Limansk description coming soon | Work in progress - Road to Limansk description coming soon | Work in progress - Road to Limansk description coming soon"
-        link: "#"
-        
       - id: reborn
         name: "REBORN"
         type: platform-family
@@ -347,13 +347,6 @@ base_games:
     description: "Work in progress - Call of Pripyat description coming soon | Work in progress - Call of Pripyat description coming soon | Work in progress - Call of Pripyat description coming soon"
     link: null
     children:
-      - id: misery-22
-        name: "Misery 2.2"
-        type: regular
-        badge: overhaul
-        description: "Work in progress - Misery 2.2 description coming soon | Work in progress - Misery 2.2 description coming soon | Work in progress - Misery 2.2 description coming soon"
-        link: "#"
-        
       - id: another-zone-mod
         name: "Another Zone Mod"
         type: regular
@@ -442,6 +435,13 @@ base_games:
         link: "#"
         is_story: true
         
+      - id: misery-22
+        name: "Misery 2.2"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Misery 2.2 description coming soon | Work in progress - Misery 2.2 description coming soon | Work in progress - Misery 2.2 description coming soon"
+        link: "#"
+        
       - id: openxray
         name: "OpenXRay"
         type: engine-family
@@ -492,12 +492,13 @@ base_games:
             description: "Work in progress - Dead Air description coming soon | Work in progress - Dead Air description coming soon | Work in progress - Dead Air description coming soon"
             link: "#"
             
-          - id: demosfen
-            name: "Demosfen"
+          - id: dollchan-8
+            name: "Dollchan 8: Infinity"
             type: regular
-            badge: overhaul
-            description: "Work in progress - Demosfen description coming soon | Work in progress - Demosfen description coming soon | Work in progress - Demosfen description coming soon"
+            badge: story
+            description: "Work in progress - Dollchan 8: Infinity description coming soon | Work in progress - Dollchan 8: Infinity description coming soon | Work in progress - Dollchan 8: Infinity description coming soon"
             link: "#"
+            is_story: true
             
           - id: global-war
             name: "Global War"
@@ -520,14 +521,6 @@ base_games:
             description: "Work in progress - Last Day description coming soon | Work in progress - Last Day description coming soon | Work in progress - Last Day description coming soon"
             link: "#"
             
-          - id: dollchan-8
-            name: "Dollchan 8: Infinity"
-            type: regular
-            badge: story
-            description: "Work in progress - Dollchan 8: Infinity description coming soon | Work in progress - Dollchan 8: Infinity description coming soon | Work in progress - Dollchan 8: Infinity description coming soon"
-            link: "#"
-            is_story: true
-            
           - id: legend-returns
             name: "Legend Returns"
             type: regular
@@ -543,6 +536,13 @@ base_games:
             description: "Work in progress - Road to the North description coming soon | Work in progress - Road to the North description coming soon | Work in progress - Road to the North description coming soon"
             link: "#"
             
+          - id: warfare
+            name: "Warfare"
+            type: regular
+            badge: freeplay
+            description: "Work in progress - Warfare description coming soon | Work in progress - Warfare description coming soon | Work in progress - Warfare description coming soon"
+            link: "#"
+            
           - id: team-lite
             name: "Team Lite"
             type: regular
@@ -550,11 +550,11 @@ base_games:
             description: "Work in progress - Team Lite description coming soon | Work in progress - Team Lite description coming soon | Work in progress - Team Lite description coming soon"
             link: "#"
             
-          - id: warfare
-            name: "Warfare"
+          - id: demosfen
+            name: "Demosfen"
             type: regular
-            badge: freeplay
-            description: "Work in progress - Warfare description coming soon | Work in progress - Warfare description coming soon | Work in progress - Warfare description coming soon"
+            badge: overhaul
+            description: "Work in progress - Demosfen description coming soon | Work in progress - Demosfen description coming soon | Work in progress - Demosfen description coming soon"
             link: "#"
             
           - id: anomaly
@@ -564,18 +564,18 @@ base_games:
             description: "Work in progress - Anomaly description coming soon | Work in progress - Anomaly description coming soon | Work in progress - Anomaly description coming soon"
             link: "#"
             hierarchical_children:
-              - id: anthology
-                name: "Anthology"
-                type: regular
-                badge: modpack
-                description: "Work in progress - Anthology description coming soon | Work in progress - Anthology description coming soon | Work in progress - Anthology description coming soon"
-                link: "#"
-                
               - id: anomaly-redux
                 name: "Anomaly Redux"
                 type: regular
                 badge: modpack
                 description: "Work in progress - Anomaly Redux description coming soon | Work in progress - Anomaly Redux description coming soon | Work in progress - Anomaly Redux description coming soon"
+                link: "#"
+                
+              - id: anthology
+                name: "Anthology"
+                type: regular
+                badge: modpack
+                description: "Work in progress - Anthology description coming soon | Work in progress - Anthology description coming soon | Work in progress - Anthology description coming soon"
                 link: "#"
                 
               - id: bosspack
