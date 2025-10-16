@@ -14,6 +14,8 @@ gallery_images:
   - "screenshot01.jpg"
   - "screenshot02.jpg"
   - "screenshot03.jpg"
+  - "screenshot04.jpg"
+  - "screenshot05.jpg"
 
 seo_title: "Alone in Windstorm - Download & Install Guide | Cheeki's S.T.A.L.K.E.R. Mods Archive"
 seo_description: "Download Alone in Windstorm for S.T.A.L.K.E.R. Call of Pripyat. Complete installation guide, gameplay features, and detailed review on Cheeki's S.T.A.L.K.E.R. Mods Archive"
