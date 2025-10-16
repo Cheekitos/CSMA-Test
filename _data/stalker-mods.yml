@@ -363,6 +363,100 @@ base_games:
         link: "#"
         is_story: true
         
+      - id: ghosts-of-the-past
+        name: "Ghosts of the Past"
+        type: regular
+        badge: story
+        description: "Work in progress - Ghosts of the Past description coming soon | Work in progress - Ghosts of the Past description coming soon | Work in progress - Ghosts of the Past description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: incubator
+        name: "Incubator"
+        type: regular
+        badge: story
+        description: "Work in progress - Incubator description coming soon | Work in progress - Incubator description coming soon | Work in progress - Incubator description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: misery-22
+        name: "Misery 2.2"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Misery 2.2 description coming soon | Work in progress - Misery 2.2 description coming soon | Work in progress - Misery 2.2 description coming soon"
+        link: "#"
+        
+      - id: openxray
+        name: "OpenXRay"
+        type: engine-family
+        badge: engine
+        description: "Work in progress - OpenXRay description coming soon | Work in progress - OpenXRay description coming soon | Work in progress - OpenXRay description coming soon"
+        link: "#"
+        hierarchical_children:
+          - id: true-stalker
+            name: "True Stalker"
+            type: regular
+            badge: story
+            description: "Work in progress - True Stalker description coming soon | Work in progress - True Stalker description coming soon | Work in progress - True Stalker description coming soon"
+            link: "#"
+            is_story: true
+        
+      - id: path-in-the-mist
+        name: "Path in the Mist"
+        type: regular
+        badge: story
+        description: "Work in progress - Path in the Mist description coming soon | Work in progress - Path in the Mist description coming soon | Work in progress - Path in the Mist description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: return-to-the-zone
+        name: "Return to the Zone"
+        type: regular
+        badge: story
+        description: "Work in progress - Return to the Zone description coming soon | Work in progress - Return to the Zone description coming soon | Work in progress - Return to the Zone description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: spatial-anomaly
+        name: "Spatial Anomaly"
+        type: regular
+        badge: story
+        description: "Work in progress - Spatial Anomaly description coming soon | Work in progress - Spatial Anomaly description coming soon | Work in progress - Spatial Anomaly description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: thejourney
+        name: "The Journey"
+        type: regular
+        badge: story
+        description: "Work in progress - The Journey description coming soon | Work in progress - The Journey description coming soon | Work in progress - The Journey description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: trapped
+        name: "Trapped"
+        type: regular
+        badge: story
+        description: "Work in progress - Trapped description coming soon | Work in progress - Trapped description coming soon | Work in progress - Trapped description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: valley-of-whispers
+        name: "Valley of Whispers"
+        type: regular
+        badge: story
+        description: "Work in progress - Valley of Whispers description coming soon | Work in progress - Valley of Whispers description coming soon | Work in progress - Valley of Whispers description coming soon"
+        link: "#"
+        is_story: true
+        
+      - id: wind-of-time
+        name: "Wind of time"
+        type: regular
+        badge: story
+        description: "Work in progress - Wind of time description coming soon | Work in progress - Wind of time description coming soon | Work in progress - Wind of time description coming soon"
+        link: "#"
+        is_story: true
+        
       - id: coc
         name: "Call of Chernobyl"
         type: engine-family
@@ -539,11 +633,3 @@ base_games:
                 badge: modpack
                 description: "Work in progress - Zona description coming soon | Work in progress - Zona description coming soon | Work in progress - Zona description coming soon"
                 link: "#"
-        
-      - id: ghosts-of-the-past
-        name: "Ghosts of the Past"
-        type: regular
-        badge: story
-        description: "Work in progress - Ghosts of the Past description coming soon | Work in progress - Ghosts of the Past description coming soon | Work in progress - Ghosts of the Past description coming soon"
-        link: "#"
-        is_story: true
