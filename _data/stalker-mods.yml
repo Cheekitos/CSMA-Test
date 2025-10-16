@@ -131,6 +131,13 @@ base_games:
             link: "#"
             is_story: true
             
+          - id: radiophobia3
+            name: "Radiophobia 3"
+            type: regular
+            badge: overhaul
+            description: "Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon"
+            link: "#"
+            
           - id: ogsr
             name: "OGSR"
             type: engine-family
@@ -169,13 +176,6 @@ base_games:
                     description: "Work in progress - SFZ Project E0 Deluxe Remake description coming soon | Work in progress - SFZ Project E0 Deluxe Remake description coming soon | Work in progress - SFZ Project E0 Deluxe Remake description coming soon"
                     link: "#"
                     is_story: true
-            
-          - id: radiophobia3
-            name: "Radiophobia 3"
-            type: regular
-            badge: overhaul
-            description: "Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon | Work in progress - Radiophobia 3 description coming soon"
-            link: "#"
         
       - id: priboi-story
         name: "Priboi Story"
