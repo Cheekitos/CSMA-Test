@@ -3,27 +3,28 @@ layout: default
 title: Interactive Mod Map
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} - {{ site.title }}</title>
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/stalker-map.css">
-</head>
-<body>
-
 <div class="mod-tree-container">
   <div class="page-header">
     <a href="{{ site.baseurl }}/index.html" class="site-title">Cheeki's Mods Archive</a>
-    <div class="header-buttons">
-      <button id="essentials-button" aria-label="View essential files" class="control-button">
+    <!-- Desktop buttons -->
+    <div class="hidden sm:flex gap-2">
+      <button id="essentials-button" aria-label="View essential files" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-2 rounded">
         Essentials
       </button>
-      <button id="contact-button" aria-label="About" class="control-button">
+      <button id="contact-button" aria-label="About" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-3 rounded">
         About
       </button>
     </div>
+  </div>
+
+  <!-- Mobile buttons -->
+  <div class="grid grid-cols-2 gap-2 mb-4 sm:hidden">
+    <button id="essentials-button-mobile" aria-label="View essential files" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-2 rounded">
+      Essentials
+    </button>
+    <button id="contact-button-mobile" aria-label="About" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-3 rounded">
+      About
+    </button>
   </div>
 
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -90,12 +91,5 @@ title: Interactive Mod Map
   </div>
 </div>
 
-{% include cookie-consent.html %}
 {% include about-popup.html %}
 {% include essentials-popup.html %}
-
-<script src="{{ site.baseurl }}/assets/js/stalker-map.js"></script>
-<script src="{{ site.baseurl }}/assets/js/overlays.js"></script>
-
-</body>
-</html>
