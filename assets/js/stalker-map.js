@@ -256,4 +256,9 @@ function initPanZoom() {
 document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
+  
+  // Initialize UI controls if available
+  if (window.StalkerMods && window.StalkerMods.uiControls) {
+    window.StalkerMods.uiControls.init();
+  }
 });
