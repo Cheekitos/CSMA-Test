@@ -253,7 +253,71 @@ function initPanZoom() {
   });
 }
 
+// Header button handlers for overlays
+function initOverlayHandlers() {
+  const essentialsBtn = document.getElementById('essentials-button-map');
+  const contactBtn = document.getElementById('contact-button-map');
+  const essentialsOverlay = document.getElementById('install-files-overlay');
+  const contactOverlay = document.getElementById('contact-overlay');
+  const essentialsClose = document.getElementById('install-files-close');
+  const contactClose = document.getElementById('contact-close');
+  
+  if (essentialsBtn && essentialsOverlay) {
+    essentialsBtn.addEventListener('click', () => {
+      essentialsOverlay.classList.remove('hidden');
+    });
+  }
+  
+  if (contactBtn && contactOverlay) {
+    contactBtn.addEventListener('click', () => {
+      contactOverlay.classList.remove('hidden');
+    });
+  }
+  
+  if (essentialsClose && essentialsOverlay) {
+    essentialsClose.addEventListener('click', () => {
+      essentialsOverlay.classList.add('hidden');
+    });
+  }
+  
+  if (contactClose && contactOverlay) {
+    contactClose.addEventListener('click', () => {
+      contactOverlay.classList.add('hidden');
+    });
+  }
+  
+  // Close on outside click
+  if (essentialsOverlay) {
+    essentialsOverlay.addEventListener('click', (e) => {
+      if (e.target === essentialsOverlay) {
+        essentialsOverlay.classList.add('hidden');
+      }
+    });
+  }
+  
+  if (contactOverlay) {
+    contactOverlay.addEventListener('click', (e) => {
+      if (e.target === contactOverlay) {
+        contactOverlay.classList.add('hidden');
+      }
+    });
+  }
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (essentialsOverlay && !essentialsOverlay.classList.contains('hidden')) {
+        essentialsOverlay.classList.add('hidden');
+      }
+      if (contactOverlay && !contactOverlay.classList.contains('hidden')) {
+        contactOverlay.classList.add('hidden');
+      }
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
+  initOverlayHandlers();
 });
