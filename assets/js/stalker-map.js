@@ -257,6 +257,55 @@ document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
   
+  // Setup button handlers for Essentials and About
+  const essentialsBtn = document.getElementById('essentials-button');
+  const contactBtn = document.getElementById('contact-button');
+  const installFilesOverlay = document.getElementById('install-files-overlay');
+  const contactOverlay = document.getElementById('contact-overlay');
+  const installFilesClose = document.getElementById('install-files-close');
+  const contactClose = document.getElementById('contact-close');
+  
+  if (essentialsBtn && installFilesOverlay) {
+    essentialsBtn.addEventListener('click', () => {
+      installFilesOverlay.classList.remove('hidden');
+    });
+  }
+  
+  if (contactBtn && contactOverlay) {
+    contactBtn.addEventListener('click', () => {
+      contactOverlay.classList.remove('hidden');
+    });
+  }
+  
+  if (installFilesClose && installFilesOverlay) {
+    installFilesClose.addEventListener('click', () => {
+      installFilesOverlay.classList.add('hidden');
+    });
+  }
+  
+  if (contactClose && contactOverlay) {
+    contactClose.addEventListener('click', () => {
+      contactOverlay.classList.add('hidden');
+    });
+  }
+  
+  // Close on background click
+  if (installFilesOverlay) {
+    installFilesOverlay.addEventListener('click', (e) => {
+      if (e.target === installFilesOverlay) {
+        installFilesOverlay.classList.add('hidden');
+      }
+    });
+  }
+  
+  if (contactOverlay) {
+    contactOverlay.addEventListener('click', (e) => {
+      if (e.target === contactOverlay) {
+        contactOverlay.classList.add('hidden');
+      }
+    });
+  }
+  
   // Initialize UI controls if available
   if (window.StalkerMods && window.StalkerMods.uiControls) {
     window.StalkerMods.uiControls.init();
