@@ -16,16 +16,6 @@ title: Interactive Mod Map
 <div class="mod-tree-container">
   <div class="page-header">
     <a href="{{ site.baseurl }}/index.html" class="site-title">Cheeki's Mods Archive</a>
-    
-    <!-- Desktop buttons -->
-    <div class="header-buttons">
-      <button id="essentials-button-map" aria-label="View essential files" class="header-btn">
-        Essentials
-      </button>
-      <button id="contact-button-map" aria-label="About" class="header-btn">
-        About
-      </button>
-    </div>
   </div>
 
   <div class="legend-box">
@@ -106,26 +96,6 @@ title: Interactive Mod Map
       </div>
       {% endfor %}
 
-    </div>
-  </div>
-</div>
-
-<!-- Essentials Overlay -->
-<div id="install-files-overlay" class="hidden">
-  <div class="install-files-modal">
-    <button id="install-files-close" aria-label="Close">&times;</button>
-    <div class="overlay-content">
-      {% include essential-files.html %}
-    </div>
-  </div>
-</div>
-
-<!-- Contact/About Overlay -->
-<div id="contact-overlay" class="hidden">
-  <div class="contact-modal">
-    <button id="contact-close" aria-label="Close">&times;</button>
-    <div class="overlay-content">
-      {% include about.html %}
     </div>
   </div>
 </div>
