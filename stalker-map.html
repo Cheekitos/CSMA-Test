@@ -3,28 +3,47 @@ layout: default
 title: Interactive Mod Map
 ---
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/stalker-map.css">
+</head>
+<body>
+
 <div class="mod-tree-container">
   <div class="page-header">
     <a href="{{ site.baseurl }}/index.html" class="site-title">Cheeki's Mods Archive</a>
+    
     <!-- Desktop buttons -->
-    <div class="hidden sm:flex gap-2">
-      <button id="essentials-button" aria-label="View essential files" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-2 rounded">
+    <div class="header-buttons">
+      <button id="essentials-button-map" aria-label="View essential files" class="header-btn">
         Essentials
       </button>
-      <button id="contact-button" aria-label="About" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-3 rounded">
+      <button id="contact-button-map" aria-label="About" class="header-btn">
         About
       </button>
     </div>
   </div>
 
-  <!-- Mobile buttons -->
-  <div class="grid grid-cols-2 gap-2 mb-4 sm:hidden">
-    <button id="essentials-button-mobile" aria-label="View essential files" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-2 rounded">
-      Essentials
-    </button>
-    <button id="contact-button-mobile" aria-label="About" class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-3 rounded">
-      About
-    </button>
+  <div class="legend-box">
+    <div class="legend-title">Legend</div>
+    <div class="legend-items">
+      <div class="legend-item">
+        <div class="legend-color" style="background: #065f46; border: 2px solid #10b981;"></div>
+        <span>Base Game</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #5b21b6; border: 2px solid #8b5cf6;"></div>
+        <span>Engine Mod</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #1f2937; border: 2px solid #0ea5e9;"></div>
+        <span>Parent Mod</span>
+      </div>
+    </div>
   </div>
 
   <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -91,5 +110,27 @@ title: Interactive Mod Map
   </div>
 </div>
 
-{% include about-popup.html %}
-{% include essentials-popup.html %}
+<!-- Essentials Overlay -->
+<div id="install-files-overlay" class="hidden">
+  <div class="install-files-modal">
+    <button id="install-files-close" aria-label="Close">&times;</button>
+    <div class="overlay-content">
+      {% include essential-files.html %}
+    </div>
+  </div>
+</div>
+
+<!-- Contact/About Overlay -->
+<div id="contact-overlay" class="hidden">
+  <div class="contact-modal">
+    <button id="contact-close" aria-label="Close">&times;</button>
+    <div class="overlay-content">
+      {% include about.html %}
+    </div>
+  </div>
+</div>
+
+<script src="{{ site.baseurl }}/assets/js/stalker-map.js"></script>
+
+</body>
+</html>
