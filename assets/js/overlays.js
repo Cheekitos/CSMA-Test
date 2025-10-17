@@ -26,8 +26,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       };
 
+      // Try using utils setupButtonHandlers if available, otherwise set up manually
       if (window.StalkerMods.utils && window.StalkerMods.utils.setupButtonHandlers) {
         window.StalkerMods.utils.setupButtonHandlers(['contact-button', 'contact-button-mobile'], showContactOverlay);
+      } else {
+        // Fallback for pages without utils (like stalker-map)
+        const contactBtn = document.getElementById('contact-button');
+        const contactBtnMobile = document.getElementById('contact-button-mobile');
+        if (contactBtn) contactBtn.addEventListener('click', showContactOverlay);
+        if (contactBtnMobile) contactBtnMobile.addEventListener('click', showContactOverlay);
       }
 
       const contactClose = document.getElementById('contact-close');
@@ -64,8 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       };
 
+      // Try using utils setupButtonHandlers if available, otherwise set up manually
       if (window.StalkerMods.utils && window.StalkerMods.utils.setupButtonHandlers) {
         window.StalkerMods.utils.setupButtonHandlers(['essentials-button', 'essentials-button-mobile'], showInstallFilesOverlay);
+      } else {
+        // Fallback for pages without utils (like stalker-map)
+        const essentialsBtn = document.getElementById('essentials-button');
+        const essentialsBtnMobile = document.getElementById('essentials-button-mobile');
+        if (essentialsBtn) essentialsBtn.addEventListener('click', showInstallFilesOverlay);
+        if (essentialsBtnMobile) essentialsBtnMobile.addEventListener('click', showInstallFilesOverlay);
       }
 
       const installFilesOverlay = document.getElementById('install-files-overlay');
