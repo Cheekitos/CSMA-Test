@@ -149,8 +149,6 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 .mod-card:hover {
@@ -209,7 +207,7 @@ body {
 .mod-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
 }
 
@@ -218,16 +216,26 @@ body {
   font-weight: 600;
   color: #f3f4f6;
   flex: 1;
-  word-break: break-word;
 }
 
 .mod-badges {
   display: flex;
   gap: 4px;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
   flex-shrink: 0;
+}
+
+.expand-icon {
+  width: 16px;
+  height: 16px;
+  color: #fbbf24;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  order: -1;
+}
+
+.expand-icon.rotated {
+  transform: rotate(180deg);
 }
 
 .mod-badge {
@@ -277,18 +285,6 @@ body {
   color: #fef9c3;
 }
 
-.expand-icon {
-  width: 16px;
-  height: 16px;
-  color: #fbbf24;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.expand-icon.rotated {
-  transform: rotate(180deg);
-}
-
 .mod-details {
   height: 0;
   overflow: hidden;
@@ -325,14 +321,6 @@ body {
 
 .mod-link:hover {
   color: #93c5fd;
-}
-
-.mod-footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #4b5563;
 }
 
 .controls-bar {
