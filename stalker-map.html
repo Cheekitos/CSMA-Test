@@ -18,24 +18,7 @@ title: Interactive Mod Map
     <a href="{{ site.baseurl }}/index.html" class="site-title">Cheeki's Mods Archive</a>
   </div>
 
-  <div class="legend-box">
-    <div class="legend-title">Legend</div>
-    <div class="legend-items">
-      <div class="legend-item">
-        <div class="legend-color" style="background: #065f46; border: 2px solid #10b981;"></div>
-        <span>Base Game</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background: #5b21b6; border: 2px solid #8b5cf6;"></div>
-        <span>Engine Mod</span>
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background: #1f2937; border: 2px solid #0ea5e9;"></div>
-        <span>Parent Mod</span>
-      </div>
-    </div>
-  </div>
-
+  <!-- REPLACE LEGEND BOX WITH HEADER BUTTONS -->
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a href="{{ site.baseurl }}/index.html">
       <svg fill="currentColor" viewBox="0 0 20 20">
@@ -46,6 +29,23 @@ title: Interactive Mod Map
     <span class="breadcrumb-separator">›</span>
     <span style="color: #d1d5db;">Interactive Map</span>
   </nav>
+
+  <!-- HEADER BUTTONS -->
+  <header class="header-buttons">
+    <button id="essentials-button" class="essential-button bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-0.5 px-2 rounded transition-colors">
+      Essentials
+    </button>
+    <a href="{{ '/essential.html' | relative_url }}" class="hidden sm:flex gap-2 text-gray-300">
+      <button class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-2 rounded transition-colors">
+        View Details
+      </button>
+    </a>
+    <a href="{{ '/about.html' | relative_url }}" class="hidden sm:flex gap-2 text-yellow-400">
+      <button class="bg-gray-700 hover:bg-gray-600 text-white text-xs font-medium py-1 px-2 rounded transition-colors">
+      About
+      </button>
+    </a>
+  </header>
 
   <h1 class="page-title">S.T.A.L.K.E.R. Mod Family Tree</h1>
   <p class="page-subtitle">This is obviously not ALL the S.T.A.L.K.E.R. mods that exist, but a lot of the relevant ones and a good overview of what fun projects are available for you to play.</p>
@@ -74,7 +74,7 @@ title: Interactive Mod Map
               <div class="mod-title">{{ base_game.name }}</div>
               <div class="mod-badges">
                 <svg class="expand-icon" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" clip-rule="evenodd"/>
                 </svg>
               </div>
             </div>
