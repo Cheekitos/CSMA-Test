@@ -437,6 +437,21 @@ body {
   color: #fbbf24;
 }
 
+.header-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.header-buttons button {
+  font-size: 0.875rem !important; 
+  padding: 0.375rem 0.75rem !important; 
+  transition: all 0.2s ease;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .breadcrumb {
   display: flex;
   align-items: center;
