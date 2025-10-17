@@ -18,14 +18,14 @@ function toggleCard(card) {
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
   
-  const connector = document.querySelector('.branch-connector[data-parent="' + cardId + '"]');
-  const childrenRow = document.querySelector('.children-row[data-parent="' + cardId + '"], .hierarchical-children[data-parent="' + cardId + '"]');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   const isExpanded = details.classList.contains('expanded');
   
   if (isExpanded) {
     details.style.height = details.scrollHeight + 'px';
-    requestAnimationFrame(function() {
+    requestAnimationFrame(() => {
       details.style.height = '0';
       details.classList.remove('expanded');
       if (icon) icon.classList.remove('rotated');
@@ -42,11 +42,11 @@ function toggleCard(card) {
     
     const height = details.scrollHeight;
     details.style.height = '0';
-    requestAnimationFrame(function() {
+    requestAnimationFrame(() => {
       details.style.height = height + 'px';
     });
     
-    setTimeout(function() {
+    setTimeout(() => {
       if (details.classList.contains('expanded')) {
         details.style.height = 'auto';
       }
@@ -80,34 +80,26 @@ function expandFullView() {
   const baseGames = document.querySelectorAll('.mod-card.base-game');
   const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
   
-  baseGames.forEach(function(card) {
-    expandCard(card);
-  });
-  parentMods.forEach(function(card) {
-    expandCard(card);
-  });
+  baseGames.forEach(card => expandCard(card));
+  parentMods.forEach(card => expandCard(card));
 }
 
 function expandAll() {
   const allCards = document.querySelectorAll('.mod-card[data-id]');
-  allCards.forEach(function(card) {
-    expandCard(card);
-  });
+  allCards.forEach(card => expandCard(card));
 }
 
 function collapseAll() {
   const allCards = document.querySelectorAll('.mod-card[data-id]');
-  allCards.forEach(function(card) {
-    collapseCard(card);
-  });
+  allCards.forEach(card => collapseCard(card));
 }
 
 function expandCard(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
-  const connector = document.querySelector('.branch-connector[data-parent="' + cardId + '"]');
-  const childrenRow = document.querySelector('.children-row[data-parent="' + cardId + '"], .hierarchical-children[data-parent="' + cardId + '"]');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   if (!details.classList.contains('expanded')) {
     details.classList.add('expanded');
@@ -123,8 +115,8 @@ function collapseCard(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
-  const connector = document.querySelector('.branch-connector[data-parent="' + cardId + '"]');
-  const childrenRow = document.querySelector('.children-row[data-parent="' + cardId + '"], .hierarchical-children[data-parent="' + cardId + '"]');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   if (details.classList.contains('expanded')) {
     details.style.height = '0';
@@ -142,7 +134,7 @@ function toggleStoryMods() {
   
   storyModsHidden = !storyModsHidden;
   
-  storyMods.forEach(function(container) {
+  storyMods.forEach(container => {
     if (storyModsHidden) {
       container.classList.add('story-hidden');
     } else {
@@ -160,7 +152,7 @@ function updateZoom() {
   const zoomOutBtn = document.getElementById('zoomOutBtn');
   
   updateTransform();
-  zoomLevel.textContent = currentZoom + '%';
+  zoomLevel.textContent = `${currentZoom}%`;
   
   zoomInBtn.disabled = currentZoom >= maxZoom;
   zoomOutBtn.disabled = currentZoom <= minZoom;
@@ -168,7 +160,7 @@ function updateZoom() {
 
 function updateTransform() {
   const container = document.getElementById('flowchartContainer');
-  container.style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + (currentZoom / 100) + ')';
+  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom / 100})`;
 }
 
 function zoomIn() {
@@ -199,9 +191,7 @@ function resetView() {
   if (storyModsHidden) {
     storyModsHidden = false;
     const storyMods = document.querySelectorAll('.story-mod-container');
-    storyMods.forEach(function(container) {
-      container.classList.remove('story-hidden');
-    });
+    storyMods.forEach(container => container.classList.remove('story-hidden'));
     document.getElementById('hideStoryBtn').classList.remove('active');
   }
   
@@ -211,7 +201,7 @@ function resetView() {
 function initPanZoom() {
   const wrapper = document.getElementById('flowchartWrapper');
   
-  wrapper.addEventListener('mousedown', function(e) {
+  wrapper.addEventListener('mousedown', (e) => {
     if (e.target.closest('.mod-card') || e.target.closest('a')) {
       return;
     }
@@ -222,7 +212,7 @@ function initPanZoom() {
     wrapper.style.cursor = 'grabbing';
   });
   
-  window.addEventListener('mousemove', function(e) {
+  window.addEventListener('mousemove', (e) => {
     if (!isPanning) return;
     
     e.preventDefault();
@@ -231,14 +221,14 @@ function initPanZoom() {
     updateTransform();
   });
   
-  window.addEventListener('mouseup', function() {
+  window.addEventListener('mouseup', () => {
     if (isPanning) {
       isPanning = false;
       wrapper.style.cursor = 'grab';
     }
   });
   
-  wrapper.addEventListener('touchstart', function(e) {
+  wrapper.addEventListener('touchstart', (e) => {
     if (e.target.closest('.mod-card')) {
       return;
     }
@@ -250,7 +240,7 @@ function initPanZoom() {
     }
   }, { passive: true });
   
-  wrapper.addEventListener('touchmove', function(e) {
+  wrapper.addEventListener('touchmove', (e) => {
     if (!isPanning || e.touches.length !== 1) return;
     
     translateX = e.touches[0].clientX - startX;
@@ -258,76 +248,12 @@ function initPanZoom() {
     updateTransform();
   }, { passive: true });
   
-  wrapper.addEventListener('touchend', function() {
+  wrapper.addEventListener('touchend', () => {
     isPanning = false;
-  });
-}
-
-// Header button handlers for overlays
-function initOverlayHandlers() {
-  const essentialsBtn = document.getElementById('essentials-button-map');
-  const contactBtn = document.getElementById('contact-button-map');
-  const essentialsOverlay = document.getElementById('install-files-overlay');
-  const contactOverlay = document.getElementById('contact-overlay');
-  const essentialsClose = document.getElementById('install-files-close');
-  const contactClose = document.getElementById('contact-close');
-  
-  if (essentialsBtn && essentialsOverlay) {
-    essentialsBtn.addEventListener('click', function() {
-      essentialsOverlay.classList.remove('hidden');
-    });
-  }
-  
-  if (contactBtn && contactOverlay) {
-    contactBtn.addEventListener('click', function() {
-      contactOverlay.classList.remove('hidden');
-    });
-  }
-  
-  if (essentialsClose && essentialsOverlay) {
-    essentialsClose.addEventListener('click', function() {
-      essentialsOverlay.classList.add('hidden');
-    });
-  }
-  
-  if (contactClose && contactOverlay) {
-    contactClose.addEventListener('click', function() {
-      contactOverlay.classList.add('hidden');
-    });
-  }
-  
-  // Close on outside click
-  if (essentialsOverlay) {
-    essentialsOverlay.addEventListener('click', function(e) {
-      if (e.target === essentialsOverlay) {
-        essentialsOverlay.classList.add('hidden');
-      }
-    });
-  }
-  
-  if (contactOverlay) {
-    contactOverlay.addEventListener('click', function(e) {
-      if (e.target === contactOverlay) {
-        contactOverlay.classList.add('hidden');
-      }
-    });
-  }
-  
-  // Close on Escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      if (essentialsOverlay && !essentialsOverlay.classList.contains('hidden')) {
-        essentialsOverlay.classList.add('hidden');
-      }
-      if (contactOverlay && !contactOverlay.classList.contains('hidden')) {
-        contactOverlay.classList.add('hidden');
-      }
-    }
   });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
-  initOverlayHandlers();
 });
