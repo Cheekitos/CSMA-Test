@@ -15,13 +15,6 @@ base_games:
         description: "Work in progress - Zone Reclamation Project description coming soon | Work in progress - Zone Reclamation Project description coming soon | Work in progress - Zone Reclamation Project description coming soon"
         link: "#"
         
-      - id: memories-of-the-zone
-        name: "Memories of the Zone"
-        type: regular
-        badge: vanillaplus
-        description: "Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon"
-        link: "#"
-        
       - id: amk
         name: "AMK"
         type: platform-family
@@ -145,6 +138,13 @@ base_games:
             description: "Work in progress - OGSR description coming soon | Work in progress - OGSR description coming soon | Work in progress - OGSR description coming soon"
             link: "#"
             hierarchical_children:
+              - id: memories-of-the-zone
+                name: "Memories of the Zone"
+                type: regular
+                badge: vanillaplus
+                description: "Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon"
+                link: "#"
+              
               - id: borov-story
                 name: "Borov's Story"
                 type: regular
@@ -192,6 +192,13 @@ base_games:
             description: "Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon | Work in progress - Priboi Story: 2020 Overhaul description coming soon"
             link: "#"
             is_story: true
+
+      - id: prosectors-project
+        name: "Prosectors Project"
+        type: regular
+        badge: overhaul
+        description: "Work in progress - Prosectors Project description coming soon | Work in progress - Prosectors Project description coming soon | Work in progress - Prosectors Project description coming soon"
+        link: "#"
         
       - id: soc-update-2
         name: "SoC Update 2.0"
@@ -491,6 +498,13 @@ base_games:
             badge: overhaul
             description: "Work in progress - Dead Air description coming soon | Work in progress - Dead Air description coming soon | Work in progress - Dead Air description coming soon"
             link: "#"
+            hierarchical_children:
+              - id: deadair-revolution
+                name: "Dead Air: Revolution"
+                type: regular
+                badge: overhaul
+                description: "Work in progress - Dead Air: Revolution description coming soon | Work in progress - Dead Air: Revolution description coming soon | Work in progress - Dead Air: Revolution description coming soon"
+                link: "#"
             
           - id: demosfen
             name: "Demosfen"
