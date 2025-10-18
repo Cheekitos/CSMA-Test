@@ -115,7 +115,7 @@ body {
   position: absolute;
   left: 10px;
   top: 0;
-  bottom: 20px;
+  height: calc(100% - 20px);
   width: 2px;
   background: #4b5563;
 }
@@ -128,17 +128,6 @@ body {
   top: 20px;
   width: 30px;
   height: 2px;
-  background: #4b5563;
-}
-
-/* Extend vertical line down for all but the last child */
-.hierarchical-item:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: -20px;
-  top: 40px;
-  bottom: -10px;
-  width: 2px;
   background: #4b5563;
 }
 
