@@ -138,13 +138,6 @@ base_games:
             description: "Work in progress - OGSR description coming soon | Work in progress - OGSR description coming soon | Work in progress - OGSR description coming soon"
             link: "#"
             hierarchical_children:
-              - id: memories-of-the-zone
-                name: "Memories of the Zone"
-                type: regular
-                badge: vanillaplus
-                description: "Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon"
-                link: "#"
-              
               - id: borov-story
                 name: "Borov's Story"
                 type: regular
@@ -160,6 +153,20 @@ base_games:
                 description: "Work in progress - Goldsphere OGSR description coming soon | Work in progress - Goldsphere OGSR description coming soon | Work in progress - Goldsphere OGSR description coming soon"
                 link: "#"
                 is_story: true
+                
+              - id: memories-of-the-zone
+                name: "Memories of the Zone"
+                type: regular
+                badge: vanillaplus
+                description: "Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon | Work in progress - Memories of the Zone description coming soon"
+                link: "#"
+                
+              - id: ns2016
+                name: "NS 2016-2022"
+                type: regular
+                badge: soup
+                description: "Work in progress - NS 2016-2022 description coming soon | Work in progress - NS 2016-2022 description coming soon | Work in progress - NS 2016-2022 description coming soon"
+                link: "#"
                 
               - id: sfz-e0
                 name: "SFZ Project E0"
@@ -221,13 +228,6 @@ base_games:
         description: "Work in progress - Narodnaya Soljanka description coming soon | Work in progress - Narodnaya Soljanka description coming soon | Work in progress - Narodnaya Soljanka description coming soon"
         link: "#"
         hierarchical_children:
-          - id: ns2016
-            name: "NS2016"
-            type: regular
-            badge: soup
-            description: "Work in progress - NS2016 description coming soon | Work in progress - NS2016 description coming soon | Work in progress - NS2016 description coming soon"
-            link: "#"
-            
           - id: stalkersoup
             name: "STALKERSOUP"
             type: regular
