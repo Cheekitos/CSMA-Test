@@ -114,8 +114,8 @@ body {
   content: '';
   position: absolute;
   left: 10px;
-  top: 0;
-  bottom: calc(100% - 20px);
+  top: 20px;
+  bottom: 0;
   width: 2px;
   background: #4b5563;
 }
