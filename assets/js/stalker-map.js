@@ -22,8 +22,6 @@ function searchMods() {
   allCards.forEach(card => card.classList.remove('search-match'));
 
   if (filter.length < 2) {
-    // If search is cleared/too short, do nothing or reset? 
-    // Usually better to leave tree as is, or reset highlights only.
     return;
   }
 
@@ -42,11 +40,8 @@ function searchMods() {
     }
   });
 
-  // If we found a match, center the view on the first one
+  // Center view on first match
   if (firstMatch) {
-    // Optional: Auto-pan to the card. 
-    // This requires calculating position relative to the wrapper.
-    // For now, let's just ensure it's visible.
     firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
   }
 }
@@ -57,7 +52,7 @@ function expandToCard(card) {
   
   // Traverse up the DOM to find parent containers
   while (current) {
-    // Find the closest parent container (hierarchical-children or children-row)
+    // Find the closest parent container
     const parentContainer = current.closest('.hierarchical-children, .children-row');
     
     if (parentContainer) {
@@ -87,7 +82,7 @@ function toggleCard(card) {
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
   
-  // Select the child container (Note: removed branch-connector references)
+  // Select the child container
   const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   const isExpanded = details.classList.contains('expanded');
