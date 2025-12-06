@@ -12,7 +12,7 @@ body {
 }
 
 .mod-tree-container {
-  max-width: 72rem; /* Widen slightly for tree view */
+  max-width: 72rem;
   margin: 0 auto;
   padding: 20px;
   position: relative;
@@ -47,7 +47,6 @@ body {
   padding: 20px 0;
   cursor: grab;
   position: relative;
-  /* Add a subtle grid background for context */
   background-image: radial-gradient(#374151 1px, transparent 1px);
   background-size: 20px 20px;
   border-radius: 8px;
@@ -60,7 +59,7 @@ body {
 
 .flowchart-container {
   display: grid;
-  grid-template-columns: repeat(3, 320px); /* Slightly wider columns */
+  grid-template-columns: repeat(3, 320px);
   gap: 40px;
   justify-content: center;
   transition: transform 0.1s ease-out;
@@ -82,37 +81,33 @@ body {
   position: relative;
 }
 
-/* --- NEW TREE CONNECTORS (The "Directory" Look) --- */
-
-/* The container for children */
+/* --- TREE CONNECTORS --- */
 .hierarchical-children {
   display: flex;
   flex-direction: column;
-  margin-left: 20px; /* Indent from parent */
-  padding-left: 20px; /* Space for the vertical line */
-  border-left: 2px solid #4b5563; /* The main vertical trunk */
-  gap: 12px; /* Spacing between siblings */
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 2px solid #4b5563;
+  gap: 12px;
   margin-top: 12px;
 }
 
-/* The wrapper for a single child item */
 .hierarchical-item {
   position: relative;
   width: 100%;
 }
 
-/* The horizontal "arm" connector (L-shape) */
+/* L-shaped connector */
 .hierarchical-item::before {
   content: '';
   position: absolute;
-  top: 22px; /* Align with middle of child card approx */
-  left: -22px; /* Reach back to the vertical trunk */
+  top: 22px;
+  left: -22px;
   width: 20px;
   height: 2px;
   background: #4b5563;
 }
 
-/* Hover effect: Highlight the path when hovering a child */
 .hierarchical-children:hover {
   border-left-color: #6b7280;
 }
@@ -120,7 +115,6 @@ body {
   background-color: #fbbf24;
 }
 
-/* --- Removing the manual connector lines from old CSS --- */
 .branch-connector {
   display: none; 
 }
@@ -128,24 +122,23 @@ body {
 /* --- Card Styling --- */
 .mod-card {
   background: #1f2937;
-  border: 1px solid #374151; /* Thinner border for cleaner look */
-  border-left: 3px solid #374151; /* Accent on left */
+  border: 1px solid #374151;
+  border-left: 3px solid #374151;
   border-radius: 6px;
   padding: 10px 14px;
   width: 100%;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
-  z-index: 2; /* Sit above connectors */
+  z-index: 2;
 }
 
 .mod-card:hover {
   border-color: #fbbf24;
-  transform: translateX(2px); /* Slight nudge right instead of up */
+  transform: translateX(2px);
   box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }
 
-/* Search Match Highlight */
 .mod-card.search-match {
   border-color: #fbbf24;
   box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
@@ -157,16 +150,13 @@ body {
   border-bottom-color: #4b5563;
 }
 
-/* Color Coding by Type */
 .mod-card.base-game { border-left-color: #10b981; }
 .mod-card.engine-family { border-left-color: #8b5cf6; }
 .mod-card.platform-family { border-left-color: #0ea5e9; }
 
-/* Expanded States */
 .mod-card.base-game.expanded { border-color: #10b981; }
 .mod-card.engine-family.expanded { border-color: #8b5cf6; }
 
-/* Mod Header & Content */
 .mod-header {
   display: flex;
   justify-content: space-between;
@@ -195,7 +185,7 @@ body {
 }
 
 .expand-icon.rotated {
-  transform: rotate(90deg); /* Standard tree arrow rotation */
+  transform: rotate(90deg);
   color: #fbbf24;
 }
 
@@ -257,7 +247,7 @@ body {
   padding: 8px;
   margin-bottom: 20px;
   flex-wrap: wrap;
-  position: sticky; /* Keep controls visible */
+  position: sticky;
   top: 10px;
   z-index: 50;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -305,6 +295,63 @@ body {
 .control-button:hover { border-color: #fbbf24; color: #fbbf24; }
 .control-button.active { background: #059669; border-color: #059669; color: white; }
 
+/* --- Header & Breadcrumb --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f3f4f6;
+  text-decoration: none;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: #60a5fa;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* THIS WAS MISSING - Fixes the big white arrow */
+.breadcrumb svg {
+  width: 16px;
+  height: 16px;
+}
+
+.breadcrumb-separator { color: #9ca3af; }
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #fbbf24;
+}
+
+.page-subtitle, .page-description {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}
+.page-subtitle { color: #f3f4f6; }
+.page-description { color: #9ca3af; margin-bottom: 24px; }
+
 /* Helpers */
 .hidden { display: none; }
 .story-mod-container.story-hidden { display: none; }
@@ -318,4 +365,5 @@ body {
   }
   .search-wrapper { max-width: 100%; width: 100%; order: -1; }
   .controls-bar { flex-direction: column; align-items: stretch; }
+  .page-header { flex-direction: column; align-items: flex-start; }
 }
