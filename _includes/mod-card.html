@@ -2,7 +2,8 @@
   Recursive include for rendering mod cards with their children
   Parameters:
     - mod: the mod object from the YAML data
-    - parent_types: A comma-separated string of ancestor types (e.g., 'base-game,engine-family')
+    - parent_types: A space-separated string of all ancestor types (e.g., 'base-game engine-family')
+    - current_parent_color_class: The family color class of the immediate parent (e.g., 'base-game', 'engine-family', or 'platform-family')
 {% endcomment %}
 
 {% assign mod = include.mod %}
@@ -12,21 +13,32 @@
 {% endif %}
 
 {% comment %} 
-  1. Build the full type string for this mod, including its ancestors.
-  2. If parent_types exists, append it. Otherwise, use only the mod's own type.
+  1. Build the full ancestor type string.
 {% endcomment %}
-{% assign current_types = mod.type %}
+{% assign ancestor_types = mod.type %}
 {% if include.parent_types and include.parent_types != blank %}
-  {% assign ancestor_types = include.parent_types | append: "," | append: mod.type %}
-{% else %}
-  {% assign ancestor_types = mod.type %}
+  {% assign ancestor_types = include.parent_types | append: " " | append: mod.type %}
+{% endif %}
+
+{% comment %} 
+  2. Determine the color class to pass down to children for their Bar 1 (Lineage).
+     - If this mod is a Family type, it becomes the new lineage anchor.
+     - Otherwise, it passes its parent's lineage color down.
+{% endcomment %}
+{% assign next_parent_color_class = include.current_parent_color_class %}
+{% if mod.type == "engine-family" or mod.type == "platform-family" %}
+  {% assign next_parent_color_class = mod.type %}
+{% elsif next_parent_color_class == blank %}
+  {% comment %} Fallback for first level if parent_types isn't set (shouldn't happen with correct stalker-map.html) {% endcomment %}
+  {% assign next_parent_color_class = "base-game" %}
 {% endif %}
 
 <div class="flow-branch {{ story_class }}">
-  <div class="mod-card {{ mod.type }}" 
+  <div class="mod-card {{ mod.type }} {% if mod.type == 'regular' %}regular-mod{% endif %}" 
        onclick="toggleCard(this); event.stopPropagation();" 
        data-id="{{ mod.id }}"
-       data-ancestors="{{ ancestor_types | replace: ',', ' ' }}">
+       data-ancestors="{{ ancestor_types | strip }}"
+       data-parent-color="{{ include.current_parent_color_class }}">
     <div class="mod-header">
       <div class="mod-title">{{ mod.name }}</div>
       <div class="mod-badges">
@@ -61,7 +73,10 @@
         {% endif %}
         
         <div class="hierarchical-item {{ child_story_class }}">
-          {% include mod-card.html mod=child parent_types=ancestor_types %}
+          {% include mod-card.html 
+            mod=child 
+            parent_types=ancestor_types 
+            current_parent_color_class=next_parent_color_class %}
         </div>
       {% endfor %}
     </div>
