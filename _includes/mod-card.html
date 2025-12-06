@@ -38,8 +38,6 @@
   </div>
   
   {% if mod.hierarchical_children %}
-    <div class="branch-connector left-aligned hidden" data-parent="{{ mod.id }}"></div>
-    
     <div class="hierarchical-children hidden" data-parent="{{ mod.id }}">
       {% for child in mod.hierarchical_children %}
         {% assign child_story_class = "" %}
