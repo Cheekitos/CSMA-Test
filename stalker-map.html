@@ -61,7 +61,10 @@ title: Interactive Mod Map
       {% for base_game in site.data.stalker-mods.base_games %}
       <div class="base-column">
         <div class="flow-branch">
-          <div class="mod-card {{ base_game.type }}" onclick="toggleCard(this)" data-id="{{ base_game.id }}">
+          <div class="mod-card {{ base_game.type }}" 
+               onclick="toggleCard(this)" 
+               data-id="{{ base_game.id }}"
+               data-ancestors="{{ base_game.type }}">
             <div class="mod-header">
               <div class="mod-title">{{ base_game.name }}</div>
               <div class="mod-badges">
@@ -78,7 +81,7 @@ title: Interactive Mod Map
           <div class="children-row hidden" data-parent="{{ base_game.id }}">
             {% if base_game.children %}
               {% for child in base_game.children %}
-                {% include mod-card.html mod=child %}
+                {% include mod-card.html mod=child parent_types=base_game.type %}
               {% endfor %}
             {% endif %}
           </div>
