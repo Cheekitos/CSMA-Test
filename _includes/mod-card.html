@@ -2,6 +2,7 @@
   Recursive include for rendering mod cards with their children
   Parameters:
     - mod: the mod object from the YAML data
+    - parent_types: A comma-separated string of ancestor types (e.g., 'base-game,engine-family')
 {% endcomment %}
 
 {% assign mod = include.mod %}
@@ -10,8 +11,22 @@
   {% assign story_class = "story-mod-container" %}
 {% endif %}
 
+{% comment %} 
+  1. Build the full type string for this mod, including its ancestors.
+  2. If parent_types exists, append it. Otherwise, use only the mod's own type.
+{% endcomment %}
+{% assign current_types = mod.type %}
+{% if include.parent_types and include.parent_types != blank %}
+  {% assign ancestor_types = include.parent_types | append: "," | append: mod.type %}
+{% else %}
+  {% assign ancestor_types = mod.type %}
+{% endif %}
+
 <div class="flow-branch {{ story_class }}">
-  <div class="mod-card {{ mod.type }}" onclick="toggleCard(this); event.stopPropagation();" data-id="{{ mod.id }}">
+  <div class="mod-card {{ mod.type }}" 
+       onclick="toggleCard(this); event.stopPropagation();" 
+       data-id="{{ mod.id }}"
+       data-ancestors="{{ ancestor_types | replace: ',', ' ' }}">
     <div class="mod-header">
       <div class="mod-title">{{ mod.name }}</div>
       <div class="mod-badges">
@@ -46,7 +61,7 @@
         {% endif %}
         
         <div class="hierarchical-item {{ child_story_class }}">
-          {% include mod-card.html mod=child %}
+          {% include mod-card.html mod=child parent_types=ancestor_types %}
         </div>
       {% endfor %}
     </div>
