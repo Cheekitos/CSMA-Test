@@ -64,7 +64,8 @@ title: Interactive Mod Map
           <div class="mod-card {{ base_game.type }}" 
                onclick="toggleCard(this)" 
                data-id="{{ base_game.id }}"
-               data-ancestors="{{ base_game.type }}">
+               data-ancestors="{{ base_game.type }}"
+               data-parent-color="{{ base_game.type }}">
             <div class="mod-header">
               <div class="mod-title">{{ base_game.name }}</div>
               <div class="mod-badges">
@@ -81,7 +82,10 @@ title: Interactive Mod Map
           <div class="children-row hidden" data-parent="{{ base_game.id }}">
             {% if base_game.children %}
               {% for child in base_game.children %}
-                {% include mod-card.html mod=child parent_types=base_game.type %}
+                {% include mod-card.html 
+                  mod=child 
+                  parent_types=base_game.type
+                  current_parent_color_class=base_game.type %}
               {% endfor %}
             {% endif %}
           </div>
