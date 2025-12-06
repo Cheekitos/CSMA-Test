@@ -38,10 +38,13 @@ title: Interactive Mod Map
   </nav>
 
   <h1 class="page-title">S.T.A.L.K.E.R. Mod Family Tree</h1>
-  <p class="page-subtitle">This chart is a broad, simplified overview of many S.T.A.L.K.E.R. mods available, how they’re connected, and a good way to discover new, fun projects to play in the Zone. It’s obviously not every mod out there, and some descriptions or links might not be perfectly accurate. The focus is on clear visualization and readability rather than exhaustive, overwhelming accuracy.</p>
-  <p class="page-description">Click on any mod to expand the tree and see details, or simply click the "Full View" button to expand everything. </p>
+  <p class="page-subtitle">This chart is a broad, simplified overview of many S.T.A.L.K.E.R. mods available, how they’re connected, and a good way to discover new, fun projects to play in the Zone.</p>
+  <p class="page-description">Use the search bar to find specific mods, or click cards to explore the history.</p>
 
   <div class="controls-bar">
+    <div class="search-wrapper">
+      <input type="text" id="modSearchInput" placeholder="Search mods (e.g. GAMMA)..." onkeyup="searchMods()">
+    </div>
     <div class="zoom-controls">
       <button class="zoom-button" id="zoomOutBtn" onclick="zoomOut()">−</button>
       <span class="zoom-indicator" id="zoomLevel">100%</span>
@@ -56,7 +59,6 @@ title: Interactive Mod Map
     <div class="flowchart-container" id="flowchartContainer">
       
       {% for base_game in site.data.stalker-mods.base_games %}
-      <!-- Column {{ forloop.index }}: {{ base_game.name }} -->
       <div class="base-column">
         <div class="flow-branch">
           <div class="mod-card {{ base_game.type }}" onclick="toggleCard(this)" data-id="{{ base_game.id }}">
@@ -72,8 +74,6 @@ title: Interactive Mod Map
               <div class="mod-description">{{ base_game.description }}</div>
             </div>
           </div>
-          
-          <div class="branch-connector hidden" data-parent="{{ base_game.id }}"></div>
           
           <div class="children-row hidden" data-parent="{{ base_game.id }}">
             {% if base_game.children %}
@@ -91,7 +91,6 @@ title: Interactive Mod Map
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/stalker-map.js"></script>
-
 {% include about-popup.html %}
 {% include essentials-popup.html %}
 
