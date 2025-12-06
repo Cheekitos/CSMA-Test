@@ -11,12 +11,23 @@ body {
   min-height: 100vh;
 }
 
+/* Define colors as CSS variables for easier stacking */
+:root {
+  --color-base-game: #10b981;  /* Green */
+  --color-engine-family: #8b5cf6; /* Purple */
+  --color-platform-family: #0ea5e9; /* Blue */
+  --color-regular: #ec4899; /* Pink for regular/overhaul mods */
+  --bar-width: 4px; /* Width of each color bar */
+}
+
 .mod-tree-container {
   max-width: 72rem;
   margin: 0 auto;
   padding: 20px;
   position: relative;
 }
+
+/* ... (Search Bar & Flowchart Wrapper/Container styles remain the same) ... */
 
 /* --- Search Bar Styling --- */
 .search-wrapper {
@@ -44,7 +55,7 @@ body {
 /* --- Flowchart Wrapper --- */
 .flowchart-wrapper {
   overflow: hidden;
-  padding: 40px 0; /* Added more padding top/bottom */
+  padding: 40px 0;
   cursor: grab;
   position: relative;
   background-image: radial-gradient(#374151 1px, transparent 1px);
@@ -60,7 +71,7 @@ body {
 .flowchart-container {
   display: grid;
   grid-template-columns: repeat(3, 320px);
-  gap: 60px; /* Increased column gap from 40px to 60px */
+  gap: 60px;
   justify-content: center;
   transition: transform 0.1s ease-out;
   transform-origin: center top;
@@ -83,24 +94,24 @@ body {
 
 /* --- TREE CONNECTORS & SPACING --- */
 
-/* 1. Spacing for the first layer of children (Base Game -> First Mods) */
+/* Spacing for the first layer of children */
 .children-row {
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Large breathing room between major mod groups */
+  gap: 32px;
   margin-top: 24px;
   width: 100%;
 }
 
-/* 2. Spacing for nested children (The directory tree) */
+/* Spacing for nested children (The directory tree) */
 .hierarchical-children {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
   padding-left: 20px;
   border-left: 2px solid #4b5563;
-  gap: 26px; /* Increased from 12px to 26px for breathing room */
-  margin-top: 20px; /* Push the whole list down from the parent */
+  gap: 26px;
+  margin-top: 20px;
   padding-bottom: 8px;
 }
 
@@ -113,7 +124,7 @@ body {
 .hierarchical-item::before {
   content: '';
   position: absolute;
-  top: 22px; /* Aligns with roughly the center of the card title */
+  top: 22px;
   left: -22px;
   width: 20px;
   height: 2px;
@@ -135,9 +146,10 @@ body {
 .mod-card {
   background: #1f2937;
   border: 1px solid #374151;
-  border-left: 3px solid #374151;
+  /* REMOVE default single border-left here */
+  border-left: 1px solid #374151; 
   border-radius: 6px;
-  padding: 12px 16px; /* Slightly more internal padding */
+  padding: 12px 16px;
   width: 100%;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -147,7 +159,7 @@ body {
 
 .mod-card:hover {
   border-color: #fbbf24;
-  transform: translateX(4px); /* Highlight movement */
+  transform: translateX(4px);
   box-shadow: 4px 4px 12px rgba(0,0,0,0.4);
 }
 
@@ -160,15 +172,119 @@ body {
 .mod-card.expanded {
   background: #374151;
   border-bottom-color: #4b5563;
-  margin-bottom: 4px; /* Tiny extra push when expanded */
+  margin-bottom: 4px;
 }
 
-.mod-card.base-game { border-left-color: #10b981; }
-.mod-card.engine-family { border-left-color: #8b5cf6; }
-.mod-card.platform-family { border-left-color: #0ea5e9; }
+/* REMOVED: .mod-card.base-game { border-left-color: #10b981; } etc. */
+/* The coloring is now handled by the ::before pseudo-element stack below */
 
-.mod-card.base-game.expanded { border-color: #10b981; }
-.mod-card.engine-family.expanded { border-color: #8b5cf6; }
+/* --- STACKED HIGHLIGHT BARS --- */
+
+/* General styling for the highlight bars, attached to the mod-card
+  The highlight is a pseudo-element that is absolutely positioned to the left.
+*/
+.mod-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 6px 0 0 6px;
+  /* The width will be calculated by the stacking rules below */
+  width: 0;
+  /* Base card styling */
+  background: transparent;
+  z-index: 3; /* Keep it above the card border */
+  transition: box-shadow 0.2s;
+}
+
+/* --- Type-Specific Stacking Logic (using data-ancestors) --- */
+/* The ancestor types are a space-separated string: "base-game engine-family regular" */
+
+/* 1 BAR: If the card has one highlight type (e.g., base-game or regular mod with no 'family' parents) */
+.mod-card[data-ancestors*="base-game"]:not([data-ancestors*="engine-family"]):not([data-ancestors*="platform-family"]):not(.regular)::before {
+    width: var(--bar-width);
+    background: var(--color-base-game);
+}
+.mod-card.regular:not([data-ancestors*="base-game"])::before {
+    width: var(--bar-width);
+    background: var(--color-regular);
+}
+
+/* The Base Game card itself */
+.mod-card.base-game::before {
+  width: var(--bar-width);
+  background: var(--color-base-game);
+}
+
+/* 2 BARS: e.g. Base Game (Green) + Engine Family (Purple) */
+.mod-card[data-ancestors*="base-game"][data-ancestors*="engine-family"]::before,
+.mod-card[data-ancestors*="base-game"][data-ancestors*="platform-family"]::before {
+  width: calc(2 * var(--bar-width));
+}
+
+/* Base Game bar (Green, left-most) */
+.mod-card[data-ancestors*="base-game"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--bar-width);
+  background: var(--color-base-game);
+  border-radius: 6px 0 0 6px;
+  z-index: 4;
+}
+
+/* Engine/Platform Family bar (Right-side of the two) */
+.mod-card.engine-family::before {
+  background: var(--color-engine-family);
+  left: var(--bar-width); /* Stack next to the base-game bar */
+}
+.mod-card.platform-family::before {
+  background: var(--color-platform-family);
+  left: var(--bar-width); /* Stack next to the base-game bar */
+}
+
+/* 3 BARS: e.g. Base Game (Green) + Engine Family (Purple) + Regular Mod (Pink) */
+.mod-card.regular[data-ancestors*="engine-family"][data-ancestors*="base-game"]::before {
+  width: var(--bar-width);
+  background: var(--color-regular);
+  left: calc(2 * var(--bar-width)); /* Stack next to the engine bar */
+}
+.mod-card.regular[data-ancestors*="engine-family"][data-ancestors*="base-game"] {
+  padding-left: calc(3 * var(--bar-width) + 16px);
+}
+
+
+/* Adjust Card Padding for the number of bars */
+.mod-card[data-ancestors*="base-game"] {
+  padding-left: calc(var(--bar-width) + 16px);
+}
+.mod-card[data-ancestors*="base-game"][data-ancestors*="engine-family"],
+.mod-card[data-ancestors*="base-game"][data-ancestors*="platform-family"] {
+  padding-left: calc(2 * var(--bar-width) + 16px);
+}
+
+
+/* Highlight all bars on hover and search match */
+.mod-card:hover::before,
+.mod-card.search-match::before,
+.mod-card.expanded::before {
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+.mod-card:hover::after,
+.mod-card.search-match::after,
+.mod-card.expanded::after {
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+
+
+.mod-card.expanded {
+  background: #374151;
+  border-bottom-color: #4b5563;
+  margin-bottom: 4px;
+}
 
 .mod-header {
   display: flex;
@@ -178,11 +294,13 @@ body {
 }
 
 .mod-title {
-  font-size: 14px; /* Slightly larger title */
+  font-size: 14px;
   font-weight: 600;
   color: #f3f4f6;
   flex: 1;
 }
+
+/* ... (Badges, Controls, Header & Breadcrumb styles remain the same) ... */
 
 .mod-badges {
   display: flex;
