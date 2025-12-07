@@ -163,10 +163,7 @@ function filterMods() {
     }
   });
 
-  // Optional: Auto-pan to first match
-  // if (firstMatch) {
-  //   // Logic to center view on firstMatch could go here
-  // }
+  // Optional: Auto-pan to first match could be added here
 }
 
 function expandParents(cardElement) {
