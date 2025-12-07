@@ -2,6 +2,8 @@ let currentZoom = 100;
 const zoomStep = 10;
 const minZoom = 50;
 const maxZoom = 150;
+// Base scale factor: 0.9 allows "100%" to appear slightly zoomed out (previously 90%)
+const baseScaleFactor = 0.9; 
 
 let isPanning = false;
 let startX = 0;
@@ -163,7 +165,13 @@ function filterMods() {
     }
   });
 
-  // Optional: Auto-pan to first match could be added here
+  // Auto-pan to first match
+  if (firstMatch) {
+    // Slight delay to allow DOM expansion/flow to settle before calculating coordinates
+    setTimeout(() => {
+      centerOnCard(firstMatch);
+    }, 300);
+  }
 }
 
 function expandParents(cardElement) {
@@ -190,6 +198,28 @@ function clearSearch() {
   document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
 }
 
+function centerOnCard(card) {
+  const wrapper = document.getElementById('flowchartWrapper');
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+
+  // Calculate center points
+  const wrapperCenterX = wrapperRect.left + wrapperRect.width / 2;
+  const wrapperCenterY = wrapperRect.top + wrapperRect.height / 2;
+  const cardCenterX = cardRect.left + cardRect.width / 2;
+  const cardCenterY = cardRect.top + cardRect.height / 2;
+
+  // Calculate offset needed
+  const diffX = wrapperCenterX - cardCenterX;
+  const diffY = wrapperCenterY - cardCenterY;
+
+  // Apply to current translation state
+  translateX += diffX;
+  translateY += diffY;
+
+  updateZoom();
+}
+
 // --- View Logic ---
 
 function toggleStoryMods() {
@@ -211,7 +241,11 @@ function updateZoom() {
   document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
   
   zoomLevel.textContent = `${currentZoom}%`;
-  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom / 100})`;
+  
+  // Apply the baseScaleFactor so 100% in UI = 0.9 scale visually
+  const effectiveScale = (currentZoom / 100) * baseScaleFactor;
+  
+  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${effectiveScale})`;
 }
 
 function zoomIn() {
