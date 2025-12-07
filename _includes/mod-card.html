@@ -2,9 +2,8 @@
   Recursive include for rendering mod cards with their children
   Parameters:
     - mod: the mod object from the YAML data
-    - depth: The depth of the current mod (integer)
-    - lineage_color: Always 'base-game' (Green)
-    - family_color: The color of the closest Engine/Platform ancestor ('base-game', 'engine-family', or 'platform-family')
+    - depth: The depth of the current mod (integer, 0=Base Game)
+    - active_family_color: The color class of the closest Engine/Platform ancestor ('base-game', 'engine-family', or 'platform-family')
 {% endcomment %}
 
 {% assign mod = include.mod %}
@@ -16,13 +15,13 @@
 {% assign current_depth = include.depth | plus: 0 %}
 
 {% comment %} 
-  1. Determine the family color to pass down.
-     - If this mod is a Family type, it becomes the new lineage anchor.
-     - Otherwise, it passes its parent's family color down.
+  Determine the Active Family Color to pass down.
+  If this mod is a Family type, it becomes the new Active Family Color for its children.
+  Otherwise, it passes its parent's Active Family Color down.
 {% endcomment %}
-{% assign next_family_color = include.family_color %}
+{% assign next_active_family_color = include.active_family_color %}
 {% if mod.type == "engine-family" or mod.type == "platform-family" %}
-  {% assign next_family_color = mod.type %}
+  {% assign next_active_family_color = mod.type %}
 {% endif %}
 {% assign next_depth = current_depth | plus: 1 %}
 
@@ -31,8 +30,7 @@
        onclick="toggleCard(this); event.stopPropagation();" 
        data-id="{{ mod.id }}"
        data-depth="{{ current_depth }}"
-       data-lineage-color="{{ include.lineage_color }}"
-       data-family-color="{{ include.family_color }}">
+       data-family-color="{{ include.active_family_color }}">
     <div class="mod-header">
       <div class="mod-title">{{ mod.name }}</div>
       <div class="mod-badges">
@@ -70,8 +68,7 @@
           {% include mod-card.html 
             mod=child 
             depth=next_depth
-            lineage_color=include.lineage_color
-            family_color=next_family_color %}
+            active_family_color=next_active_family_color %}
         </div>
       {% endfor %}
     </div>
