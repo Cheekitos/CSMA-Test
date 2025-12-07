@@ -417,10 +417,12 @@ body {
   background: #111827;
   border: 1px solid #4b5563;
   color: #f3f4f6;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  padding-right: 70px;
   border-radius: 4px;
   font-size: 13px;
-  width: 200px;
+  width: 220px;
+  height: 34px;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -429,14 +431,55 @@ body {
   border-color: #fbbf24;
 }
 
+.search-enter-btn {
+  position: absolute;
+  right: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fbbf24;
+  border: none;
+  color: #111827;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 5px 8px;
+  height: 24px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  font-weight: 600;
+}
+
+.search-enter-btn:hover {
+  background: #fcd34d;
+}
+
+.search-enter-btn svg {
+  display: block;
+}
+
 .clear-search {
   position: absolute;
-  right: 8px;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   color: #9ca3af;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
+  padding: 4px 6px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.clear-search:hover {
+  color: #f3f4f6;
 }
 
 .zoom-controls {
