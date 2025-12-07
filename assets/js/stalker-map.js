@@ -138,23 +138,36 @@ function panToCard(card) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
   
-  // Calculate the center of the wrapper
+  // Get current scale
+  const scale = currentZoom / 100;
+  
+  // Calculate the center of the wrapper (viewport)
   const wrapperCenterX = wrapperRect.width / 2;
   const wrapperCenterY = wrapperRect.height / 2;
   
-  // Calculate card's current position relative to the wrapper
-  const cardCenterX = cardRect.left + cardRect.width / 2 - wrapperRect.left;
-  const cardCenterY = cardRect.top + cardRect.height / 2 - wrapperRect.top;
+  // Get card's position in the DOM (unscaled coordinates)
+  const containerRect = container.getBoundingClientRect();
   
-  // Calculate how much we need to translate to center the card
-  const deltaX = wrapperCenterX - cardCenterX;
-  const deltaY = wrapperCenterY - cardCenterY;
+  // Calculate card's center position relative to the container's current position
+  // We need to account for the current transform
+  const cardCenterX = cardRect.left + cardRect.width / 2;
+  const cardCenterY = cardRect.top + cardRect.height / 2;
   
-  // Update translate values
-  translateX += deltaX;
-  translateY += deltaY;
+  // Calculate wrapper's absolute position
+  const wrapperCenterAbsX = wrapperRect.left + wrapperCenterX;
+  const wrapperCenterAbsY = wrapperRect.top + wrapperCenterY;
   
-  // Temporarily add a transition class for smooth panning
+  // Calculate the offset needed to center the card
+  // This is the difference between where the card currently is and where the viewport center is
+  const offsetX = wrapperCenterAbsX - cardCenterX;
+  const offsetY = wrapperCenterAbsY - cardCenterY;
+  
+  // Apply the offset to our translate values
+  // We need to account for the scale when translating
+  translateX += offsetX;
+  translateY += offsetY;
+  
+  // Temporarily add a transition for smooth panning
   container.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
   updateZoom();
   
@@ -201,10 +214,10 @@ function filterMods() {
 
   // Pan to first match if found
   if (firstMatch) {
-    // Small delay to ensure parent expansions are rendered
+    // Delay to ensure parent expansions are fully rendered and heights calculated
     setTimeout(() => {
       panToCard(firstMatch);
-    }, 100);
+    }, 350);
   }
 }
 
