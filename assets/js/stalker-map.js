@@ -1,7 +1,7 @@
-// Changed default zoom to 90% as requested
-let currentZoom = 90;
+// Default zoom is now 100% as requested (which corresponds to the previous 90% visual size)
+let currentZoom = 100;
 const zoomStep = 10;
-const minZoom = 40; 
+const minZoom = 50; 
 const maxZoom = 150;
 
 let isPanning = false;
@@ -167,10 +167,10 @@ function executeSearch() {
   });
 
   if (firstMatch) {
-    // Wait slightly for CSS expansion animation to layout before panning
+    // Increased timeout to 500ms to ensure layout has settled for accurate panning
     setTimeout(() => {
         panToCard(firstMatch);
-    }, 350);
+    }, 500);
   }
 }
 
@@ -190,37 +190,35 @@ function expandParents(cardElement) {
 
 function panToCard(card) {
   const wrapper = document.getElementById('flowchartWrapper');
+  const container = document.getElementById('flowchartContainer');
   const wrapperRect = wrapper.getBoundingClientRect();
   const zoom = currentZoom / 100;
   
-  // --- 1. Calculate unscaled Card Center (Tx, Ty) relative to flowchartContainer ---
-  
-  // Start with the center of the card
+  // 1. Calculate Unscaled Card Center (Tx, Ty) relative to flowchartContainer's top-left
+  // Accumulate offsets from the card's top-left up to the container's top-left.
   let Tx = card.offsetLeft + (card.offsetWidth / 2);
   let Ty = card.offsetTop + (card.offsetHeight / 2);
   let current = card.offsetParent;
 
-  // Accumulate offsets until reaching the flowchartContainer
-  while (current && current.id !== 'flowchartContainer' && current.id !== 'flowchartWrapper') {
+  // Accumulate offsets up to the flowchartContainer (but do not include its own offset)
+  while (current && current !== container && current.id !== 'flowchartWrapper') {
       Tx += current.offsetLeft;
       Ty += current.offsetTop;
       current = current.offsetParent;
   }
   
-  // --- 2. Calculate Required Translation ---
+  // 2. Calculate Target Translation
   
-  // Visible center of the Wrapper (viewport) relative to its own top-left corner (0,0)
+  // Center of the visible wrapper/viewport area
   const wrapperCenterW = wrapperRect.width / 2;
   const wrapperCenterH = wrapperRect.height / 2;
 
-  // The new translation values (translateX, translateY) should make the scaled card center 
-  // align with the wrapper's center.
-  // Formula: (zoom * Tx) + translateX_new = wrapperCenterW
+  // The new translateX/Y must compensate for the card's scaled position
+  // T_target = Center of Wrapper - (Card Center * Zoom)
+  const T_targetX = wrapperCenterW - (Tx * zoom);
+  const T_targetY = wrapperCenterH - (Ty * zoom);
   
-  const T_targetX = wrapperCenterW - (zoom * Tx);
-  const T_targetY = wrapperCenterH - (zoom * Ty);
-
-  // --- 3. Apply New Translation ---
+  // 3. Apply New Translation
   translateX = T_targetX;
   translateY = T_targetY;
 
@@ -251,6 +249,7 @@ function toggleStoryMods() {
 function updateZoom() {
   const container = document.getElementById('flowchartContainer');
   const zoomLevel = document.getElementById('zoomLevel');
+  // Update zoom limits relative to the new 100% default
   document.getElementById('zoomInBtn').disabled = currentZoom >= maxZoom;
   document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
   
@@ -274,8 +273,8 @@ function zoomOut() {
 }
 
 function resetView() {
-  // Reset to 90% as requested
-  currentZoom = 90;
+  // Reset to 100% as requested
+  currentZoom = 100;
   translateX = 0;
   translateY = 0;
   updateZoom();
