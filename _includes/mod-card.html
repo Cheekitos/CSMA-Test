@@ -34,8 +34,15 @@
     </div>
     <div class="mod-details">
       <div class="mod-description">{{ mod.description }}</div>
-      {% if mod.link %}
-        <a href="{{ mod.link }}" class="mod-link">View Details →</a>
+      {% if mod.link or mod.link2 %}
+        <div class="mod-links">
+          {% if mod.link %}
+            <a href="{{ mod.link }}" class="mod-link" onclick="event.stopPropagation();">View Details →</a>
+          {% endif %}
+          {% if mod.link2 %}
+            <a href="{{ mod.link2 }}" class="mod-link" onclick="event.stopPropagation();">More Info →</a>
+          {% endif %}
+        </div>
       {% endif %}
     </div>
   </div>
