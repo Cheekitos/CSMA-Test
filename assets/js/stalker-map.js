@@ -13,6 +13,9 @@ let translateY = 0;
 let expandState = 0;
 let storyModsHidden = false;
 
+// Track last search term to detect changes
+let lastSearchTerm = '';
+
 // --- Card Logic ---
 
 function toggleCard(card) {
@@ -179,22 +182,52 @@ function panToCard(card) {
 
 // --- Search Functionality ---
 
-function filterMods() {
+function handleSearchInput(event) {
   const input = document.getElementById('modSearchInput');
   const filter = input.value.toLowerCase().trim();
+  const enterBtn = document.getElementById('searchEnterBtn');
   const clearBtn = document.getElementById('clearSearchBtn');
-  const cards = document.querySelectorAll('.mod-card');
   
-  // Show/Hide clear button
+  // Show/hide buttons
   if (filter.length > 0) {
+    enterBtn.classList.remove('hidden');
     clearBtn.classList.remove('hidden');
   } else {
+    enterBtn.classList.add('hidden');
     clearBtn.classList.add('hidden');
+    // Clear highlights when input is empty
     document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+    lastSearchTerm = '';
     return;
   }
+  
+  // If user presses Enter key, execute search
+  if (event.key === 'Enter') {
+    executeSearch();
+  }
+  // If user presses Escape, clear search
+  else if (event.key === 'Escape') {
+    clearSearch();
+  }
+  // If search term changed (user deleted/modified), reset view
+  else if (lastSearchTerm !== '' && filter !== lastSearchTerm) {
+    resetViewQuick();
+    document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+  }
+}
 
-  // First, collapse everything to start fresh if needed, or just remove highlights
+function executeSearch() {
+  const input = document.getElementById('modSearchInput');
+  const filter = input.value.toLowerCase().trim();
+  
+  if (filter.length === 0) return;
+  
+  // Store the search term
+  lastSearchTerm = filter;
+  
+  const cards = document.querySelectorAll('.mod-card');
+  
+  // Remove previous highlights
   document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
 
   let firstMatch = null;
@@ -241,8 +274,28 @@ function expandParents(cardElement) {
 function clearSearch() {
   const input = document.getElementById('modSearchInput');
   input.value = '';
+  document.getElementById('searchEnterBtn').classList.add('hidden');
   document.getElementById('clearSearchBtn').classList.add('hidden');
   document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+  lastSearchTerm = '';
+  resetViewQuick();
+}
+
+// Quick reset without scroll animation (for ESC or text modification)
+function resetViewQuick() {
+  currentZoom = 100;
+  translateX = 0;
+  translateY = 0;
+  updateZoom();
+  collapseAll();
+  expandState = 0;
+  document.getElementById('toggleAllBtn').textContent = 'Full View';
+  
+  if (storyModsHidden) {
+    storyModsHidden = false;
+    document.querySelectorAll('.story-mod-container').forEach(c => c.classList.remove('story-hidden'));
+    document.getElementById('hideStoryBtn').classList.remove('active');
+  }
 }
 
 // --- View Logic ---
