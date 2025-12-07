@@ -375,6 +375,13 @@ body {
   margin-bottom: 8px;
 }
 
+.mod-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .mod-link {
   display: inline-block;
   font-size: 11px;
