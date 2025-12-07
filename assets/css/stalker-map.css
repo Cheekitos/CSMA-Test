@@ -13,10 +13,10 @@ body {
 
 /* --- Color Variables for Stacked Highlights --- */
 :root {
-  --color-base-game: #10b981;    /* Green */
-  --color-engine-family: #8b5cf6;  /* Purple */
-  --color-platform-family: #0ea5e9; /* Blue */
-  --color-regular-mod: #ec4899;   /* Pink (For regular, overhaul, modpack types) */
+  --color-base-game: #10b981;    /* Green (Lineage Bar 1) */
+  --color-engine-family: #8b5cf6;  /* Purple (Family Bar 2 - Engine) */
+  --color-platform-family: #0ea5e9; /* Blue (Family Bar 2 - Platform) */
+  --color-self-type: #881337;   /* Maroon/Deep Red (Self Type Bar 3) */
   
   --bar-width: 4px; /* Width of each color bar - must be uniform */
   --bar-padding-base: 16px; /* Initial left padding */
@@ -92,25 +92,23 @@ body {
   position: relative;
 }
 
-/* --- TREE CONNECTORS & SPACING (Breathing Room Fix) --- */
+/* --- TREE CONNECTORS & SPACING --- */
 
-/* 1. Spacing for the first layer of children (Base Game -> First Mods) */
 .children-row {
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Large breathing room */
+  gap: 32px;
   margin-top: 24px;
   width: 100%;
 }
 
-/* 2. Spacing for nested children (The directory tree) */
 .hierarchical-children {
   display: flex;
   flex-direction: column;
   margin-left: 20px;
   padding-left: 20px;
   border-left: 2px solid #4b5563;
-  gap: 26px; /* Increased breathing room */
+  gap: 26px;
   margin-top: 20px;
   padding-bottom: 8px;
 }
@@ -142,7 +140,7 @@ body {
   display: none; 
 }
 
-/* --- Card Styling & Stacked Highlights --- */
+/* --- Card Styling & Highlight Stack Logic --- */
 .mod-card {
   background: #1f2937;
   border: 1px solid #374151;
@@ -154,9 +152,8 @@ body {
   position: relative;
   z-index: 2;
   
-  /* --- BAR 1 (Lineage) - Always Green for Base Games and all children --- */
+  /* --- BAR 1 (Lineage) - Always Green --- */
   border-left: var(--bar-width) solid var(--color-base-game);
-  /* Default padding for 1 bar */
   padding-left: calc(var(--bar-width) + var(--bar-padding-base));
 }
 
@@ -178,94 +175,115 @@ body {
   margin-bottom: 4px;
 }
 
+/* Base Games are only 1 bar. Reset padding and pseudo-elements */
+.mod-card.base-game {
+    padding-left: calc(var(--bar-width) + var(--bar-padding-base));
+}
+.mod-card.base-game::before,
+.mod-card.base-game::after {
+    content: none;
+}
+
+
 /* --- BAR 2 (Family) - ::before --- */
 
 /* Base style for Bar 2 (not visible by default) */
 .mod-card::before {
   content: '';
   position: absolute;
-  top: 0; bottom: 0; width: var(--bar-width);
+  top: 0; bottom: 0; width: 0; /* Hidden by default */
   left: var(--bar-width); /* Positioned next to Bar 1 (border-left) */
   background: transparent;
   z-index: 3;
-  border-radius: 0;
+  transition: background 0.2s;
 }
 
-/* Conditions for 2 Bars: Engine/Platform families (Depth 1) and their children (Depth 2, if still family) */
-.mod-card.engine-family[data-depth="1"]::before,
-.mod-card.platform-family[data-depth="1"]::before,
-.mod-card[data-depth="2"][data-family-color="engine-family"]::before,
-.mod-card[data-depth="2"][data-family-color="platform-family"]::before {
+/* Visibility and Color for Bar 2 (2-Bar & 3-Bar Mods) */
+/* Any mod whose lineage includes an Engine/Platform family will show Bar 2 */
+.mod-card[data-family-color="engine-family"]::before,
+.mod-card[data-family-color="platform-family"]::before {
+    content: '';
+    width: var(--bar-width);
+}
+
+.mod-card[data-family-color="engine-family"]::before {
     background: var(--color-engine-family);
-    /* For platform-family children/self, change the color */
 }
-
-/* Override Bar 2 color for Platform Family */
-.mod-card.platform-family[data-depth="1"]::before {
-    background: var(--color-platform-family);
-}
-.mod-card[data-depth="2"][data-family-color="platform-family"]::before {
+.mod-card[data-family-color="platform-family"]::before {
     background: var(--color-platform-family);
 }
 
-
-/* Adjust Padding for 2 Bars */
-.mod-card.engine-family[data-depth="1"],
-.mod-card.platform-family[data-depth="1"],
-.mod-card[data-depth="2"][data-family-color="engine-family"]:not(.regular-mod), /* Family Children */
-.mod-card[data-depth="2"][data-family-color="platform-family"]:not(.regular-mod) { /* Family Children */
+/* Adjust Padding for 2 Bars (Green + Family) */
+/* This covers all Engine/Platform mods (Depth 1) and their immediate regular children (Depth 2, True Stalker) */
+.mod-card[data-family-color="engine-family"],
+.mod-card[data-family-color="platform-family"] {
+  /* This condition ensures True Stalker (G+P) and NLC7 (G+B+M) are covered for Bar 2 */
   padding-left: calc(2 * var(--bar-width) + var(--bar-padding-base));
 }
 
 
-/* --- BAR 3 (Self Type) - ::after --- */
+/* --- BAR 3 (Self Type) - ::after (The Triple Stack) --- */
 
 /* Base style for Bar 3 (not visible by default) */
 .mod-card::after {
   content: '';
   position: absolute;
-  top: 0; bottom: 0; width: var(--bar-width);
+  top: 0; bottom: 0; width: 0; /* Hidden by default */
   left: calc(2 * var(--bar-width)); /* Positioned next to Bar 2 */
   background: transparent;
   z-index: 3;
   border-radius: 0 6px 6px 0; /* Only Bar 3 gets the rounding */
+  transition: background 0.2s;
 }
 
-/* Condition for 3 Bars: Grandchildren (Depth 2+) that are regular mods AND have a Family Parent */
-.mod-card[data-depth^="2"].regular-mod[data-family-color]:not([data-family-color="base-game"])::after {
-    background: var(--color-regular-mod);
-}
-
-/* Adjust Padding for 3 Bars */
+/* Visibility and Color for Bar 3 (Only Grandchildren, Depth 2+, that are Regular Mods) */
 .mod-card[data-depth^="2"].regular-mod[data-family-color]:not([data-family-color="base-game"]) {
-  padding-left: calc(3 * var(--bar-width) + var(--bar-padding-base));
+    /* If a regular mod is at depth 2 or more, and it has a family ancestor, it gets 3 bars */
+    padding-left: calc(3 * var(--bar-width) + var(--bar-padding-base));
+}
+.mod-card[data-depth^="2"].regular-mod[data-family-color]:not([data-family-color="base-game"])::after {
+    content: '';
+    width: var(--bar-width);
+    background: var(--color-self-type);
 }
 
-
-/* Remove Bar 2 & 3 for 1-Bar cases (Base Game and Regular Children) */
-.mod-card.base-game::before,
-.mod-card.base-game::after { content: none; }
-
-.mod-card.regular-mod[data-depth^="1"][data-family-color="base-game"]::before,
-.mod-card.regular-mod[data-depth^="1"][data-family-color="base-game"]::after {
+/* Exception for Depth 2 mods that should only be 2 bars (as per user request) */
+/* If True Stalker and Call of Misery are depth 2 regular mods, they need to be treated as 2 bars.
+   The only way to do this without seeing data is to explicitly exclude Depth 2 regular mods
+   from the triple stack. Assuming True Stalker and Call of Misery are at Depth 2:
+*/
+.mod-card[data-depth="2"].regular-mod[data-family-color]:not([data-family-color="base-game"]) {
+    /* If the mod is Depth 2, reset to 2-bar padding */
+    padding-left: calc(2 * var(--bar-width) + var(--bar-padding-base));
+}
+.mod-card[data-depth="2"].regular-mod[data-family-color]:not([data-family-color="base-game"])::after {
+    /* And hide the third bar */
     content: none;
 }
-/* Re-adjust 1-Bar padding for safety */
-.mod-card.regular-mod[data-depth^="1"][data-family-color="base-game"] {
-  padding-left: calc(var(--bar-width) + var(--bar-padding-base));
-}
 
-/* Highlight all bars on hover/match */
+/* FINAL TRIPLE STACK RULE: Only Depth 3+ regular mods get Bar 3 */
+.mod-card[data-depth^="3"].regular-mod[data-family-color]:not([data-family-color="base-game"]) {
+    padding-left: calc(3 * var(--bar-width) + var(--bar-padding-base));
+}
+.mod-card[data-depth^="3"].regular-mod[data-family-color]:not([data-family-color="base-game"])::after {
+    content: '';
+    width: var(--bar-width);
+    background: var(--color-self-type);
+}
+/* DEAD AIR: REVOLUTION (and others like Forgotten Zone) must be at Depth 3 or deeper in the YAML structure for the triple stack to work under this rule. */
+
+/* --- Highlight Effects for all bars --- */
 .mod-card:hover,
 .mod-card.search-match,
 .mod-card.expanded {
-    /* Add box-shadow to the border-left to light up Bar 1 */
+    /* Add box-shadow to light up the border and the card border */
     border-color: #fbbf24; 
     box-shadow: 
         4px 4px 12px rgba(0,0,0,0.4),
         0 0 10px rgba(251, 191, 36, 0.4) inset;
 }
 
+/* Light up Bar 2 and Bar 3 on hover/match */
 .mod-card:hover::before,
 .mod-card.search-match::before,
 .mod-card.expanded::before,
@@ -275,19 +293,20 @@ body {
     box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
 }
 
-/* Remove border-left shadow if only one bar (to avoid the green bar looking inset) */
+/* Remove border-left shadow if only one bar (to prevent Green bar looking inset) */
 .mod-card.base-game:hover,
 .mod-card.base-game.search-match,
-.mod-card.regular-mod[data-depth^="1"][data-family-color="base-game"]:hover,
-.mod-card.regular-mod[data-depth^="1"][data-family-color="base-game"].search-match {
+.mod-card.regular-mod[data-family-color="base-game"]:hover,
+.mod-card.regular-mod[data-family-color="base-game"].search-match {
     box-shadow: 4px 4px 12px rgba(0,0,0,0.4);
 }
 /* Ensure the hover/expanded state for 1-bar cards still looks nice */
 .mod-card.base-game.expanded,
-.mod-card.regular-mod[data-depth^="1"][data-family-color="base-game"].expanded {
+.mod-card.regular-mod[data-family-color="base-game"].expanded {
     border-color: #fbbf24;
 }
 
+/* ... (Remaining styles omitted for brevity) ... */
 
 .mod-header {
   display: flex;
