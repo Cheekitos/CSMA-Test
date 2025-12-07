@@ -167,10 +167,10 @@ function filterMods() {
 
   // Auto-pan to first match
   if (firstMatch) {
-    // Slight delay to allow DOM expansion/flow to settle before calculating coordinates
+    // Wait for CSS transitions (300ms) to finish so coordinates are stable
     setTimeout(() => {
       centerOnCard(firstMatch);
-    }, 300);
+    }, 400); 
   }
 }
 
@@ -203,19 +203,27 @@ function centerOnCard(card) {
   const wrapperRect = wrapper.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
 
-  // Calculate center points
+  // 1. Find the visual center of the Wrapper
   const wrapperCenterX = wrapperRect.left + wrapperRect.width / 2;
   const wrapperCenterY = wrapperRect.top + wrapperRect.height / 2;
+
+  // 2. Find the visual center of the Target Card
   const cardCenterX = cardRect.left + cardRect.width / 2;
   const cardCenterY = cardRect.top + cardRect.height / 2;
 
-  // Calculate offset needed
+  // 3. Calculate the difference in screen pixels
   const diffX = wrapperCenterX - cardCenterX;
   const diffY = wrapperCenterY - cardCenterY;
 
-  // Apply to current translation state
-  translateX += diffX;
-  translateY += diffY;
+  // 4. Calculate the current visual scale
+  const effectiveScale = (currentZoom / 100) * baseScaleFactor;
+
+  // 5. Apply the difference to the translate values
+  // We must divide by scale because 'translate' happens before 'scale' in CSS logic,
+  // or rather, the translation vector is part of the matrix that gets scaled.
+  // To move 100px visually when scaled at 2x, we only need to change translate by 50px.
+  translateX += (diffX / effectiveScale);
+  translateY += (diffY / effectiveScale);
 
   updateZoom();
 }
