@@ -9,101 +9,42 @@ let startY = 0;
 let translateX = 0;
 let translateY = 0;
 
-let expandState = 0; // 0=collapsed, 1=full view, 2=all
+// 0 = collapsed, 1 = full view, 2 = fully expanded
+let expandState = 0;
 let storyModsHidden = false;
 
-// --- SEARCH FUNCTIONALITY ---
-function searchMods() {
-  const input = document.getElementById('modSearchInput');
-  const filter = input.value.toLowerCase();
-  const allCards = document.querySelectorAll('.mod-card');
-  
-  // Clear previous highlights
-  allCards.forEach(card => card.classList.remove('search-match'));
+// --- Card Logic ---
 
-  if (filter.length < 2) {
-    return;
-  }
-
-  let firstMatch = null;
-
-  allCards.forEach(card => {
-    const title = card.querySelector('.mod-title').textContent.toLowerCase();
-    
-    // Check if title contains search text
-    if (title.includes(filter)) {
-      card.classList.add('search-match');
-      if (!firstMatch) firstMatch = card;
-      
-      // Expand the path to this card
-      expandToCard(card);
-    }
-  });
-
-  // Center view on first match
-  if (firstMatch) {
-    firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-  }
-}
-
-// Recursively expand parents of a specific card
-function expandToCard(card) {
-  let current = card;
-  
-  // Traverse up the DOM to find parent containers
-  while (current) {
-    // Find the closest parent container
-    const parentContainer = current.closest('.hierarchical-children, .children-row');
-    
-    if (parentContainer) {
-      // Find the card that controls this container
-      const parentId = parentContainer.getAttribute('data-parent');
-      if (parentId) {
-        const parentCard = document.querySelector(`.mod-card[data-id="${parentId}"]`);
-        if (parentCard) {
-          expandCard(parentCard);
-          // Move current up to continue the chain
-          current = parentCard;
-        } else {
-          break;
-        }
-      } else {
-        break;
-      }
-    } else {
-      break;
-    }
-  }
-}
-
-// --- STANDARD CARD TOGGLING ---
 function toggleCard(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
   const cardId = card.getAttribute('data-id');
   
-  // Select the child container
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
   const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
   
   const isExpanded = details.classList.contains('expanded');
   
   if (isExpanded) {
-    // COLLAPSE
+    // Collapse
     details.style.height = details.scrollHeight + 'px';
     requestAnimationFrame(() => {
       details.style.height = '0';
       details.classList.remove('expanded');
       if (icon) icon.classList.remove('rotated');
       card.classList.remove('expanded');
+      if (connector) connector.classList.add('hidden');
       if (childrenRow) childrenRow.classList.add('hidden');
     });
   } else {
-    // EXPAND
+    // Expand
     details.classList.add('expanded');
     if (icon) icon.classList.add('rotated');
     card.classList.add('expanded');
+    if (connector) connector.classList.remove('hidden');
     if (childrenRow) childrenRow.classList.remove('hidden');
     
+    // Smooth height animation
     const height = details.scrollHeight;
     details.style.height = '0';
     requestAnimationFrame(() => {
@@ -118,39 +59,11 @@ function toggleCard(card) {
   }
 }
 
-function expandCard(card) {
-  const details = card.querySelector(':scope > .mod-details');
-  const icon = card.querySelector(':scope > .mod-header .expand-icon');
-  const cardId = card.getAttribute('data-id');
-  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-  
-  if (!details.classList.contains('expanded')) {
-    details.classList.add('expanded');
-    if (icon) icon.classList.add('rotated');
-    card.classList.add('expanded');
-    if (childrenRow) childrenRow.classList.remove('hidden');
-    details.style.height = 'auto';
-  }
-}
+// --- Expansion Logic ---
 
-function collapseCard(card) {
-  const details = card.querySelector(':scope > .mod-details');
-  const icon = card.querySelector(':scope > .mod-header .expand-icon');
-  const cardId = card.getAttribute('data-id');
-  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-  
-  if (details.classList.contains('expanded')) {
-    details.style.height = '0';
-    details.classList.remove('expanded');
-    if (icon) icon.classList.remove('rotated');
-    card.classList.remove('expanded');
-    if (childrenRow) childrenRow.classList.add('hidden');
-  }
-}
-
-// --- GLOBAL CONTROLS ---
 function toggleAll() {
   const button = document.getElementById('toggleAllBtn');
+  
   if (expandState === 0) {
     expandFullView();
     expandState = 1;
@@ -169,17 +82,118 @@ function toggleAll() {
 function expandFullView() {
   const baseGames = document.querySelectorAll('.mod-card.base-game');
   const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
-  baseGames.forEach(card => expandCard(card));
-  parentMods.forEach(card => expandCard(card));
+  baseGames.forEach(card => forceExpandCard(card));
+  parentMods.forEach(card => forceExpandCard(card));
 }
 
 function expandAll() {
-  document.querySelectorAll('.mod-card[data-id]').forEach(card => expandCard(card));
+  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  allCards.forEach(card => forceExpandCard(card));
 }
 
 function collapseAll() {
-  document.querySelectorAll('.mod-card[data-id]').forEach(card => collapseCard(card));
+  const allCards = document.querySelectorAll('.mod-card[data-id]');
+  allCards.forEach(card => forceCollapseCard(card));
 }
+
+function forceExpandCard(card) {
+  const details = card.querySelector(':scope > .mod-details');
+  const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
+  
+  if (!details.classList.contains('expanded')) {
+    details.classList.add('expanded');
+    if (icon) icon.classList.add('rotated');
+    card.classList.add('expanded');
+    if (connector) connector.classList.remove('hidden');
+    if (childrenRow) childrenRow.classList.remove('hidden');
+    details.style.height = 'auto';
+  }
+}
+
+function forceCollapseCard(card) {
+  const details = card.querySelector(':scope > .mod-details');
+  const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
+  
+  details.style.height = '0';
+  details.classList.remove('expanded');
+  if (icon) icon.classList.remove('rotated');
+  card.classList.remove('expanded');
+  if (connector) connector.classList.add('hidden');
+  if (childrenRow) childrenRow.classList.add('hidden');
+}
+
+// --- Search Functionality ---
+
+function filterMods() {
+  const input = document.getElementById('modSearchInput');
+  const filter = input.value.toLowerCase().trim();
+  const clearBtn = document.getElementById('clearSearchBtn');
+  const cards = document.querySelectorAll('.mod-card');
+  
+  // Show/Hide clear button
+  if (filter.length > 0) {
+    clearBtn.classList.remove('hidden');
+  } else {
+    clearBtn.classList.add('hidden');
+    document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+    return;
+  }
+
+  // First, collapse everything to start fresh if needed, or just remove highlights
+  document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+
+  let firstMatch = null;
+
+  cards.forEach(card => {
+    const modName = card.getAttribute('data-name') || "";
+    
+    if (modName.includes(filter)) {
+      // Highlight match
+      card.classList.add('search-match');
+      if (!firstMatch) firstMatch = card;
+
+      // Recursively expand all parents so this card is visible
+      expandParents(card);
+    }
+  });
+
+  // Optional: Auto-pan to first match
+  // if (firstMatch) {
+  //   // Logic to center view on firstMatch could go here
+  // }
+}
+
+function expandParents(cardElement) {
+  // Traverse up the DOM to find parent containers
+  let current = cardElement.parentElement;
+  
+  while (current && !current.classList.contains('flowchart-container')) {
+    // If we hit a hierarchical-children or children-row, we need to find the controller card
+    if (current.classList.contains('hierarchical-children') || current.classList.contains('children-row')) {
+      const parentId = current.getAttribute('data-parent');
+      const parentCard = document.querySelector(`.mod-card[data-id="${parentId}"]`);
+      if (parentCard) {
+        forceExpandCard(parentCard);
+      }
+    }
+    current = current.parentElement;
+  }
+}
+
+function clearSearch() {
+  const input = document.getElementById('modSearchInput');
+  input.value = '';
+  document.getElementById('clearSearchBtn').classList.add('hidden');
+  document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+}
+
+// --- View Logic ---
 
 function toggleStoryMods() {
   const button = document.getElementById('hideStoryBtn');
@@ -187,9 +201,34 @@ function toggleStoryMods() {
   storyModsHidden = !storyModsHidden;
   
   storyMods.forEach(container => {
-    container.classList.toggle('story-hidden', storyModsHidden);
+    storyModsHidden ? container.classList.add('story-hidden') : container.classList.remove('story-hidden');
   });
+  
   button.classList.toggle('active', storyModsHidden);
+}
+
+function updateZoom() {
+  const container = document.getElementById('flowchartContainer');
+  const zoomLevel = document.getElementById('zoomLevel');
+  document.getElementById('zoomInBtn').disabled = currentZoom >= maxZoom;
+  document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
+  
+  zoomLevel.textContent = `${currentZoom}%`;
+  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom / 100})`;
+}
+
+function zoomIn() {
+  if (currentZoom < maxZoom) {
+    currentZoom += zoomStep;
+    updateZoom();
+  }
+}
+
+function zoomOut() {
+  if (currentZoom > minZoom) {
+    currentZoom -= zoomStep;
+    updateZoom();
+  }
 }
 
 function resetView() {
@@ -198,10 +237,9 @@ function resetView() {
   translateY = 0;
   updateZoom();
   collapseAll();
+  clearSearch();
   expandState = 0;
   document.getElementById('toggleAllBtn').textContent = 'Full View';
-  document.getElementById('modSearchInput').value = '';
-  document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
   
   if (storyModsHidden) {
     storyModsHidden = false;
@@ -212,28 +250,13 @@ function resetView() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- PAN & ZOOM ---
-function updateZoom() {
-  const container = document.getElementById('flowchartContainer');
-  document.getElementById('zoomLevel').textContent = `${currentZoom}%`;
-  document.getElementById('zoomInBtn').disabled = currentZoom >= maxZoom;
-  document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
-  updateTransform();
-}
-
-function updateTransform() {
-  const container = document.getElementById('flowchartContainer');
-  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom / 100})`;
-}
-
-function zoomIn() { if (currentZoom < maxZoom) { currentZoom += zoomStep; updateZoom(); } }
-function zoomOut() { if (currentZoom > minZoom) { currentZoom -= zoomStep; updateZoom(); } }
-
 function initPanZoom() {
   const wrapper = document.getElementById('flowchartWrapper');
   
   wrapper.addEventListener('mousedown', (e) => {
-    if (e.target.closest('.mod-card') || e.target.closest('a') || e.target.closest('input')) return;
+    // Don't pan if clicking card or scrollbar
+    if (e.target.closest('.mod-card') || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+    
     isPanning = true;
     startX = e.clientX - translateX;
     startY = e.clientY - translateY;
@@ -245,47 +268,57 @@ function initPanZoom() {
     e.preventDefault();
     translateX = e.clientX - startX;
     translateY = e.clientY - startY;
-    updateTransform();
+    updateZoom(); // Re-applies transform
   });
   
   window.addEventListener('mouseup', () => {
-    if (isPanning) { isPanning = false; wrapper.style.cursor = 'grab'; }
+    isPanning = false;
+    wrapper.style.cursor = 'grab';
   });
   
-  // Basic Touch Support
+  // Touch support
   wrapper.addEventListener('touchstart', (e) => {
-    if (e.target.closest('.mod-card') || e.touches.length > 1) return;
-    isPanning = true;
-    startX = e.touches[0].clientX - translateX;
-    startY = e.touches[0].clientY - translateY;
+    if (e.target.closest('.mod-card')) return;
+    if (e.touches.length === 1) {
+      isPanning = true;
+      startX = e.touches[0].clientX - translateX;
+      startY = e.touches[0].clientY - translateY;
+    }
   }, { passive: true });
   
   wrapper.addEventListener('touchmove', (e) => {
     if (!isPanning || e.touches.length !== 1) return;
     translateX = e.touches[0].clientX - startX;
     translateY = e.touches[0].clientY - startY;
-    updateTransform();
+    updateZoom();
   }, { passive: true });
   
-  wrapper.addEventListener('touchend', () => { isPanning = false; });
+  wrapper.addEventListener('touchend', () => {
+    isPanning = false;
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
   
-  // Essential/About Popups
-  const essentialsBtn = document.getElementById('essentials-button');
-  const contactBtn = document.getElementById('contact-button');
-  const installFilesOverlay = document.getElementById('install-files-overlay');
-  const contactOverlay = document.getElementById('contact-overlay');
+  // Setup button handlers for Essentials/About popups (if they exist)
+  const popupMap = {
+    'essentials-button': 'install-files-overlay',
+    'contact-button': 'contact-overlay'
+  };
   
-  if (essentialsBtn && installFilesOverlay) {
-    essentialsBtn.addEventListener('click', () => installFilesOverlay.classList.remove('hidden'));
-    installFilesOverlay.addEventListener('click', (e) => { if(e.target === installFilesOverlay) installFilesOverlay.classList.add('hidden'); });
-  }
-  if (contactBtn && contactOverlay) {
-    contactBtn.addEventListener('click', () => contactOverlay.classList.remove('hidden'));
-    contactOverlay.addEventListener('click', (e) => { if(e.target === contactOverlay) contactOverlay.classList.add('hidden'); });
-  }
+  Object.keys(popupMap).forEach(btnId => {
+    const btn = document.getElementById(btnId);
+    const overlay = document.getElementById(popupMap[btnId]);
+    if (btn && overlay) {
+      btn.addEventListener('click', () => overlay.classList.remove('hidden'));
+      // Close logic
+      const closeBtn = overlay.querySelector('button[id$="close"]'); // generic selector
+      if(closeBtn) closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
+      overlay.addEventListener('click', (e) => {
+        if(e.target === overlay) overlay.classList.add('hidden');
+      });
+    }
+  });
 });
