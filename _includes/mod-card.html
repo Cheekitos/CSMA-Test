@@ -13,9 +13,8 @@
 <div class="flow-branch {{ story_class }}">
   <div class="mod-card {{ mod.type }}" 
        onclick="toggleCard(this); event.stopPropagation();" 
-       data-id="{{ mod.id }}" 
+       data-id="{{ mod.id }}"
        data-name="{{ mod.name | downcase }}">
-    
     <div class="mod-header">
       <div class="mod-title">{{ mod.name }}</div>
       <div class="mod-badges">
@@ -33,7 +32,6 @@
         {% endif %}
       </div>
     </div>
-    
     <div class="mod-details">
       <div class="mod-description">{{ mod.description }}</div>
       {% if mod.link %}
