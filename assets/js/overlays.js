@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (revealEmail && emailText) {
         revealEmail.addEventListener('click', () => {
-          emailText.classList.remove('hidden');
+          emailText.classList.toggle('hidden');
         });
       }
     },
