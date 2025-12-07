@@ -2,8 +2,7 @@ let currentZoom = 100;
 const zoomStep = 10;
 const minZoom = 50;
 const maxZoom = 150;
-// Base scale factor: 0.9 allows "100%" to appear slightly zoomed out (previously 90%)
-const baseScaleFactor = 0.9; 
+const baseScaleFactor = 0.9; // 100% UI = 0.9 visual scale
 
 let isPanning = false;
 let startX = 0;
@@ -15,179 +14,52 @@ let translateY = 0;
 let expandState = 0;
 let storyModsHidden = false;
 
-// --- Card Logic ---
+// --- SEARCH FUNCTIONALITY ---
 
-function toggleCard(card) {
-  const details = card.querySelector(':scope > .mod-details');
-  const icon = card.querySelector(':scope > .mod-header .expand-icon');
-  const cardId = card.getAttribute('data-id');
-  
-  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-  
-  const isExpanded = details.classList.contains('expanded');
-  
-  if (isExpanded) {
-    // Collapse
-    details.style.height = details.scrollHeight + 'px';
-    requestAnimationFrame(() => {
-      details.style.height = '0';
-      details.classList.remove('expanded');
-      if (icon) icon.classList.remove('rotated');
-      card.classList.remove('expanded');
-      if (connector) connector.classList.add('hidden');
-      if (childrenRow) childrenRow.classList.add('hidden');
-    });
-  } else {
-    // Expand
-    details.classList.add('expanded');
-    if (icon) icon.classList.add('rotated');
-    card.classList.add('expanded');
-    if (connector) connector.classList.remove('hidden');
-    if (childrenRow) childrenRow.classList.remove('hidden');
-    
-    // Smooth height animation
-    const height = details.scrollHeight;
-    details.style.height = '0';
-    requestAnimationFrame(() => {
-      details.style.height = height + 'px';
-    });
-    
-    setTimeout(() => {
-      if (details.classList.contains('expanded')) {
-        details.style.height = 'auto';
-      }
-    }, 300);
-  }
-}
-
-// --- Expansion Logic ---
-
-function toggleAll() {
-  const button = document.getElementById('toggleAllBtn');
-  
-  if (expandState === 0) {
-    expandFullView();
-    expandState = 1;
-    button.textContent = 'Expand All';
-  } else if (expandState === 1) {
-    expandAll();
-    expandState = 2;
-    button.textContent = 'Collapse All';
-  } else {
-    collapseAll();
-    expandState = 0;
-    button.textContent = 'Full View';
-  }
-}
-
-function expandFullView() {
-  const baseGames = document.querySelectorAll('.mod-card.base-game');
-  const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
-  baseGames.forEach(card => forceExpandCard(card));
-  parentMods.forEach(card => forceExpandCard(card));
-}
-
-function expandAll() {
-  const allCards = document.querySelectorAll('.mod-card[data-id]');
-  allCards.forEach(card => forceExpandCard(card));
-}
-
-function collapseAll() {
-  const allCards = document.querySelectorAll('.mod-card[data-id]');
-  allCards.forEach(card => forceCollapseCard(card));
-}
-
-function forceExpandCard(card) {
-  const details = card.querySelector(':scope > .mod-details');
-  const icon = card.querySelector(':scope > .mod-header .expand-icon');
-  const cardId = card.getAttribute('data-id');
-  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-  
-  if (!details.classList.contains('expanded')) {
-    details.classList.add('expanded');
-    if (icon) icon.classList.add('rotated');
-    card.classList.add('expanded');
-    if (connector) connector.classList.remove('hidden');
-    if (childrenRow) childrenRow.classList.remove('hidden');
-    details.style.height = 'auto';
-  }
-}
-
-function forceCollapseCard(card) {
-  const details = card.querySelector(':scope > .mod-details');
-  const icon = card.querySelector(':scope > .mod-header .expand-icon');
-  const cardId = card.getAttribute('data-id');
-  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
-  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
-  
-  details.style.height = '0';
-  details.classList.remove('expanded');
-  if (icon) icon.classList.remove('rotated');
-  card.classList.remove('expanded');
-  if (connector) connector.classList.add('hidden');
-  if (childrenRow) childrenRow.classList.add('hidden');
-}
-
-// --- Search Functionality ---
-
+// Called by the HTML onkeyup event
 function filterMods() {
   const input = document.getElementById('modSearchInput');
   const filter = input.value.toLowerCase().trim();
   const clearBtn = document.getElementById('clearSearchBtn');
-  const cards = document.querySelectorAll('.mod-card');
+  const allCards = document.querySelectorAll('.mod-card');
   
-  // Show/Hide clear button
+  // Toggle Clear Button
   if (filter.length > 0) {
     clearBtn.classList.remove('hidden');
   } else {
     clearBtn.classList.add('hidden');
-    document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+    allCards.forEach(card => card.classList.remove('search-match'));
     return;
   }
 
-  // First, collapse everything to start fresh if needed, or just remove highlights
-  document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
+  // Clear previous highlights
+  allCards.forEach(card => card.classList.remove('search-match'));
 
   let firstMatch = null;
 
-  cards.forEach(card => {
-    const modName = card.getAttribute('data-name') || "";
+  allCards.forEach(card => {
+    const title = card.querySelector('.mod-title').textContent.toLowerCase();
     
-    if (modName.includes(filter)) {
-      // Highlight match
+    // Check if title contains search text
+    if (title.includes(filter)) {
       card.classList.add('search-match');
-      if (!firstMatch) firstMatch = card;
-
-      // Recursively expand all parents so this card is visible
-      expandParents(card);
+      
+      if (!firstMatch) {
+        firstMatch = card;
+      }
+      
+      // Expand the path to this card so it is visible
+      expandToCard(card);
     }
   });
 
-  // Auto-pan to first match
+  // Pan to the first match
   if (firstMatch) {
-    // Wait for CSS transitions (300ms) to finish so coordinates are stable
+    // We must wait for the CSS transition (height expansion) to finish
+    // before calculating the coordinates, otherwise the calculation is off.
     setTimeout(() => {
       centerOnCard(firstMatch);
-    }, 400); 
-  }
-}
-
-function expandParents(cardElement) {
-  // Traverse up the DOM to find parent containers
-  let current = cardElement.parentElement;
-  
-  while (current && !current.classList.contains('flowchart-container')) {
-    // If we hit a hierarchical-children or children-row, we need to find the controller card
-    if (current.classList.contains('hierarchical-children') || current.classList.contains('children-row')) {
-      const parentId = current.getAttribute('data-parent');
-      const parentCard = document.querySelector(`.mod-card[data-id="${parentId}"]`);
-      if (parentCard) {
-        forceExpandCard(parentCard);
-      }
-    }
-    current = current.parentElement;
+    }, 400);
   }
 }
 
@@ -198,166 +70,84 @@ function clearSearch() {
   document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
 }
 
+// Recursively expand parents of a specific card to make it visible
+function expandToCard(card) {
+  let current = card;
+  
+  // Traverse up the DOM to find parent containers
+  while (current) {
+    // Find the closest parent container (hierarchical or children-row)
+    const parentContainer = current.closest('.hierarchical-children, .children-row');
+    
+    if (parentContainer) {
+      // Get the ID of the parent card that controls this container
+      const parentId = parentContainer.getAttribute('data-parent');
+      
+      if (parentId) {
+        const parentCard = document.querySelector(`.mod-card[data-id="${parentId}"]`);
+        
+        if (parentCard) {
+          // Force expand the parent card
+          forceExpandCard(parentCard);
+          // Move pointer up to continue the chain
+          current = parentCard;
+        } else {
+          break;
+        }
+      } else {
+        break;
+      }
+    } else {
+      break;
+    }
+  }
+}
+
 function centerOnCard(card) {
   const wrapper = document.getElementById('flowchartWrapper');
+  
+  // 1. Get Visual Coordinates (Post-transform, relative to viewport)
   const wrapperRect = wrapper.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
 
-  // 1. Find the visual center of the Wrapper
+  // 2. Calculate Centers
   const wrapperCenterX = wrapperRect.left + wrapperRect.width / 2;
   const wrapperCenterY = wrapperRect.top + wrapperRect.height / 2;
 
-  // 2. Find the visual center of the Target Card
   const cardCenterX = cardRect.left + cardRect.width / 2;
   const cardCenterY = cardRect.top + cardRect.height / 2;
 
-  // 3. Calculate the difference in screen pixels
+  // 3. Calculate Visual Difference
   const diffX = wrapperCenterX - cardCenterX;
   const diffY = wrapperCenterY - cardCenterY;
 
-  // 4. Calculate the current visual scale
-  const effectiveScale = (currentZoom / 100) * baseScaleFactor;
+  // 4. Calculate Current Effective Scale
+  const currentScale = (currentZoom / 100) * baseScaleFactor;
 
-  // 5. Apply the difference to the translate values
-  // We must divide by scale because 'translate' happens before 'scale' in CSS logic,
-  // or rather, the translation vector is part of the matrix that gets scaled.
-  // To move 100px visually when scaled at 2x, we only need to change translate by 50px.
-  translateX += (diffX / effectiveScale);
-  translateY += (diffY / effectiveScale);
+  // 5. Apply to Transform
+  // We divide by scale because the CSS translate is inside the transform matrix.
+  // Moving 100px visually requires moving (100 / scale) pixels in the CSS transform.
+  translateX += (diffX / currentScale);
+  translateY += (diffY / currentScale);
 
   updateZoom();
 }
 
-// --- View Logic ---
+// --- CARD LOGIC ---
 
-function toggleStoryMods() {
-  const button = document.getElementById('hideStoryBtn');
-  const storyMods = document.querySelectorAll('.story-mod-container');
-  storyModsHidden = !storyModsHidden;
+function toggleCard(card) {
+  const details = card.querySelector(':scope > .mod-details');
+  const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
   
-  storyMods.forEach(container => {
-    storyModsHidden ? container.classList.add('story-hidden') : container.classList.remove('story-hidden');
-  });
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
   
-  button.classList.toggle('active', storyModsHidden);
-}
-
-function updateZoom() {
-  const container = document.getElementById('flowchartContainer');
-  const zoomLevel = document.getElementById('zoomLevel');
-  document.getElementById('zoomInBtn').disabled = currentZoom >= maxZoom;
-  document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
+  const isExpanded = details.classList.contains('expanded');
   
-  zoomLevel.textContent = `${currentZoom}%`;
-  
-  // Apply the baseScaleFactor so 100% in UI = 0.9 scale visually
-  const effectiveScale = (currentZoom / 100) * baseScaleFactor;
-  
-  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${effectiveScale})`;
-}
-
-function zoomIn() {
-  if (currentZoom < maxZoom) {
-    currentZoom += zoomStep;
-    updateZoom();
-  }
-}
-
-function zoomOut() {
-  if (currentZoom > minZoom) {
-    currentZoom -= zoomStep;
-    updateZoom();
-  }
-}
-
-function resetView() {
-  currentZoom = 100;
-  translateX = 0;
-  translateY = 0;
-  updateZoom();
-  collapseAll();
-  clearSearch();
-  expandState = 0;
-  document.getElementById('toggleAllBtn').textContent = 'Full View';
-  
-  if (storyModsHidden) {
-    storyModsHidden = false;
-    document.querySelectorAll('.story-mod-container').forEach(c => c.classList.remove('story-hidden'));
-    document.getElementById('hideStoryBtn').classList.remove('active');
-  }
-  
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function initPanZoom() {
-  const wrapper = document.getElementById('flowchartWrapper');
-  
-  wrapper.addEventListener('mousedown', (e) => {
-    // Don't pan if clicking card or scrollbar
-    if (e.target.closest('.mod-card') || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
-    
-    isPanning = true;
-    startX = e.clientX - translateX;
-    startY = e.clientY - translateY;
-    wrapper.style.cursor = 'grabbing';
-  });
-  
-  window.addEventListener('mousemove', (e) => {
-    if (!isPanning) return;
-    e.preventDefault();
-    translateX = e.clientX - startX;
-    translateY = e.clientY - startY;
-    updateZoom(); // Re-applies transform
-  });
-  
-  window.addEventListener('mouseup', () => {
-    isPanning = false;
-    wrapper.style.cursor = 'grab';
-  });
-  
-  // Touch support
-  wrapper.addEventListener('touchstart', (e) => {
-    if (e.target.closest('.mod-card')) return;
-    if (e.touches.length === 1) {
-      isPanning = true;
-      startX = e.touches[0].clientX - translateX;
-      startY = e.touches[0].clientY - translateY;
-    }
-  }, { passive: true });
-  
-  wrapper.addEventListener('touchmove', (e) => {
-    if (!isPanning || e.touches.length !== 1) return;
-    translateX = e.touches[0].clientX - startX;
-    translateY = e.touches[0].clientY - startY;
-    updateZoom();
-  }, { passive: true });
-  
-  wrapper.addEventListener('touchend', () => {
-    isPanning = false;
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  updateZoom();
-  initPanZoom();
-  
-  // Setup button handlers for Essentials/About popups (if they exist)
-  const popupMap = {
-    'essentials-button': 'install-files-overlay',
-    'contact-button': 'contact-overlay'
-  };
-  
-  Object.keys(popupMap).forEach(btnId => {
-    const btn = document.getElementById(btnId);
-    const overlay = document.getElementById(popupMap[btnId]);
-    if (btn && overlay) {
-      btn.addEventListener('click', () => overlay.classList.remove('hidden'));
-      // Close logic
-      const closeBtn = overlay.querySelector('button[id$="close"]'); // generic selector
-      if(closeBtn) closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
-      overlay.addEventListener('click', (e) => {
-        if(e.target === overlay) overlay.classList.add('hidden');
-      });
-    }
-  });
-});
+  if (isExpanded) {
+    // Collapse
+    details.style.height = details.scrollHeight + 'px';
+    requestAnimationFrame(() => {
+      details.style.height = '0';
+      details.classList.remove('expanded');
