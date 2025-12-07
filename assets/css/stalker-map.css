@@ -12,20 +12,122 @@ body {
 }
 
 .mod-tree-container {
-  max-width: 90vw; /* Increased width usage */
+  max-width: 95vw;
   margin: 0 auto;
   padding: 20px;
   position: relative;
 }
 
+/* --- Header & Breadcrumbs --- */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f3f4f6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.site-title:hover {
+  color: #fbbf24;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Specific styling for header buttons to match previous Tailwind look */
+.header-btn {
+  background-color: #374151;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.header-btn:hover {
+  background-color: #4b5563;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 24px;
+}
+
+.breadcrumb a {
+  color: #60a5fa;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: #93c5fd;
+}
+
+/* !!! FIX FOR THE GIANT ICON ISSUE !!! */
+.breadcrumb svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.breadcrumb-separator {
+  color: #9ca3af;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #fbbf24;
+}
+
+.page-subtitle {
+  text-align: center;
+  color: #f3f4f6;
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.page-description {
+  text-align: center;
+  color: #9ca3af;
+  margin-bottom: 24px;
+  font-size: 0.875rem;
+}
+
+/* --- Tree Container & Background --- */
+
 .flowchart-wrapper {
   overflow: hidden;
-  padding: 40px 0; /* More breathing room */
+  padding: 40px 0;
   cursor: grab;
   position: relative;
-  background: radial-gradient(circle at center, #1f2937 0%, #111827 70%); /* Subtle depth */
+  background: radial-gradient(circle at center, #1f2937 0%, #111827 70%);
   border-radius: 8px;
   border: 1px solid #374151;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
 }
 
 .flowchart-wrapper:active {
@@ -43,8 +145,8 @@ body {
 
 .flowchart-container {
   display: grid;
-  grid-template-columns: repeat(3, 320px); /* Slightly wider columns */
-  gap: 60px; /* Better column separation */
+  grid-template-columns: repeat(3, 320px);
+  gap: 60px;
   justify-content: center;
   transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-origin: center top;
@@ -72,14 +174,14 @@ body {
 .branch-connector {
   width: 2px;
   height: 25px;
-  background: #6b7280; /* Lighter grey for visibility */
+  background: #6b7280;
   margin: 4px 0;
   align-self: center;
 }
 
 .branch-connector.left-aligned {
   align-self: flex-start;
-  margin-left: 20px; /* Aligns with hierarchical indentation */
+  margin-left: 20px;
   height: 20px;
   margin-top: 5px;
   margin-bottom: 0;
@@ -116,19 +218,18 @@ body {
 .hierarchical-children::before {
   content: '';
   position: absolute;
-  left: 20px; /* Matches connector left-aligned */
+  left: 20px;
   top: -10px;
-  bottom: 25px; /* Stop before the last item's curve */
+  bottom: 25px;
   width: 2px;
   background: #6b7280;
 }
 
-/* Horizontal line to card */
 .hierarchical-item::before {
   content: '';
   position: absolute;
   left: -20px;
-  top: 24px; /* Center with card vertical alignment */
+  top: 24px;
   width: 20px;
   height: 2px;
   background: #6b7280;
@@ -146,7 +247,7 @@ body {
 .mod-card {
   background: #1f2937;
   border: 1px solid #4b5563;
-  border-left: 4px solid #4b5563; /* Accent strip on left */
+  border-left: 4px solid #4b5563;
   border-radius: 6px;
   padding: 12px 14px;
   width: 100%;
@@ -163,7 +264,6 @@ body {
   box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
-/* Search Highlight */
 .mod-card.search-match {
   border: 2px solid #fbbf24;
   box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
@@ -210,7 +310,7 @@ body {
 }
 
 .mod-title {
-  font-size: 15px; /* Larger */
+  font-size: 15px;
   font-weight: 700;
   color: #f9fafb;
   flex: 1;
@@ -224,11 +324,12 @@ body {
 }
 
 .expand-icon {
-  width: 18px; /* Larger */
+  width: 18px;
   height: 18px;
   color: #fbbf24;
   transition: transform 0.3s ease;
   order: -1;
+  flex-shrink: 0;
 }
 
 .expand-icon.rotated {
@@ -269,8 +370,8 @@ body {
 }
 
 .mod-description {
-  font-size: 12.5px; /* Readable size */
-  color: #d1d5db; /* Lighter grey */
+  font-size: 12.5px;
+  color: #d1d5db;
   line-height: 1.5;
   margin-bottom: 8px;
 }
@@ -411,4 +512,8 @@ body {
   #modSearchInput { width: 100%; }
   .view-controls { justify-content: center; }
   .zoom-controls { justify-content: center; margin: 5px 0; }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
