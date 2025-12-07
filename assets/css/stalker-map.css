@@ -46,7 +46,6 @@ body {
   gap: 0.5rem;
 }
 
-/* Specific styling for header buttons to match previous Tailwind look */
 .header-btn {
   background-color: #374151;
   color: white;
@@ -84,7 +83,6 @@ body {
   color: #93c5fd;
 }
 
-/* !!! FIX FOR THE GIANT ICON ISSUE !!! */
 .breadcrumb svg {
   width: 16px;
   height: 16px;
@@ -148,8 +146,9 @@ body {
   grid-template-columns: repeat(3, 320px);
   gap: 60px;
   justify-content: center;
-  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-origin: center top;
+  /* UPDATED: Slower transition for fluid panning and correct origin for zoom */
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center top; 
   user-select: none;
   padding: 20px;
 }
