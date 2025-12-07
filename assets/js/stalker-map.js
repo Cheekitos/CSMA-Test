@@ -2,8 +2,6 @@ let currentZoom = 100;
 const zoomStep = 10;
 const minZoom = 50;
 const maxZoom = 150;
-// Base scale factor: 0.9 allows "100%" to appear slightly zoomed out (previously 90%)
-const baseScaleFactor = 0.9; 
 
 let isPanning = false;
 let startX = 0;
@@ -130,6 +128,42 @@ function forceCollapseCard(card) {
   if (childrenRow) childrenRow.classList.add('hidden');
 }
 
+// --- Pan to Card ---
+
+function panToCard(card) {
+  const wrapper = document.getElementById('flowchartWrapper');
+  const container = document.getElementById('flowchartContainer');
+  
+  // Get the bounding rectangles
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  
+  // Calculate the center of the wrapper
+  const wrapperCenterX = wrapperRect.width / 2;
+  const wrapperCenterY = wrapperRect.height / 2;
+  
+  // Calculate card's current position relative to the wrapper
+  const cardCenterX = cardRect.left + cardRect.width / 2 - wrapperRect.left;
+  const cardCenterY = cardRect.top + cardRect.height / 2 - wrapperRect.top;
+  
+  // Calculate how much we need to translate to center the card
+  const deltaX = wrapperCenterX - cardCenterX;
+  const deltaY = wrapperCenterY - cardCenterY;
+  
+  // Update translate values
+  translateX += deltaX;
+  translateY += deltaY;
+  
+  // Temporarily add a transition class for smooth panning
+  container.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  updateZoom();
+  
+  // Remove the transition after animation completes to allow normal panning
+  setTimeout(() => {
+    container.style.transition = '';
+  }, 600);
+}
+
 // --- Search Functionality ---
 
 function filterMods() {
@@ -165,12 +199,12 @@ function filterMods() {
     }
   });
 
-  // Auto-pan to first match
+  // Pan to first match if found
   if (firstMatch) {
-    // Wait for CSS transitions (300ms) to finish so coordinates are stable
+    // Small delay to ensure parent expansions are rendered
     setTimeout(() => {
-      centerOnCard(firstMatch);
-    }, 400); 
+      panToCard(firstMatch);
+    }, 100);
   }
 }
 
@@ -198,36 +232,6 @@ function clearSearch() {
   document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
 }
 
-function centerOnCard(card) {
-  const wrapper = document.getElementById('flowchartWrapper');
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const cardRect = card.getBoundingClientRect();
-
-  // 1. Find the visual center of the Wrapper
-  const wrapperCenterX = wrapperRect.left + wrapperRect.width / 2;
-  const wrapperCenterY = wrapperRect.top + wrapperRect.height / 2;
-
-  // 2. Find the visual center of the Target Card
-  const cardCenterX = cardRect.left + cardRect.width / 2;
-  const cardCenterY = cardRect.top + cardRect.height / 2;
-
-  // 3. Calculate the difference in screen pixels
-  const diffX = wrapperCenterX - cardCenterX;
-  const diffY = wrapperCenterY - cardCenterY;
-
-  // 4. Calculate the current visual scale
-  const effectiveScale = (currentZoom / 100) * baseScaleFactor;
-
-  // 5. Apply the difference to the translate values
-  // We must divide by scale because 'translate' happens before 'scale' in CSS logic,
-  // or rather, the translation vector is part of the matrix that gets scaled.
-  // To move 100px visually when scaled at 2x, we only need to change translate by 50px.
-  translateX += (diffX / effectiveScale);
-  translateY += (diffY / effectiveScale);
-
-  updateZoom();
-}
-
 // --- View Logic ---
 
 function toggleStoryMods() {
@@ -249,11 +253,7 @@ function updateZoom() {
   document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
   
   zoomLevel.textContent = `${currentZoom}%`;
-  
-  // Apply the baseScaleFactor so 100% in UI = 0.9 scale visually
-  const effectiveScale = (currentZoom / 100) * baseScaleFactor;
-  
-  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${effectiveScale})`;
+  container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom / 100})`;
 }
 
 function zoomIn() {
