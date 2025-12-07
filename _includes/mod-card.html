@@ -5,12 +5,8 @@
 {% endcomment %}
 
 {% assign mod = include.mod %}
-{% assign story_class = "" %}
-{% if mod.is_story %}
-  {% assign story_class = "story-mod-container" %}
-{% endif %}
 
-<div class="flow-branch {{ story_class }}">
+<div class="flow-branch">
   <div class="mod-card {{ mod.type }}" 
        onclick="toggleCard(this); event.stopPropagation();" 
        data-id="{{ mod.id }}"
@@ -37,10 +33,10 @@
       {% if mod.link or mod.link2 %}
         <div class="mod-links">
           {% if mod.link %}
-            <a href="{{ mod.link }}" class="mod-link" onclick="event.stopPropagation();">View Details →</a>
+            <a href="{{ mod.link }}" class="mod-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">View Details →</a>
           {% endif %}
           {% if mod.link2 %}
-            <a href="{{ mod.link2 }}" class="mod-link" onclick="event.stopPropagation();">More Info →</a>
+            <a href="{{ mod.link2 }}" class="mod-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">More Info →</a>
           {% endif %}
         </div>
       {% endif %}
@@ -52,12 +48,7 @@
     
     <div class="hierarchical-children hidden" data-parent="{{ mod.id }}">
       {% for child in mod.hierarchical_children %}
-        {% assign child_story_class = "" %}
-        {% if child.is_story %}
-          {% assign child_story_class = "story-mod-container" %}
-        {% endif %}
-        
-        <div class="hierarchical-item {{ child_story_class }}">
+        <div class="hierarchical-item">
           {% include mod-card.html mod=child %}
         </div>
       {% endfor %}
