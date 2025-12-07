@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
       this.setupContactOverlay();
       this.setupInstallFilesOverlay();
       this.setupTabSwitching();
+      this.setupEssentialsTabSwitching();
     },
 
     setupContactOverlay: function() {
@@ -65,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const showInstallFilesOverlay = () => {
         const installFilesOverlay = document.getElementById('install-files-overlay');
         if (installFilesOverlay) installFilesOverlay.classList.remove('hidden');
+        
+        // Reset to Essential Files tab when opening
+        this.resetToEssentialsTab();
         
         if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
           window.StalkerMods.filters.hideFilterDropdown();
@@ -133,6 +137,39 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     },
 
+    setupEssentialsTabSwitching: function() {
+      const essentialsTab = document.getElementById('essentials-tab');
+      const resourcesTab = document.getElementById('resources-tab');
+      const essentialsContent = document.getElementById('essentials-content');
+      const resourcesContent = document.getElementById('resources-content');
+
+      if (essentialsTab && resourcesTab && essentialsContent && resourcesContent) {
+        essentialsTab.addEventListener('click', () => {
+          // Switch to Essential Files tab
+          essentialsTab.classList.add('text-white', 'border-yellow-400');
+          essentialsTab.classList.remove('text-gray-400', 'border-transparent');
+          resourcesTab.classList.add('text-gray-400', 'border-transparent');
+          resourcesTab.classList.remove('text-white', 'border-yellow-400');
+          
+          // Show Essential Files content, hide Resources content
+          essentialsContent.classList.remove('hidden');
+          resourcesContent.classList.add('hidden');
+        });
+
+        resourcesTab.addEventListener('click', () => {
+          // Switch to Resources tab
+          resourcesTab.classList.add('text-white', 'border-yellow-400');
+          resourcesTab.classList.remove('text-gray-400', 'border-transparent');
+          essentialsTab.classList.add('text-gray-400', 'border-transparent');
+          essentialsTab.classList.remove('text-white', 'border-yellow-400');
+          
+          // Show Resources content, hide Essential Files content
+          resourcesContent.classList.remove('hidden');
+          essentialsContent.classList.add('hidden');
+        });
+      }
+    },
+
     resetToAboutTab: function() {
       const aboutTab = document.getElementById('about-tab');
       const faqTab = document.getElementById('faq-tab');
@@ -147,6 +184,23 @@ document.addEventListener('DOMContentLoaded', function() {
         
         aboutContent.classList.remove('hidden');
         faqContent.classList.add('hidden');
+      }
+    },
+
+    resetToEssentialsTab: function() {
+      const essentialsTab = document.getElementById('essentials-tab');
+      const resourcesTab = document.getElementById('resources-tab');
+      const essentialsContent = document.getElementById('essentials-content');
+      const resourcesContent = document.getElementById('resources-content');
+      
+      if (essentialsTab && resourcesTab && essentialsContent && resourcesContent) {
+        essentialsTab.classList.add('text-white', 'border-yellow-400');
+        essentialsTab.classList.remove('text-gray-400', 'border-transparent');
+        resourcesTab.classList.add('text-gray-400', 'border-transparent');
+        resourcesTab.classList.remove('text-white', 'border-yellow-400');
+        
+        essentialsContent.classList.remove('hidden');
+        resourcesContent.classList.add('hidden');
       }
     }
   };
