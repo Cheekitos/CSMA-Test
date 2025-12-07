@@ -38,21 +38,26 @@ title: Interactive Mod Map
   </nav>
 
   <h1 class="page-title">S.T.A.L.K.E.R. Mod Family Tree</h1>
-  <p class="page-subtitle">This chart is a broad, simplified overview of many S.T.A.L.K.E.R. mods available, how they’re connected, and a good way to discover new, fun projects to play in the Zone.</p>
-  <p class="page-description">Use the search bar to find specific mods, or click cards to explore the history.</p>
+  <p class="page-subtitle">A visual history of the Zone. Click on any mod to explore its features and descendants.</p>
+  <p class="page-description">Use the controls to zoom, or search to find specific mods like "Anomaly" or "Goldsphere".</p>
 
   <div class="controls-bar">
-    <div class="search-wrapper">
-      <input type="text" id="modSearchInput" placeholder="Search mods (e.g. GAMMA)..." onkeyup="searchMods()">
+    <div class="search-container">
+      <input type="text" id="modSearchInput" placeholder="Find a mod..." onkeyup="filterMods()">
+      <button class="clear-search hidden" id="clearSearchBtn" onclick="clearSearch()">✕</button>
     </div>
+
     <div class="zoom-controls">
       <button class="zoom-button" id="zoomOutBtn" onclick="zoomOut()">−</button>
       <span class="zoom-indicator" id="zoomLevel">100%</span>
       <button class="zoom-button" id="zoomInBtn" onclick="zoomIn()">+</button>
     </div>
-    <button class="control-button" id="toggleAllBtn" onclick="toggleAll()">Full View</button>
-    <button class="control-button" id="hideStoryBtn" onclick="toggleStoryMods()">Hide Story Mods</button>
-    <button class="control-button" id="defaultViewBtn" onclick="resetView()">Default View</button>
+    
+    <div class="view-controls">
+      <button class="control-button" id="toggleAllBtn" onclick="toggleAll()">Full View</button>
+      <button class="control-button" id="hideStoryBtn" onclick="toggleStoryMods()">Hide Story Mods</button>
+      <button class="control-button" id="defaultViewBtn" onclick="resetView()">Reset</button>
+    </div>
   </div>
 
   <div class="flowchart-wrapper" id="flowchartWrapper">
@@ -61,11 +66,7 @@ title: Interactive Mod Map
       {% for base_game in site.data.stalker-mods.base_games %}
       <div class="base-column">
         <div class="flow-branch">
-          <div class="mod-card {{ base_game.type }}" 
-               onclick="toggleCard(this)" 
-               data-id="{{ base_game.id }}"
-               data-depth="0"
-               data-family-color="{{ base_game.type }}">
+          <div class="mod-card {{ base_game.type }}" onclick="toggleCard(this)" data-id="{{ base_game.id }}" data-name="{{ base_game.name | downcase }}">
             <div class="mod-header">
               <div class="mod-title">{{ base_game.name }}</div>
               <div class="mod-badges">
@@ -79,13 +80,12 @@ title: Interactive Mod Map
             </div>
           </div>
           
+          <div class="branch-connector hidden" data-parent="{{ base_game.id }}"></div>
+          
           <div class="children-row hidden" data-parent="{{ base_game.id }}">
             {% if base_game.children %}
               {% for child in base_game.children %}
-                {% include mod-card.html 
-                  mod=child 
-                  depth=1
-                  active_family_color=base_game.type %}
+                {% include mod-card.html mod=child %}
               {% endfor %}
             {% endif %}
           </div>
@@ -98,6 +98,7 @@ title: Interactive Mod Map
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/stalker-map.js"></script>
+
 {% include about-popup.html %}
 {% include essentials-popup.html %}
 
