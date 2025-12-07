@@ -1,7 +1,6 @@
-// Default zoom is now 100% as requested (which corresponds to the previous 90% visual size)
 let currentZoom = 100;
 const zoomStep = 10;
-const minZoom = 50; 
+const minZoom = 50;
 const maxZoom = 150;
 
 let isPanning = false;
@@ -9,7 +8,6 @@ let startX = 0;
 let startY = 0;
 let translateX = 0;
 let translateY = 0;
-let searchTimeout = null; 
 
 // 0 = collapsed, 1 = full view, 2 = fully expanded
 let expandState = 0;
@@ -132,18 +130,13 @@ function forceCollapseCard(card) {
 
 // --- Search Functionality ---
 
-// Debounce wrapper to prevent jerky movement while typing
 function filterMods() {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(executeSearch, 300);
-}
-
-function executeSearch() {
   const input = document.getElementById('modSearchInput');
   const filter = input.value.toLowerCase().trim();
   const clearBtn = document.getElementById('clearSearchBtn');
   const cards = document.querySelectorAll('.mod-card');
   
+  // Show/Hide clear button
   if (filter.length > 0) {
     clearBtn.classList.remove('hidden');
   } else {
@@ -152,31 +145,33 @@ function executeSearch() {
     return;
   }
 
+  // First, collapse everything to start fresh if needed, or just remove highlights
   document.querySelectorAll('.search-match').forEach(c => c.classList.remove('search-match'));
 
   let firstMatch = null;
 
   cards.forEach(card => {
     const modName = card.getAttribute('data-name') || "";
+    
     if (modName.includes(filter)) {
+      // Highlight match
       card.classList.add('search-match');
       if (!firstMatch) firstMatch = card;
-      // Ensure all parents are expanded before calculating the position
-      expandParents(card); 
+
+      // Recursively expand all parents so this card is visible
+      expandParents(card);
     }
   });
 
-  if (firstMatch) {
-    // Increased timeout to 500ms to ensure layout has settled for accurate panning
-    setTimeout(() => {
-        panToCard(firstMatch);
-    }, 500);
-  }
+  // Optional: Auto-pan to first match could be added here
 }
 
 function expandParents(cardElement) {
+  // Traverse up the DOM to find parent containers
   let current = cardElement.parentElement;
+  
   while (current && !current.classList.contains('flowchart-container')) {
+    // If we hit a hierarchical-children or children-row, we need to find the controller card
     if (current.classList.contains('hierarchical-children') || current.classList.contains('children-row')) {
       const parentId = current.getAttribute('data-parent');
       const parentCard = document.querySelector(`.mod-card[data-id="${parentId}"]`);
@@ -186,43 +181,6 @@ function expandParents(cardElement) {
     }
     current = current.parentElement;
   }
-}
-
-function panToCard(card) {
-  const wrapper = document.getElementById('flowchartWrapper');
-  const container = document.getElementById('flowchartContainer');
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const zoom = currentZoom / 100;
-  
-  // 1. Calculate Unscaled Card Center (Tx, Ty) relative to flowchartContainer's top-left
-  // Accumulate offsets from the card's top-left up to the container's top-left.
-  let Tx = card.offsetLeft + (card.offsetWidth / 2);
-  let Ty = card.offsetTop + (card.offsetHeight / 2);
-  let current = card.offsetParent;
-
-  // Accumulate offsets up to the flowchartContainer (but do not include its own offset)
-  while (current && current !== container && current.id !== 'flowchartWrapper') {
-      Tx += current.offsetLeft;
-      Ty += current.offsetTop;
-      current = current.offsetParent;
-  }
-  
-  // 2. Calculate Target Translation
-  
-  // Center of the visible wrapper/viewport area
-  const wrapperCenterW = wrapperRect.width / 2;
-  const wrapperCenterH = wrapperRect.height / 2;
-
-  // The new translateX/Y must compensate for the card's scaled position
-  // T_target = Center of Wrapper - (Card Center * Zoom)
-  const T_targetX = wrapperCenterW - (Tx * zoom);
-  const T_targetY = wrapperCenterH - (Ty * zoom);
-  
-  // 3. Apply New Translation
-  translateX = T_targetX;
-  translateY = T_targetY;
-
-  updateZoom();
 }
 
 function clearSearch() {
@@ -249,12 +207,10 @@ function toggleStoryMods() {
 function updateZoom() {
   const container = document.getElementById('flowchartContainer');
   const zoomLevel = document.getElementById('zoomLevel');
-  // Update zoom limits relative to the new 100% default
   document.getElementById('zoomInBtn').disabled = currentZoom >= maxZoom;
   document.getElementById('zoomOutBtn').disabled = currentZoom <= minZoom;
   
   zoomLevel.textContent = `${currentZoom}%`;
-  // Apply the current translation and scale
   container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom / 100})`;
 }
 
@@ -273,7 +229,6 @@ function zoomOut() {
 }
 
 function resetView() {
-  // Reset to 100% as requested
   currentZoom = 100;
   translateX = 0;
   translateY = 0;
@@ -296,6 +251,7 @@ function initPanZoom() {
   const wrapper = document.getElementById('flowchartWrapper');
   
   wrapper.addEventListener('mousedown', (e) => {
+    // Don't pan if clicking card or scrollbar
     if (e.target.closest('.mod-card') || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
     
     isPanning = true;
@@ -309,7 +265,7 @@ function initPanZoom() {
     e.preventDefault();
     translateX = e.clientX - startX;
     translateY = e.clientY - startY;
-    updateZoom();
+    updateZoom(); // Re-applies transform
   });
   
   window.addEventListener('mouseup', () => {
@@ -317,6 +273,7 @@ function initPanZoom() {
     wrapper.style.cursor = 'grab';
   });
   
+  // Touch support
   wrapper.addEventListener('touchstart', (e) => {
     if (e.target.closest('.mod-card')) return;
     if (e.touches.length === 1) {
@@ -342,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
   updateZoom();
   initPanZoom();
   
+  // Setup button handlers for Essentials/About popups (if they exist)
   const popupMap = {
     'essentials-button': 'install-files-overlay',
     'contact-button': 'contact-overlay'
@@ -352,7 +310,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const overlay = document.getElementById(popupMap[btnId]);
     if (btn && overlay) {
       btn.addEventListener('click', () => overlay.classList.remove('hidden'));
-      const closeBtn = overlay.querySelector('button[id$="close"]');
+      // Close logic
+      const closeBtn = overlay.querySelector('button[id$="close"]'); // generic selector
       if(closeBtn) closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
       overlay.addEventListener('click', (e) => {
         if(e.target === overlay) overlay.classList.add('hidden');
