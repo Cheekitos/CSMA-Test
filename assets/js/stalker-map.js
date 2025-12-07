@@ -137,38 +137,38 @@ function panToCard(card) {
   const wrapper = document.getElementById('flowchartWrapper');
   const container = document.getElementById('flowchartContainer');
   
-  // Get the bounding rectangles
+  // Get the wrapper dimensions
   const wrapperRect = wrapper.getBoundingClientRect();
-  const cardRect = card.getBoundingClientRect();
   
   // Get current scale
   const scale = currentZoom / 100;
   
-  // Calculate the center of the wrapper (viewport)
-  const wrapperCenterX = wrapperRect.width / 2;
-  const wrapperCenterY = wrapperRect.height / 2;
-  
-  // Get card's position in the DOM (unscaled coordinates)
+  // Get the card's position relative to the container (before any transform)
+  // We need to calculate its position in the original, unscaled coordinate system
+  const cardRect = card.getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
   
-  // Calculate card's center position relative to the container's current position
-  // We need to account for the current transform
-  const cardCenterX = cardRect.left + cardRect.width / 2;
-  const cardCenterY = cardRect.top + cardRect.height / 2;
+  // Calculate card's position in the unscaled container coordinate system
+  // First, get the card's position relative to the container's current transformed position
+  const cardRelativeX = (cardRect.left - containerRect.left) / scale;
+  const cardRelativeY = (cardRect.top - containerRect.top) / scale;
   
-  // Calculate wrapper's absolute position
-  const wrapperCenterAbsX = wrapperRect.left + wrapperCenterX;
-  const wrapperCenterAbsY = wrapperRect.top + wrapperCenterY;
+  // Get card dimensions in unscaled coordinates
+  const cardWidth = cardRect.width / scale;
+  const cardHeight = cardRect.height / scale;
   
-  // Calculate the offset needed to center the card
-  // This is the difference between where the card currently is and where the viewport center is
-  const offsetX = wrapperCenterAbsX - cardCenterX;
-  const offsetY = wrapperCenterAbsY - cardCenterY;
+  // Calculate the card's center in unscaled coordinates
+  const cardCenterX = cardRelativeX + cardWidth / 2;
+  const cardCenterY = cardRelativeY + cardHeight / 2;
   
-  // Apply the offset to our translate values
+  // Target position: horizontally centered, 200px from top
+  const targetX = wrapperRect.width / 2;
+  const targetY = 200;
+  
+  // Calculate the required translation to position the card at the target
   // We need to account for the scale when translating
-  translateX += offsetX;
-  translateY += offsetY;
+  translateX = targetX - (cardCenterX * scale);
+  translateY = targetY - (cardCenterY * scale);
   
   // Temporarily add a transition for smooth panning
   container.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
