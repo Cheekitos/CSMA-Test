@@ -11,7 +11,6 @@ let translateY = 0;
 
 // 0 = collapsed, 1 = full view, 2 = fully expanded
 let expandState = 0;
-let storyModsHidden = false;
 
 // Track last search term to detect changes
 let lastSearchTerm = '';
@@ -290,26 +289,24 @@ function resetViewQuick() {
   collapseAll();
   expandState = 0;
   document.getElementById('toggleAllBtn').textContent = 'Full View';
-  
-  if (storyModsHidden) {
-    storyModsHidden = false;
-    document.querySelectorAll('.story-mod-container').forEach(c => c.classList.remove('story-hidden'));
-    document.getElementById('hideStoryBtn').classList.remove('active');
-  }
 }
 
 // --- View Logic ---
 
-function toggleStoryMods() {
-  const button = document.getElementById('hideStoryBtn');
-  const storyMods = document.querySelectorAll('.story-mod-container');
-  storyModsHidden = !storyModsHidden;
+function centerView() {
+  // Temporarily add a transition for smooth centering
+  const container = document.getElementById('flowchartContainer');
+  container.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
   
-  storyMods.forEach(container => {
-    storyModsHidden ? container.classList.add('story-hidden') : container.classList.remove('story-hidden');
-  });
+  // Reset translation to center
+  translateX = 0;
+  translateY = 0;
+  updateZoom();
   
-  button.classList.toggle('active', storyModsHidden);
+  // Remove the transition after animation completes
+  setTimeout(() => {
+    container.style.transition = '';
+  }, 600);
 }
 
 function updateZoom() {
@@ -345,12 +342,6 @@ function resetView() {
   clearSearch();
   expandState = 0;
   document.getElementById('toggleAllBtn').textContent = 'Full View';
-  
-  if (storyModsHidden) {
-    storyModsHidden = false;
-    document.querySelectorAll('.story-mod-container').forEach(c => c.classList.remove('story-hidden'));
-    document.getElementById('hideStoryBtn').classList.remove('active');
-  }
   
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
