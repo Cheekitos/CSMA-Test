@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (revealEmail && emailText) {
         revealEmail.addEventListener('click', () => {
+          // This keeps the original toggle behavior (show/hide)
           emailText.classList.toggle('hidden');
         });
       }
