@@ -546,7 +546,6 @@ body {
 }
 
 .hidden { display: none !important; }
-.story-mod-container.story-hidden { display: none !important; }
 
 /* Responsive */
 @media (max-width: 968px) {
