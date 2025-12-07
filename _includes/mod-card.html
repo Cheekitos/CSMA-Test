@@ -2,8 +2,6 @@
   Recursive include for rendering mod cards with their children
   Parameters:
     - mod: the mod object from the YAML data
-    - depth: The depth of the current mod (integer, 0=Base Game)
-    - active_family_color: The color class of the closest Engine/Platform ancestor ('base-game', 'engine-family', or 'platform-family')
 {% endcomment %}
 
 {% assign mod = include.mod %}
@@ -12,25 +10,12 @@
   {% assign story_class = "story-mod-container" %}
 {% endif %}
 
-{% assign current_depth = include.depth | plus: 0 %}
-
-{% comment %} 
-  Determine the Active Family Color to pass down.
-  If this mod is a Family type, it becomes the new Active Family Color for its children.
-  Otherwise, it passes its parent's Active Family Color down.
-{% endcomment %}
-{% assign next_active_family_color = include.active_family_color %}
-{% if mod.type == "engine-family" or mod.type == "platform-family" %}
-  {% assign next_active_family_color = mod.type %}
-{% endif %}
-{% assign next_depth = current_depth | plus: 1 %}
-
 <div class="flow-branch {{ story_class }}">
-  <div class="mod-card {{ mod.type }} {% if mod.type != 'base-game' and mod.type != 'engine-family' and mod.type != 'platform-family' %}regular-mod{% endif %}" 
+  <div class="mod-card {{ mod.type }}" 
        onclick="toggleCard(this); event.stopPropagation();" 
-       data-id="{{ mod.id }}"
-       data-depth="{{ current_depth }}"
-       data-family-color="{{ include.active_family_color }}">
+       data-id="{{ mod.id }}" 
+       data-name="{{ mod.name | downcase }}">
+    
     <div class="mod-header">
       <div class="mod-title">{{ mod.name }}</div>
       <div class="mod-badges">
@@ -48,6 +33,7 @@
         {% endif %}
       </div>
     </div>
+    
     <div class="mod-details">
       <div class="mod-description">{{ mod.description }}</div>
       {% if mod.link %}
@@ -57,6 +43,8 @@
   </div>
   
   {% if mod.hierarchical_children %}
+    <div class="branch-connector left-aligned hidden" data-parent="{{ mod.id }}"></div>
+    
     <div class="hierarchical-children hidden" data-parent="{{ mod.id }}">
       {% for child in mod.hierarchical_children %}
         {% assign child_story_class = "" %}
@@ -65,10 +53,7 @@
         {% endif %}
         
         <div class="hierarchical-item {{ child_story_class }}">
-          {% include mod-card.html 
-            mod=child 
-            depth=next_depth
-            active_family_color=next_active_family_color %}
+          {% include mod-card.html mod=child %}
         </div>
       {% endfor %}
     </div>
