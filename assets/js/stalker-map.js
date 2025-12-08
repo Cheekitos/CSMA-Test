@@ -82,11 +82,20 @@ function toggleAll() {
 }
 
 function expandFullView() {
-  const baseGames = document.querySelectorAll('.mod-card.base-game');
-  const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
-  // Use the new function to only expand children, not card details
-  baseGames.forEach(card => forceExpandCardChildren(card));
-  parentMods.forEach(card => forceExpandCardChildren(card));
+  // Collect all unique IDs that are parents (have associated children containers)
+  const parentIds = new Set();
+  
+  document.querySelectorAll('.children-row[data-parent], .hierarchical-children[data-parent]').forEach(el => {
+    parentIds.add(el.getAttribute('data-parent'));
+  });
+  
+  // Find all cards corresponding to these parent IDs and expand ONLY their children/connectors
+  parentIds.forEach(id => {
+    const card = document.querySelector(`.mod-card[data-id="${id}"]`);
+    if (card) {
+      forceExpandCardChildren(card);
+    }
+  });
 }
 
 function expandAll() {
@@ -116,7 +125,7 @@ function forceExpandCard(card) {
   }
 }
 
-// NEW FUNCTION: Expands children/connector without expanding card details
+// Expands children/connector without expanding card details
 function forceExpandCardChildren(card) {
   const details = card.querySelector(':scope > .mod-details');
   const icon = card.querySelector(':scope > .mod-header .expand-icon');
