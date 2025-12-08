@@ -434,7 +434,7 @@ base_games:
         name: "Dreamcatcher"
         type: regular
         badge: story
-        description: "You play as THE scientist known as "Assistant," sent to study the mysterious Dreamcatcher artifact. As events unfold, you gradually turn into a hardened stalker."
+        description: "You play as THE scientist known as Assistant, sent to study the mysterious Dreamcatcher artifact. As events unfold, you gradually turn into a hardened stalker."
         link: "https://www.cheeki.zone/mods/dreamcatcher/"
         link2: "https://www.moddb.com/downloads/dreamcatcher-translation"
         is_story: true
@@ -655,7 +655,7 @@ base_games:
             name: "Team Lite"
             type: regular
             badge: overhaul
-            description: "Freeplay project true to the "original STALKER vision" with restored visuals, gameplay mechanics and atmosphere from the early builds. New characters, unique token-based economy, and many quests to discover."
+            description: "Freeplay project true to the original STALKER vision with restored visuals, gameplay mechanics and atmosphere from the early builds. New characters, unique token-based economy, and many quests to discover."
             link: "https://www.moddb.com/mods/teamlite-mod"
             link2: null
 
