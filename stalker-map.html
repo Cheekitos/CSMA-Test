@@ -71,7 +71,7 @@ title: Interactive Mod Map
       {% for base_game in site.data.stalker-mods.base_games %}
       <div class="base-column">
         <div class="flow-branch">
-          <div class="mod-card {{ base_game.type }}" onclick="toggleCard(this)" data-id="{{ base_game.id }}" data-name="{{ base_game.name | downcase }}">
+          <div class="mod-card {{ base_game.type }}" onclick="toggleCard(this); event.stopPropagation();" data-id="{{ base_game.id }}" data-name="{{ base_game.name | downcase }}">
             <div class="mod-header">
               <div class="mod-title">{{ base_game.name }}</div>
               <div class="mod-badges">
@@ -81,7 +81,19 @@ title: Interactive Mod Map
               </div>
             </div>
             <div class="mod-details">
-              <div class="mod-description">{{ base_game.description }}</div>
+              <div class="base-card-content">
+                <div class="mod-description">{{ base_game.description }}</div>
+                {% if base_game.link or base_game.link2 %}
+                  <div class="mod-links">
+                    {% if base_game.link %}
+                      <a href="{{ base_game.link }}" class="mod-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">View Details →</a>
+                    {% endif %}
+                    {% if base_game.link2 %}
+                      <a href="{{ base_game.link2 }}" class="mod-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">More Info →</a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
             </div>
           </div>
           
