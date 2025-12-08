@@ -434,7 +434,7 @@ base_games:
         name: "Dreamcatcher"
         type: regular
         badge: story
-        description: "You play as THE scientist known as Assistant, sent to study the mysterious Dreamcatcher artifact. As events unfold, you gradually turn into a hardened stalker."
+        description: "You play as the scientist known as Assistant, sent to study the mysterious Dreamcatcher artifact. As events unfold, you gradually turn into a hardened stalker."
         link: "https://www.cheeki.zone/mods/dreamcatcher/"
         link2: "https://www.moddb.com/downloads/dreamcatcher-translation"
         is_story: true
