@@ -84,8 +84,9 @@ function toggleAll() {
 function expandFullView() {
   const baseGames = document.querySelectorAll('.mod-card.base-game');
   const parentMods = document.querySelectorAll('.mod-card.engine-family, .mod-card.platform-family');
-  baseGames.forEach(card => forceExpandCard(card));
-  parentMods.forEach(card => forceExpandCard(card));
+  // Use the new function to only expand children, not card details
+  baseGames.forEach(card => forceExpandCardChildren(card));
+  parentMods.forEach(card => forceExpandCardChildren(card));
 }
 
 function expandAll() {
@@ -114,6 +115,26 @@ function forceExpandCard(card) {
     details.style.height = 'auto';
   }
 }
+
+// NEW FUNCTION: Expands children/connector without expanding card details
+function forceExpandCardChildren(card) {
+  const details = card.querySelector(':scope > .mod-details');
+  const icon = card.querySelector(':scope > .mod-header .expand-icon');
+  const cardId = card.getAttribute('data-id');
+  const connector = document.querySelector(`.branch-connector[data-parent="${cardId}"]`);
+  const childrenRow = document.querySelector(`.children-row[data-parent="${cardId}"], .hierarchical-children[data-parent="${cardId}"]`);
+  
+  // Only expand children/connector, do not add 'expanded' class to details or card
+  if (connector) connector.classList.remove('hidden');
+  if (childrenRow) childrenRow.classList.remove('hidden');
+
+  // Ensure details remain collapsed and icon is not rotated
+  details.classList.remove('expanded');
+  card.classList.remove('expanded');
+  if (icon) icon.classList.remove('rotated');
+  details.style.height = '0'; // Explicitly set height to 0
+}
+
 
 function forceCollapseCard(card) {
   const details = card.querySelector(':scope > .mod-details');
