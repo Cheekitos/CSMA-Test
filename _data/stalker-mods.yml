@@ -104,7 +104,7 @@ base_games:
         name: "Oblivion Lost Remake"
         type: platform-family
         badge: overhaul
-        description: "A restoration of the cancelled "Oblivion Lost" build of SoC, reconstructing cut content and extending the story, while focusing on the original early-vision level design and deadly anomalies."
+        description: "A restoration of the cancelled “Oblivion Lost” build of SoC, reconstructing cut content and extending the story, while focusing on the original early-vision level design and deadly anomalies."
         link: "https://www.moddb.com/mods/oblivion-lost-remake"
         link2: null
         hierarchical_children:
