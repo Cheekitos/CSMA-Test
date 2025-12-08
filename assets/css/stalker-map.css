@@ -311,12 +311,6 @@ body {
 }
 .mod-card.platform-family.expanded { background: #1e40af; }
 
-/* NEW RULE: Enforce fixed minimum height for expanded base game cards */
-.mod-card.base-game .mod-details.expanded {
-  min-height: 120px; /* Fixed height for symmetry */
-  overflow-y: auto;  /* Add scrollbar if description exceeds this height */
-}
-
 
 .mod-header {
   display: flex;
