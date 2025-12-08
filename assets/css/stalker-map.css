@@ -83,12 +83,6 @@ body {
   color: #93c5fd;
 }
 
-.breadcrumb svg {
-  width: 16px;
-  height: 16px;
-  display: block;
-}
-
 .breadcrumb-separator {
   color: #9ca3af;
 }
@@ -213,25 +207,42 @@ body {
   width: 100%;
 }
 
-/* Tree Lines */
+/* Tree Lines - REWRITTEN FOR CONSISTENCY AND OVERSHOOT FIX */
+
+/* Remove the old parent-based vertical line */
 .hierarchical-children::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: -10px;
-  bottom: 25px;
-  width: 2px;
-  background: #6b7280;
+  content: none;
 }
 
+/* New Item-based Vertical Line */
+.hierarchical-item::after {
+  content: '';
+  position: absolute;
+  left: -20px; /* Aligns with padding-left of container (40px) - 20px = 20px global offset */
+  width: 2px;
+  background: #6b7280;
+  /* Start -15px up to bridge the flex-gap (15px) from the previous sibling/connector */
+  top: -15px; 
+  /* Height covers the gap above (15px) + the full body of this item */
+  height: calc(100% + 15px);
+}
+
+/* Horizontal Line (The "Elbow" connector) */
 .hierarchical-item::before {
   content: '';
   position: absolute;
   left: -20px;
-  top: 24px;
+  top: 24px; /* Approx middle of card header */
   width: 20px;
   height: 2px;
   background: #6b7280;
+}
+
+/* Special handling for the last child to create the perfect "L" shape */
+.hierarchical-item:last-child::after {
+  /* Stop the vertical line exactly at the horizontal connector level */
+  /* Calculation: 15px (gap above) + 24px (distance to elbow) + small overlap (2px) = 41px */
+  height: 41px;
 }
 
 .flow-branch:has(.hierarchical-children) {
