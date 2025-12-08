@@ -82,6 +82,14 @@ title: Interactive Mod Map
             </div>
             <div class="mod-details">
               <div class="mod-description">{{ base_game.description }}</div>
+              <div class="mod-links">
+                {% if base_game.link %}
+                  <a href="{{ base_game.link }}" target="_blank" class="mod-link">Website</a>
+                {% endif %}
+                {% if base_game.link2 %}
+                  <a href="{{ base_game.link2 }}" target="_blank" class="mod-link">Download</a>
+                {% endif %}
+              </div>
             </div>
           </div>
           
