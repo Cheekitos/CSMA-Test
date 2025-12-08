@@ -128,7 +128,7 @@ base_games:
       - id: ogse
         name: "OGSE 0.6.9.3"
         type: engine-family
-        badge: engine
+        badge: overhaul
         description: "Old Good Stalker Evolution is a standalone mod focused on creating highly atmospheric Zone with improved stability, rich gameplay mechanics, enhanced AI features, and fixing numerous vanilla bugs."
         link: "https://www.moddb.com/mods/old-good-stalker-evolution"
         link2: null
@@ -228,7 +228,7 @@ base_games:
 
       - id: priboi-story
         name: "Priboi Story"
-        type: platform-family
+        type: regular
         badge: story
         description: "Total conversion mod featuring a brand new storyline. Investigate a secret organization as military Lieutenant Priboi Slipchenko, with detective-style gameplay requiring document hunting and puzzle solving."
         link: "https://www.moddb.com/mods/priboi-story"
@@ -262,7 +262,7 @@ base_games:
 
       - id: narodnaya
         name: "Narodnaya Soljanka"
-        type: platform-family
+        type: regular
         badge: soup
         description: "The classic and original soup-style total conversion for SoC. Extensively overhauls the game adding new quests, anomalies, mutants, items, maps... Turning S.T.A.L.K.E.R. into a more open, varied and replayable experience."
         link: "https://www.moddb.com/mods/solyanka"
@@ -358,7 +358,7 @@ base_games:
 
       - id: ogsm
         name: "OGSM"
-        type: platform-family
+        type: regular
         badge: freeplay
         description: "Total overhaul attempting to restore the classic STALKER atmosphere with restored cut content, new mutants, weapons and armor, enhanced faction warfare, improved AI, and freeplay mode after completing the story."
         link: null
@@ -656,14 +656,6 @@ base_games:
             type: regular
             badge: overhaul
             description: "Freeplay project built on Call of Chernobyl design documents featuring branching secondary quests with mini-story chains, restored atmosphere and weather from early builds, new characters, unique token-based economy, and gameplay inspired by original STALKER vision."
-            link: null
-            link2: null
-
-          - id: warfare
-            name: "Warfare"
-            type: regular
-            badge: freeplay
-            description: "Dynamic faction warfare system for Call of Chernobyl simulating territorial control where all factions compete for Zone dominance, featuring offline combat simulator between squads, player-controllable faction expansion, and configurable conflict intensity modes."
             link: null
             link2: null
 
