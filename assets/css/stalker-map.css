@@ -52,8 +52,8 @@ body {
   font-size: 0.75rem;
   font-weight: 500;
   padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -65,467 +65,438 @@ body {
 .breadcrumb {
   display: flex;
   align-items: center;
+  gap: 8px;
   font-size: 0.875rem;
-  color: #9ca3af;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .breadcrumb a {
-  color: #d1d5db;
+  color: #60a5fa;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 4px;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .breadcrumb a:hover {
-  color: #fbbf24;
-}
-
-.breadcrumb svg {
-  width: 1rem;
-  height: 1rem;
+  color: #93c5fd;
 }
 
 .breadcrumb-separator {
-  margin: 0 8px;
-  color: #6b7280;
+  color: #9ca3af;
 }
 
 .page-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: #f3f4f6;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+  color: #fbbf24;
 }
 
 .page-subtitle {
-  color: #9ca3af;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 10px;
+  text-align: center;
+  color: #f3f4f6;
+  margin-bottom: 4px;
+  font-size: 1rem;
 }
 
 .page-description {
-  color: #e5e7eb;
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-/* --- Controls Bar --- */
-
-.controls-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1f2937;
-  padding: 10px 15px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 10px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 768px) {
-  .controls-bar {
-    justify-content: center;
-  }
-}
-
-/* Search */
-
-.search-container {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  position: relative;
-}
-
-#modSearchInput {
-  background: #374151;
-  border: 1px solid #4b5563;
-  color: #e5e7eb;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 200px;
-  transition: border-color 0.2s;
-}
-
-#modSearchInput:focus {
-  outline: none;
-  border-color: #fbbf24;
-}
-
-.search-enter-btn, .clear-search {
-  background: none;
-  border: none;
+  text-align: center;
   color: #9ca3af;
-  cursor: pointer;
-  padding: 0 4px;
-  transition: color 0.2s;
-  height: 100%;
+  margin-bottom: 24px;
+  font-size: 0.875rem;
 }
 
-.search-enter-btn:hover, .clear-search:hover {
-  color: #e5e7eb;
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* --- Flowchart Layout --- */
+/* --- Tree Container & Background --- */
 
 .flowchart-wrapper {
   overflow: hidden;
-  height: 80vh; /* Define a visible area for the map */
-  width: 100%;
+  padding: 40px 0;
   cursor: grab;
   position: relative;
-  border: 1px solid #4b5563;
-  border-radius: 6px;
-  background: #1f2937;
+  background: radial-gradient(circle at center, #1f2937 0%, #111827 70%);
+  border-radius: 8px;
+  border: 1px solid #374151;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.flowchart-wrapper:active {
+  cursor: grabbing;
+}
+
+.flowchart-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.flowchart-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .flowchart-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 320px);
+  gap: 60px;
   justify-content: center;
-  padding: 150px 50px; /* Initial padding to center content */
-  transform-origin: 0 0;
-  /* Transition for smooth pan/zoom when centering or panning to a card */
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: max-content;
-  min-width: 100%; /* Ensure initial fill */
-  height: max-content;
+  /* UPDATED: Slower transition for fluid panning and correct origin for zoom */
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: center top; 
+  user-select: none;
+  padding: 20px;
 }
 
 .base-column {
-  margin: 0 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 250px; /* Minimum width to accommodate the card */
+  width: 100%;
 }
 
-/* --- Mod Card Styles --- */
+.flow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+}
 
+/* --- Connectors --- */
+.branch-connector {
+  width: 2px;
+  height: 25px;
+  background: #6b7280;
+  margin: 4px 0;
+  align-self: center;
+}
+
+.branch-connector.left-aligned {
+  align-self: flex-start;
+  margin-left: 20px;
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.children-row {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 5px;
+  width: 100%;
+  align-items: center;
+}
+
+.hierarchical-children {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 0;
+  width: 100%;
+  position: relative;
+  padding-left: 40px;
+  align-items: stretch;
+}
+
+.hierarchical-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Tree Lines - REWRITTEN FOR CONSISTENCY AND OVERSHOOT FIX */
+
+/* Remove the old parent-based vertical line */
+.hierarchical-children::before {
+  content: none;
+}
+
+/* New Item-based Vertical Line */
+.hierarchical-item::after {
+  content: '';
+  position: absolute;
+  left: -20px; /* Aligns with padding-left of container (40px) - 20px = 20px global offset */
+  width: 2px;
+  background: #6b7280;
+  /* Start -15px up to bridge the flex-gap (15px) from the previous sibling/connector */
+  top: -15px; 
+  /* Height covers the gap above (15px) + the full body of this item */
+  height: calc(100% + 15px);
+}
+
+/* Horizontal Line (The "Elbow" connector) */
+.hierarchical-item::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 24px; /* Approx middle of card header */
+  width: 20px;
+  height: 2px;
+  background: #6b7280;
+}
+
+/* Special handling for the last child to create the perfect "L" shape */
+.hierarchical-item:last-child::after {
+  /* Stop the vertical line exactly at the horizontal connector level */
+  /* Calculation: 15px (gap above) + 24px (distance to elbow) + small overlap (2px) = 41px */
+  height: 41px;
+}
+
+.flow-branch:has(.hierarchical-children) {
+  align-items: flex-start;
+}
+
+.flow-branch:has(.hierarchical-children) > .mod-card {
+  margin-left: 0;
+}
+
+/* --- Mod Cards --- */
 .mod-card {
-  width: 250px;
-  background-color: #374151;
-  color: #f3f4f6;
+  background: #1f2937;
+  border: 1px solid #4b5563;
+  border-left: 4px solid #4b5563;
   border-radius: 6px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  padding: 12px 14px;
+  width: 100%;
   cursor: pointer;
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-  position: relative; /* Needed for z-index stacking on hover/search */
-  z-index: 1;
+  transition: all 0.2s ease;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .mod-card:hover {
-  box-shadow: 0 6px 10px -1px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  border-color: #fbbf24;
-  z-index: 2;
+  border-color: #6b7280;
+  border-left-color: #fbbf24;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
-/* SEARCH HIGHLIGHT */
 .mod-card.search-match {
-  border-color: #22c55e;
-  box-shadow: 0 0 10px #22c55e;
-  animation: pulse-border 1.5s infinite alternate;
-  z-index: 5;
+  border: 2px solid #fbbf24;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+  animation: pulse 2s infinite;
 }
 
-@keyframes pulse-border {
-  from { box-shadow: 0 0 10px #22c55e; }
-  to { box-shadow: 0 0 15px #22c55e, 0 0 5px rgba(34, 197, 94, 0.5); }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
 }
 
-/* Base Mod Card Sizing for Symmetry (NEW RULES) */
+.mod-card.expanded {
+  background: #2d3748;
+  border-color: #6b7280;
+  border-left-color: #fbbf24;
+}
+
+/* Types */
 .mod-card.base-game {
-  height: 180px; /* Fixed height for symmetry */
-  display: flex;
-  flex-direction: column;
+  border-left-color: #10b981;
+  background: #064e3b;
 }
+.mod-card.base-game.expanded { background: #065f46; }
 
-/* Header */
+.mod-card.engine-family {
+  border-left-color: #8b5cf6;
+  background: #4c1d95;
+}
+.mod-card.engine-family.expanded { background: #5b21b6; }
+
+.mod-card.platform-family {
+  border-left-color: #0ea5e9;
+  background: #1e3a8a;
+}
+.mod-card.platform-family.expanded { background: #1e40af; }
+
 
 .mod-header {
-  padding: 10px 15px;
-  background-color: #4b5563;
-  border-bottom: 1px solid #374151;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .mod-title {
-  font-weight: bold;
-  font-size: 1rem;
-  line-height: 1.2;
+  font-size: 15px;
+  font-weight: 700;
+  color: #f9fafb;
+  flex: 1;
+  letter-spacing: 0.01em;
 }
 
 .mod-badges {
   display: flex;
+  gap: 4px;
   align-items: center;
-  gap: 5px;
-  flex-shrink: 0;
 }
-
-.mod-badge {
-  font-size: 0.65rem;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 3px;
-  text-transform: uppercase;
-  color: #1f2937;
-}
-
-.badge-overhaul { background-color: #fcd34d; }
-.badge-bugfixes { background-color: #60a5fa; }
-.badge-engine { background-color: #ef4444; }
-.badge-vanillaplus { background-color: #10b981; }
-.badge-modpack { background-color: #a78bfa; }
-.badge-utility { background-color: #f472b6; }
-
-
-/* Details (Hidden by default) */
-
-.mod-details {
-  height: 0;
-  transition: height 0.3s ease;
-  overflow: hidden;
-}
-
-/* Fix for unexpanded base card content to use the fixed height */
-.mod-card.base-game .mod-details .base-card-content {
-  padding: 10px 15px 15px;
-  overflow: auto; /* Allow scrolling if description is too long within the fixed height */
-  height: 100%;
-}
-
-.mod-details.expanded {
-  height: auto;
-}
-
-/* When the details are expanded for a regular card */
-.mod-card:not(.base-game).expanded .mod-details {
-    padding-bottom: 10px; /* Add padding when details are visible */
-}
-
-/* When the base game card is fully expanded (second click/expand all) */
-.mod-card.base-game.expanded {
-  height: auto;
-}
-.mod-card.base-game.expanded .mod-details {
-  height: auto !important;
-  overflow: visible;
-}
-.mod-card.base-game.expanded .mod-details .base-card-content {
-  height: auto;
-  overflow: visible;
-}
-
-
-.mod-description {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: #e5e7eb;
-  margin-bottom: 10px;
-}
-
-.mod-links {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.mod-link {
-  color: #fbbf24;
-  text-decoration: none;
-  font-size: 0.8rem;
-  font-weight: 500;
-  display: inline-block;
-  transition: color 0.2s;
-}
-
-.mod-link:hover {
-  color: #f59e0b;
-  text-decoration: underline;
-}
-
-/* Expand Icon */
 
 .expand-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 18px;
+  height: 18px;
+  color: #fbbf24;
   transition: transform 0.3s ease;
-  color: #d1d5db;
+  order: -1;
+  flex-shrink: 0;
 }
 
 .expand-icon.rotated {
   transform: rotate(180deg);
 }
 
-/* --- Connectors and Branches --- */
-
-.flow-branch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+.mod-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.branch-connector {
-  width: 2px;
-  height: 30px;
-  background-color: #6b7280;
-  margin: 0 auto;
+/* Badge Colors */
+.badge-freeplay { background: #172554; color: #93c5fd; border: 1px solid #1e40af; }
+.badge-overhaul { background: #451a03; color: #fdba74; border: 1px solid #9a3412; }
+.badge-story { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
+.badge-soup { background: #422006; color: #fde047; border: 1px solid #ca8a04; }
+.badge-modpack { background: #831843; color: #f9a8d4; border: 1px solid #db2777; }
+.badge-engine { background: #4c1d95; color: #d8b4fe; border: 1px solid #7c3aed; }
+.badge-bugfixes { background: #881337; color: #fda4af; border: 1px solid #be123c; }
+.badge-vanillaplus { background: #713f12; color: #fef08a; border: 1px solid #ca8a04; }
+
+.mod-details {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
   transition: all 0.3s ease;
 }
 
-/* Horizontal alignment for hierarchical branches */
-.branch-connector.left-aligned {
-  margin: 0;
-  width: 30px; /* Horizontal segment */
-  height: 2px;
-  transform: translateY(12px); /* Vertical alignment to card middle */
+.mod-details.expanded {
+  opacity: 1;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #4b5563;
 }
 
-.children-row {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding-top: 30px;
-  transition: opacity 0.3s ease;
-  width: max-content;
-}
-
-.hierarchical-children {
-  display: flex;
-  gap: 40px;
-  padding: 30px 0 0 30px;
-  position: relative;
-  transition: opacity 0.3s ease;
-}
-
-/* Vertical line for hierarchical branches */
-.hierarchical-children::before {
-  content: '';
-  position: absolute;
-  left: 15px; /* Aligned with the left-aligned connector */
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background-color: #6b7280;
-  z-index: 0; /* Keep behind cards */
-}
-
-.hierarchical-item {
-  position: relative;
-  /* Top connector for hierarchical items */
-}
-
-.hierarchical-item::before {
-  content: '';
-  position: absolute;
-  top: -30px;
-  left: 0;
-  width: 2px;
-  height: 30px;
-  background-color: #6b7280;
-  z-index: 0;
-}
-
-.hierarchical-item::after {
-  content: '';
-  position: absolute;
-  top: -30px;
-  left: 0;
-  width: 25px; /* Horizontal segment from vertical line */
-  height: 2px;
-  background-color: #6b7280;
-  z-index: 0;
-}
-
-/* Style for cards within the hierarchical flow */
-.hierarchical-item > .flow-branch > .mod-card {
-  margin-top: 0;
-}
-
-/* --- Overlays/Popups (For Essentials/About) --- */
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.3s ease;
-}
-
-.popup {
-  background: #1f2937;
-  color: #e5e7eb;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  max-width: 600px;
-  width: 90%;
-  max-height: 90%;
-  overflow-y: auto;
-  position: relative;
-}
-
-.popup h2 {
-  font-size: 1.5rem;
-  color: #fbbf24;
-  margin-bottom: 15px;
-}
-
-.popup p {
-  margin-bottom: 10px;
+.mod-description {
+  font-size: 12.5px;
+  color: #d1d5db;
   line-height: 1.5;
-  font-size: 0.95rem;
+  margin-bottom: 8px;
 }
 
-.popup-close {
+.mod-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mod-link {
+  display: inline-block;
+  font-size: 11px;
+  color: #fbbf24;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.mod-link:hover { text-decoration: underline; color: #fcd34d; }
+
+/* --- Controls Bar --- */
+.controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#modSearchInput {
+  background: #111827;
+  border: 1px solid #4b5563;
+  color: #f3f4f6;
+  padding: 8px 12px;
+  padding-right: 70px;
+  border-radius: 4px;
+  font-size: 13px;
+  width: 220px;
+  height: 34px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#modSearchInput:focus {
+  border-color: #fbbf24;
+}
+
+.search-enter-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  right: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fbbf24;
+  border: none;
+  color: #111827;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 5px 8px;
+  height: 24px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  font-weight: 600;
+}
+
+.search-enter-btn:hover {
+  background: #fcd34d;
+}
+
+.search-enter-btn svg {
+  display: block;
+}
+
+.clear-search {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   color: #9ca3af;
-  font-size: 1.5rem;
   cursor: pointer;
-  transition: color 0.2s;
+  font-size: 14px;
+  padding: 4px 6px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
-.popup-close:hover {
+.clear-search:hover {
   color: #f3f4f6;
 }
-
-/* --- Zoom/View Controls --- */
 
 .zoom-controls {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   background: #111827;
   border-radius: 4px;
   padding: 2px;
@@ -576,4 +547,32 @@ body {
 .control-button:hover {
   background: #4b5563;
   border-color: #6b7280;
+  color: #fff;
+}
+
+.control-button.active {
+  background: #059669;
+  border-color: #10b981;
+  color: white;
+}
+
+.hidden { display: none !important; }
+
+/* Responsive */
+@media (max-width: 968px) {
+  .flowchart-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #modSearchInput { width: 100%; }
+  .view-controls { justify-content: center; }
+  .zoom-controls { justify-content: center; margin: 5px 0; }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
