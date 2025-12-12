@@ -301,8 +301,6 @@ base_games:
         link2: "https://stalker-mods.clan.su/load/s_t_a_l_k_e_r_ten_chernobylja/s_t_a_l_k_e_r_ten_chernobylja/shadow_of_chernobyl_update_1_4_2/5-1-0-7127"
 
 
-
-
   - id: cs
     name: "Clear Sky"
     type: base-game
@@ -384,14 +382,6 @@ base_games:
             link2: "https://www.gamepressure.com/download/stalker-clear-sky-old-story-v12-mod/zc10083"
             is_story: true
 
-      - id: rtl
-        name: "Road to Limansk"
-        type: regular
-        badge: overhaul
-        description: "Comprehensive gameplay overhaul for Clear Sky improving all aspects with new weapons, animations, expanded mechanics, and refined balance while maintaining the core Clear Sky experience."
-        link: "https://www.moddb.com/mods/the-road-to-limansk"
-        link2: null
-
       - id: reborn
         name: "REBORN"
         type: platform-family
@@ -415,6 +405,14 @@ base_games:
             description: "Third installment in the Reborn series featuring lengthy storyline across 80+ locations with deep zone exploration, mystery investigation, and connections to previous Reborn narratives."
             link: "https://www.moddb.com/mods/reborn-source"
             link2: null
+            
+      - id: rtl
+        name: "Road to Limansk"
+        type: regular
+        badge: overhaul
+        description: "Comprehensive gameplay overhaul for Clear Sky improving all aspects with new weapons, animations, expanded mechanics, and refined balance while maintaining the core Clear Sky experience."
+        link: "https://www.moddb.com/mods/the-road-to-limansk"
+        link2: null            
 
   - id: cop
     name: "Call of Pripyat"
