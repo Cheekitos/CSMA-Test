@@ -250,6 +250,14 @@ base_games:
                     link2: "https://www.cheeki.zone/mods/sfzproject/"
                     is_story: true
                     
+              - id: ss2
+                name: "Secret trails 2"
+                type: regular
+                badge: story
+                description: "A long hunt for your lost brother, amnesia, twisty narrative, and a deep Monolith intrigue."
+                link: "https://www.moddb.com/mods/secret-trails-2-english-repack"
+                link2: null
+                    
               - id: zeroinv
                 name: "Zero Investment"
                 type: regular
