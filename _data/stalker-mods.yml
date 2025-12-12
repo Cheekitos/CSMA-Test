@@ -293,7 +293,7 @@ base_games:
         link2: null
 
       - id: ss2
-        name: "Secret trails 2"
+        name: "Secret Trails 2"
         type: regular
         badge: story
         description: "A long hunt for your lost brother, amnesia, twisty narrative, and a deep Monolith intrigue."
