@@ -100,6 +100,30 @@ base_games:
             link: "https://www.moddb.com/mods/lost-alpha/news/new-version-of-la-dc-extended"
             link2: "https://www.moddb.com/mods/lost-alpha/news/la-dc-versions"
 
+      - id: narodnaya
+        name: "Narodnaya Soljanka"
+        type: regular
+        badge: soup
+        description: "The classic and original soup-style total conversion for SoC. Extensively overhauls the game adding new quests, anomalies, mutants, items, maps... Turning S.T.A.L.K.E.R. into a more open, varied and replayable experience."
+        link: "https://www.moddb.com/mods/solyanka"
+        link2: null
+        hierarchical_children:
+          - id: stalkersoup
+            name: "STALKERSOUP"
+            type: regular
+            badge: soup
+            description: "Massive standalone compilation combining all three STALKER series with Narodnaya Soljanka and The Collector, featuring 50+ levels with extended storylines, unique progression system and hundreds of hours of content."
+            link: "https://www.moddb.com/mods/stalkersoup"
+            link2: null
+
+      - id: new-arsenal-7
+        name: "New Arsenal 7"
+        type: regular
+        badge: soup
+        description: "Total conversion featuring massive arsenal of weapons and new storyline built on improved OGSR engine with enhanced weapon variety, new maps, multiple gameplay systems, and stable freeplay sandbox experience."
+        link: "https://www.moddb.com/mods/new-arsenal-7/downloads/new-arsenal-71"
+        link2: null
+
       - id: oblivion
         name: "Oblivion Lost Remake"
         type: platform-family
@@ -225,6 +249,14 @@ base_games:
                     link: "https://www.moddb.com/mods/sfz-project"
                     link2: "https://www.cheeki.zone/mods/sfzproject/"
                     is_story: true
+                    
+              - id: zeroinv
+                name: "Zero Investment"
+                type: regular
+                badge: story
+                description: "Post-ironic looter shooter"
+                link: "https://www.moddb.com/mods/zero-investment"
+                link2: null
 
       - id: priboi-story
         name: "Priboi Story"
@@ -244,6 +276,14 @@ base_games:
             link2: null
             is_story: true
 
+      - id: op-22
+        name: "OP 2.2"
+        type: regular
+        badge: soup
+        description: "Massive expansion mod with hundreds of hours of quests and open-world gameplay with hundreds of new items and characters, dozens of locations, multiple overlapping storylines with extended content evolved from Narodnaya Soljanka."
+        link: "https://op-2.fandom.com/wiki/Cumulative_Pack_2_Wiki"
+        link2: null        
+
       - id: prosectors-project
         name: "Prosectors Project"
         type: regular
@@ -260,37 +300,8 @@ base_games:
         link: "https://vk.com/stshoc_update"
         link2: "https://stalker-mods.clan.su/load/s_t_a_l_k_e_r_ten_chernobylja/s_t_a_l_k_e_r_ten_chernobylja/shadow_of_chernobyl_update_1_4_2/5-1-0-7127"
 
-      - id: narodnaya
-        name: "Narodnaya Soljanka"
-        type: regular
-        badge: soup
-        description: "The classic and original soup-style total conversion for SoC. Extensively overhauls the game adding new quests, anomalies, mutants, items, maps... Turning S.T.A.L.K.E.R. into a more open, varied and replayable experience."
-        link: "https://www.moddb.com/mods/solyanka"
-        link2: null
-        hierarchical_children:
-          - id: stalkersoup
-            name: "STALKERSOUP"
-            type: regular
-            badge: soup
-            description: "Massive standalone compilation combining all three STALKER series with Narodnaya Soljanka and The Collector, featuring 50+ levels with extended storylines, unique progression system and hundreds of hours of content."
-            link: "https://www.moddb.com/mods/stalkersoup"
-            link2: null
 
-      - id: new-arsenal-7
-        name: "New Arsenal 7"
-        type: regular
-        badge: soup
-        description: "Total conversion featuring massive arsenal of weapons and new storyline built on improved OGSR engine with enhanced weapon variety, new maps, multiple gameplay systems, and stable freeplay sandbox experience."
-        link: "https://www.moddb.com/mods/new-arsenal-7/downloads/new-arsenal-71"
-        link2: null
 
-      - id: op-22
-        name: "OP 2.2"
-        type: regular
-        badge: soup
-        description: "Massive expansion mod with hundreds of hours of quests and open-world gameplay with hundreds of new items and characters, dozens of locations, multiple overlapping storylines with extended content evolved from Narodnaya Soljanka."
-        link: "https://op-2.fandom.com/wiki/Cumulative_Pack_2_Wiki"
-        link2: null
 
   - id: cs
     name: "Clear Sky"
