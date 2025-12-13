@@ -6,7 +6,7 @@ base_games:
   - id: soc
     name: "Shadow of Chernobyl"
     type: base-game
-    description: "First-person survival shooter set in the Zone around Chernobyl following a mysterious second disaster in 2006, featuring non-linear storytelling, dynamic A-Life systems, artifact hunting, and multiple endings based on player actions."
+    description: "The OG game that started it all. A local amnesiac addicted to cheap vodka and diet sausage decides that "Kill Strelok" is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
@@ -312,7 +312,7 @@ base_games:
   - id: cs
     name: "Clear Sky"
     type: base-game
-    description: "Prequel to Shadow of Chernobyl set in 2011. You play Scar, a mercenary with unique anomaly-surviving abilities, featuring faction warfare mechanics, weapon customization, and exploration of familiar Zone locations reshaped by a massive emission."
+    description: "The often underappreciated sequel (but a prequel story-wise) where you work for the world’s least successful science club and watch factions wage war on each other while the Zone keeps killing everyone equally."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
@@ -425,7 +425,7 @@ base_games:
   - id: cop
     name: "Call of Pripyat"
     type: base-game
-    description: "Sequel to Shadow of Chernobyl where players investigate a failed military operation as Major Degtyarev, exploring previously inaccessible Zone regions including the ghost city of Pripyat, with improved A-Life systems, expanded side quests, and multiple endings."
+    description: "The least janky of the trilogy. You play a military officer sent undercover as a Stalker to investigate why the Zone is bullying the Ukrainian Air Force. You still end up as the errand boy for every drunk in the area."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
