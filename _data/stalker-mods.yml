@@ -6,7 +6,7 @@ base_games:
   - id: soc
     name: "Shadow of Chernobyl"
     type: base-game
-    description: "The OG game that started it all. A local amnesiac addicted to cheap vodka and diet sausage decides that "Kill Strelok" is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
+    description: "The OG game that started it all. A local amnesiac addicted to cheap vodka and diet sausage decides that -Kill Strelok- is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
