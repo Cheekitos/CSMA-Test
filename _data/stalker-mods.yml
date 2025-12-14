@@ -6,7 +6,7 @@ base_games:
   - id: soc
     name: "Shadow of Chernobyl"
     type: base-game
-    description: "The OG game that started it all. A local amnesiac addicted to cheap vodka and diet sausage decides that -Kill Strelok- is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
+    description: "The OG game that started it all. Local amnesiac addicted to cheap vodka decides that killing a mysterious man named Strelok is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
@@ -14,7 +14,7 @@ base_games:
         name: "Zone Reclamation Project"
         type: regular
         badge: bugfixes
-        description: "Community effort aimed at fixing bugs, crashes and improving stability without changing the core gameplay and features of the original game."
+        description: "Huge community effort aimed at fixing bugs, crashes and improving stability without changing the core gameplay and features of the original game."
         link: "https://www.metacognix.com/files/stlkrsoc/index.html?utm_source=chatgpt.com"
         link2: "https://www.moddb.com/mods/starter-pack/downloads/zone-reclamation-project-107-r5rc?utm_source=chatgpt.com"
 
@@ -22,7 +22,7 @@ base_games:
         name: "AMK"
         type: platform-family
         badge: overhaul
-        description: "One of the earliest total conversion mods that overhauls gameplay with offline A-Life mechanics, dynamic anomalies, expanded quests, improved HUD and detectors, and deeper survival mechanics."
+        description: "One of the earliest total conversion mods that reshapes gameplay with offline A-Life mechanics, dynamic anomalies, expanded quests, improved HUD and detectors, and deeper survival mechanics."
         link: "https://www.amk-team.ru/forum/topic/480-amk-mod-general-info/"
         link2: "https://www.moddb.com/games/stalker/downloads/amk-1-4-eng"
         hierarchical_children:
@@ -30,7 +30,7 @@ base_games:
             name: "NLC7"
             type: regular
             badge: soup
-            description: "Standalone hardcore overhaul built on AMK's foundation, with challenging survival mechanics, revamped inventory and economy, extended story-quests, new mutants, and strategic gameplay emphasis."
+            description: "Hardcore overhaul built on AMK's foundation with challenging survival mechanics, revamped loot and economy, extended story & quests, new mutants, and a strong emphasis on strategic gameplay."
             link: "https://www.moddb.com/mods/nlc7-he23"
             link2: null
 
@@ -38,7 +38,7 @@ base_games:
         name: "Autumn Aurora 2"
         type: regular
         badge: overhaul
-        description: "Brings autumnal atmosphere to the Zone with a comprehensive overhaul of graphics, audio, and gameplay including custom weather systems, vegetation, and artifact detection mechanics."
+        description: "Complete graphical overhaul that brings an autumnal atmosphere to the Zone, new vegetation and a custom weather system (but not only!). Also comes with audio, gameplay improvments and artifact detection mechanics."
         link: "https://www.moddb.com/mods/autumn-aurora-compilation-mod"
         link2: null
 
@@ -46,16 +46,16 @@ base_games:
         name: "F.O.T.O.G.R.A.F."
         type: regular
         badge: story
-        description: "A very unique mod featuring redesigned locations, brand new gameplay mechanics and an expanded narrative with additional missions and esoteric side quests requiring players full attention."
+        description: "Memorable and very unique mod with redesigned locations, brand new gameplay mechanics to discover, and a long, fully original story delving into the supernatural and eerie aspects of the Zone."
         link: "https://docs.google.com/spreadsheets/d/1GgBFCRIbc7TQ5DwWHvWaridX1G64PYoWItkLyr3pBPk/edit?gid=0#gid=0"
-        link2: "https://ap-pro.ru/stuff/ten_chernobylja/fotograf-r118/"
+        link2: "https://www.moddb.com/groups/stalkerseriescommunity/images/fotograf-mod-for-stalker-soc"
         is_story: true
 
       - id: kill-zone
         name: "Kill Zone"
         type: regular
         badge: story
-        description: "Fight hordes of mutants with powerful weapons and drivable vehicles in this Action-packed mod from 2007."
+        description: "Fight hordes of mutants with powerful weapons and vehicles. Action-packed mod from 2007."
         link: "https://www.moddb.com/mods/kill-zone-translated"
         link2: null
         is_story: true
@@ -64,7 +64,7 @@ base_games:
         name: "Left to Die"
         type: regular
         badge: overhaul
-        description: "Total conversion transforming SoC into a zombie apocalypse scenario set in modern Russia with completely new maps, story, and survival-focused gameplay featuring minimal human enemies."
+        description: "Transforms SoC into a zombie apocalypse set in modern Russia with completely new maps, story, and survival-focused gameplay."
         link: "https://www.moddb.com/mods/left-to-die"
         link2: null
 
@@ -72,7 +72,7 @@ base_games:
         name: "Lost Alpha"
         type: platform-family
         badge: overhaul
-        description: "Standalone mod that restores cut content and expands the Zone with new maps, weapons, and a re-imagined storyline built on the original development vision."
+        description: "Restores cut content from the early-stages of the game developement that was removed before release. Expands the Zone with new maps, weapons, and a re-imagined storyline inspired by the game original vision."
         link: "https://www.dezowave.com/lost-alpha/"
         link2: "https://www.moddb.com/mods/lost-alpha"
         hierarchical_children:
@@ -96,7 +96,7 @@ base_games:
             name: "Lost Alpha Extended"
             type: regular
             badge: overhaul
-            description: "Update of the Lost Alpha DC with bugfixes, balance adjustments, additional content and a hardcore, challenge-oriented gameplay."
+            description: "Another update of the Lost Alpha DC with balance adjustments, additional content and a hardcore, challenge-oriented gameplay."
             link: "https://www.moddb.com/mods/lost-alpha/news/new-version-of-la-dc-extended"
             link2: "https://www.moddb.com/mods/lost-alpha/news/la-dc-versions"
 
@@ -312,7 +312,7 @@ base_games:
   - id: cs
     name: "Clear Sky"
     type: base-game
-    description: "The often underappreciated sequel (but a prequel story-wise) where you work for the world’s least successful science club and watch factions wage war on each other while the Zone keeps killing everyone equally."
+    description: "The often underappreciated sequel (but a prequel story-wise). You're stuck in a swamp working for the least successful science club in the world, and watch factions wage pointless wars on each other while the Zone keeps killing everyone equally."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
@@ -425,7 +425,7 @@ base_games:
   - id: cop
     name: "Call of Pripyat"
     type: base-game
-    description: "The least janky of the trilogy. You play a military officer sent undercover as a Stalker to investigate why the Zone is bullying the Ukrainian Air Force. You still end up as the errand boy for every drunk in the area."
+    description: "The least janky and better polished game of the trilogy. You play a military officer sent undercover as a Stalker to investigate why the Zone is bullying the Ukrainian Air Force. You still end up as the errand boy for every drunk in the area."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
