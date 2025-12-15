@@ -27,9 +27,13 @@
   border-radius: 0.75rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   max-width: 90vw;
-  max-height: 90vh;
-  overflow-y: auto;
+  /* CHANGED: Use max-height and auto height to shrink-to-fit content */
+  max-height: 85vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 /* Install Files Overlay */
@@ -59,9 +63,13 @@
   border-radius: 0.75rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   max-width: 90vw;
-  max-height: 90vh;
-  overflow-y: auto;
+  /* CHANGED: Use max-height and auto height to shrink-to-fit content */
+  max-height: 85vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 /* Modal Close Buttons - Simple X without background */
@@ -94,6 +102,7 @@
   display: flex;
   border-bottom: 2px solid #374151;
   margin-bottom: 1.5rem;
+  flex-shrink: 0; /* Prevents navigation from squishing */
 }
 
 .tab-button {
@@ -110,9 +119,17 @@
   border-bottom-color: #fbbf24;
 }
 
-/* Tab Content */
-.tab-content {
+/* Tab Content Areas */
+.tab-content, 
+#about-content, 
+#faq-content, 
+#essentials-content, 
+#resources-content {
   display: block;
+  overflow-y: auto;
+  /* CHANGED: Ensure content area can shrink but remains scrollable if needed */
+  flex: 0 1 auto;
+  min-height: 0; 
 }
 
 .tab-content.hidden {
@@ -130,17 +147,12 @@
 }
 
 #email-text {
-  /* Removed background, padding, and borders to make it simple text */
   margin: 0;
   padding: 0;
   background: transparent;
   border: none;
-  
-  /* Inherit font styles so it looks like normal text */
   font-family: inherit; 
   font-size: 0.875rem;
-  
-  /* Color removed here so it respects the class="text-blue-400" (or similar) from your HTML */
   user-select: all;
 }
 
@@ -151,7 +163,7 @@
 /* Overlay Content Spacing */
 .overlay-content {
   padding: 2rem;
-  padding-top: 3rem; /* Extra space for close button */
+  padding-top: 3rem; 
 }
 
 .overlay-header {
@@ -177,7 +189,7 @@
   .contact-modal,
   .install-files-modal {
     max-width: 95vw;
-    max-height: 95vh;
+    max-height: 90vh; /* Allow more height on mobile */
     margin: 0.5rem;
   }
 
