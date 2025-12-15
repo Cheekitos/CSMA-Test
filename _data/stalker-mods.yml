@@ -362,14 +362,14 @@ base_games:
         badge: story
         description: "Story mod with non-linear quest paths with multiple episodes and chapters, following a mercenary's journey through Pripyat with custom narrative progression."
         link: "https://www.moddb.com/mods/hibernation-evil-episode-4-part-1-eng/downloads"
-        link2: null
+        link2: "https://www.moddb.com/mods/hibernation-evil-episode-4-chapter-3"
         is_story: true
 
       - id: mystery
         name: "Mystery"
         type: regular
         badge: overhaul
-        description: "Comprehensive atmospheric overhaul of Clear Sky inspired by MISERY, featuring reworked gameplay and weapons, rebalanced mutant behaviors, redesigned anomalies and dark atmospheric visuals."
+        description: "Heavily inspired by MISERY for CoP, this overhaul has reworked gameplay and weapons, rebalanced mutant behaviors, redesigned anomalies and dark atmospheric visuals with new textures, sound effects, music, weather and lighting."
         link: "https://www.moddb.com/mods/mystery"
         link2: null
 
@@ -418,7 +418,7 @@ base_games:
         name: "Road to Limansk"
         type: regular
         badge: overhaul
-        description: "Comprehensive gameplay overhaul for Clear Sky improving all aspects with new weapons, animations, expanded mechanics, and refined balance while maintaining the core Clear Sky experience."
+        description: "Build on SRP, a full gameplay overhaul for Clear Sky improving all aspects with new weapons, animations, expanded mechanics, and refined balance while maintaining the core Clear Sky experience."
         link: "https://www.moddb.com/mods/the-road-to-limansk"
         link2: null            
 
