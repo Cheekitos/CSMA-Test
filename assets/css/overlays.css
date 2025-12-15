@@ -1,228 +1,211 @@
-/* Modal and Overlay Styles */
+// Modal and popup management
+// This file handles all overlay popups, modals, and their interactions
 
-/* Contact Overlay */
-#contact-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-#contact-overlay.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.contact-modal {
-  background: #1f2937;
-  border-radius: 0.75rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  max-width: 90vw;
-  /* CHANGED: Use max-height and auto height to shrink-to-fit content */
-  max-height: 85vh;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Install Files Overlay */
-#install-files-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-#install-files-overlay.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.install-files-modal {
-  background: #1f2937;
-  border-radius: 0.75rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  max-width: 90vw;
-  /* CHANGED: Use max-height and auto height to shrink-to-fit content */
-  max-height: 85vh;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Modal Close Buttons - Simple X without background */
-#contact-close,
-#install-files-close {
-  position: absolute !important;
-  top: 0.75rem !important;
-  right: 0.75rem !important;
-  background: none !important;
-  color: #9ca3af !important;
-  border: none !important;
-  cursor: pointer !important;
-  transition: color 0.2s ease !important;
-  z-index: 1001 !important;
-  font-size: 2rem !important;
-  line-height: 1 !important;
-  padding: 0 !important;
-  font-weight: normal !important;
-  width: auto !important;
-  height: auto !important;
-}
-
-#contact-close:hover,
-#install-files-close:hover {
-  color: #fbbf24 !important;
-}
-
-/* Tab Navigation */
-.tab-navigation {
-  display: flex;
-  border-bottom: 2px solid #374151;
-  margin-bottom: 1.5rem;
-  flex-shrink: 0; /* Prevents navigation from squishing */
-}
-
-.tab-button {
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-bottom: 2px solid transparent;
-  font-weight: 500;
-}
-
-.tab-button.active,
-.tab-button:hover {
-  color: #ffffff;
-  border-bottom-color: #fbbf24;
-}
-
-/* Tab Content Areas */
-.tab-content, 
-#about-content, 
-#faq-content, 
-#essentials-content, 
-#resources-content {
-  display: block;
-  overflow-y: auto;
-  /* CHANGED: Ensure content area can shrink but remains scrollable if needed */
-  flex: 0 1 auto;
-  min-height: 0; 
-}
-
-.tab-content.hidden {
-  display: none;
-}
-
-/* Email Reveal */
-#reveal-email {
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#reveal-email:hover {
-  color: #fbbf24;
-}
-
-#email-text {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border: none;
-  font-family: inherit; 
-  font-size: 0.875rem;
-  user-select: all;
-}
-
-#email-text.hidden {
-  display: none;
-}
-
-/* Overlay Content Spacing */
-.overlay-content {
-  padding: 2rem;
-  padding-top: 3rem; 
-}
-
-.overlay-header {
-  margin-bottom: 1.5rem;
-}
-
-.overlay-header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.overlay-section {
-  margin-bottom: 1.5rem;
-}
-
-.overlay-section:last-child {
-  margin-bottom: 0;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .contact-modal,
-  .install-files-modal {
-    max-width: 95vw;
-    max-height: 90vh; /* Allow more height on mobile */
-    margin: 0.5rem;
+document.addEventListener('DOMContentLoaded', function() {
+  if (!window.StalkerMods) {
+    window.StalkerMods = {};
   }
+  
+  window.StalkerMods.overlays = {
+    init: function() {
+      this.setupContactOverlay();
+      this.setupInstallFilesOverlay();
+      this.setupTabSwitching();
+      this.setupEssentialsTabSwitching();
+    },
 
-  .overlay-content {
-    padding: 1.5rem;
-    padding-top: 2.5rem;
-  }
+    setupContactOverlay: function() {
+      const showContactOverlay = () => {
+        const contactOverlay = document.getElementById('contact-overlay');
+        if (contactOverlay) contactOverlay.classList.remove('hidden');
+        
+        // Reset to About tab when opening
+        this.resetToAboutTab();
+        
+        if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
+          window.StalkerMods.filters.hideFilterDropdown();
+        }
+      };
 
-  .overlay-header h2 {
-    font-size: 1.25rem;
-  }
+      // Try using utils setupButtonHandlers if available, otherwise set up manually
+      if (window.StalkerMods.utils && window.StalkerMods.utils.setupButtonHandlers) {
+        window.StalkerMods.utils.setupButtonHandlers(['contact-button', 'contact-button-mobile'], showContactOverlay);
+      } else {
+        // Fallback for pages without utils (like stalker-map)
+        const contactBtn = document.getElementById('contact-button');
+        const contactBtnMobile = document.getElementById('contact-button-mobile');
+        if (contactBtn) contactBtn.addEventListener('click', showContactOverlay);
+        if (contactBtnMobile) contactBtnMobile.addEventListener('click', showContactOverlay);
+      }
 
-  .tab-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-  }
+      const contactClose = document.getElementById('contact-close');
+      const contactOverlay = document.getElementById('contact-overlay');
+      const revealEmail = document.getElementById('reveal-email');
+      const emailText = document.getElementById('email-text');
 
-  #contact-close,
-  #install-files-close {
-    font-size: 1.75rem !important;
-    top: 0.5rem !important;
-    right: 0.5rem !important;
-  }
-}
+      if (contactClose) {
+        contactClose.addEventListener('click', () => {
+          if (contactOverlay) contactOverlay.classList.add('hidden');
+        });
+      }
+      
+      if (contactOverlay) {
+        contactOverlay.addEventListener('click', e => {
+          if (e.target === contactOverlay) contactOverlay.classList.add('hidden');
+        });
+      }
+      
+      if (revealEmail && emailText) {
+        revealEmail.addEventListener('click', () => {
+          // This keeps the original toggle behavior (show/hide)
+          emailText.classList.toggle('hidden');
+        });
+      }
+    },
 
-@media (max-width: 480px) {
-  .tab-button {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.8125rem;
-  }
+    setupInstallFilesOverlay: function() {
+      const showInstallFilesOverlay = () => {
+        const installFilesOverlay = document.getElementById('install-files-overlay');
+        if (installFilesOverlay) installFilesOverlay.classList.remove('hidden');
+        
+        // Reset to Essential Files tab when opening
+        this.resetToEssentialsTab();
+        
+        if (window.StalkerMods.filters && !window.StalkerMods.filters.hasActiveFilters()) {
+          window.StalkerMods.filters.hideFilterDropdown();
+        }
+      };
 
-  .overlay-content {
-    padding: 1rem;
-    padding-top: 2rem;
-  }
-}
+      // Try using utils setupButtonHandlers if available, otherwise set up manually
+      if (window.StalkerMods.utils && window.StalkerMods.utils.setupButtonHandlers) {
+        window.StalkerMods.utils.setupButtonHandlers(['essentials-button', 'essentials-button-mobile'], showInstallFilesOverlay);
+      } else {
+        // Fallback for pages without utils (like stalker-map)
+        const essentialsBtn = document.getElementById('essentials-button');
+        const essentialsBtnMobile = document.getElementById('essentials-button-mobile');
+        if (essentialsBtn) essentialsBtn.addEventListener('click', showInstallFilesOverlay);
+        if (essentialsBtnMobile) essentialsBtnMobile.addEventListener('click', showInstallFilesOverlay);
+      }
+
+      const installFilesOverlay = document.getElementById('install-files-overlay');
+      const installFilesClose = document.getElementById('install-files-close');
+
+      if (installFilesClose) {
+        installFilesClose.addEventListener('click', () => {
+          if (installFilesOverlay) installFilesOverlay.classList.add('hidden');
+        });
+      }
+
+      if (installFilesOverlay) {
+        installFilesOverlay.addEventListener('click', (e) => {
+          if (e.target === installFilesOverlay) {
+            installFilesOverlay.classList.add('hidden');
+          }
+        });
+      }
+    },
+
+    setupTabSwitching: function() {
+      const aboutTab = document.getElementById('about-tab');
+      const faqTab = document.getElementById('faq-tab');
+      const aboutContent = document.getElementById('about-content');
+      const faqContent = document.getElementById('faq-content');
+
+      if (aboutTab && faqTab && aboutContent && faqContent) {
+        aboutTab.addEventListener('click', () => {
+          // Switch to About tab
+          aboutTab.classList.add('text-white', 'border-yellow-400');
+          aboutTab.classList.remove('text-gray-400', 'border-transparent');
+          faqTab.classList.add('text-gray-400', 'border-transparent');
+          faqTab.classList.remove('text-white', 'border-yellow-400');
+          
+          // Show About content, hide FAQ content
+          aboutContent.classList.remove('hidden');
+          faqContent.classList.add('hidden');
+        });
+
+        faqTab.addEventListener('click', () => {
+          // Switch to FAQ tab
+          faqTab.classList.add('text-white', 'border-yellow-400');
+          faqTab.classList.remove('text-gray-400', 'border-transparent');
+          aboutTab.classList.add('text-gray-400', 'border-transparent');
+          aboutTab.classList.remove('text-white', 'border-yellow-400');
+          
+          // Show FAQ content, hide About content
+          faqContent.classList.remove('hidden');
+          aboutContent.classList.add('hidden');
+        });
+      }
+    },
+
+    setupEssentialsTabSwitching: function() {
+      const essentialsTab = document.getElementById('essentials-tab');
+      const resourcesTab = document.getElementById('resources-tab');
+      const essentialsContent = document.getElementById('essentials-content');
+      const resourcesContent = document.getElementById('resources-content');
+
+      if (essentialsTab && resourcesTab && essentialsContent && resourcesContent) {
+        essentialsTab.addEventListener('click', () => {
+          // Switch to Essential Files tab
+          essentialsTab.classList.add('text-white', 'border-yellow-400');
+          essentialsTab.classList.remove('text-gray-400', 'border-transparent');
+          resourcesTab.classList.add('text-gray-400', 'border-transparent');
+          resourcesTab.classList.remove('text-white', 'border-yellow-400');
+          
+          // Show Essential Files content, hide Resources content
+          essentialsContent.classList.remove('hidden');
+          resourcesContent.classList.add('hidden');
+        });
+
+        resourcesTab.addEventListener('click', () => {
+          // Switch to Resources tab
+          resourcesTab.classList.add('text-white', 'border-yellow-400');
+          resourcesTab.classList.remove('text-gray-400', 'border-transparent');
+          essentialsTab.classList.add('text-gray-400', 'border-transparent');
+          essentialsTab.classList.remove('text-white', 'border-yellow-400');
+          
+          // Show Resources content, hide Essential Files content
+          resourcesContent.classList.remove('hidden');
+          essentialsContent.classList.add('hidden');
+        });
+      }
+    },
+
+    resetToAboutTab: function() {
+      const aboutTab = document.getElementById('about-tab');
+      const faqTab = document.getElementById('faq-tab');
+      const aboutContent = document.getElementById('about-content');
+      const faqContent = document.getElementById('faq-content');
+      
+      if (aboutTab && faqTab && aboutContent && faqContent) {
+        aboutTab.classList.add('text-white', 'border-yellow-400');
+        aboutTab.classList.remove('text-gray-400', 'border-transparent');
+        faqTab.classList.add('text-gray-400', 'border-transparent');
+        faqTab.classList.remove('text-white', 'border-yellow-400');
+        
+        aboutContent.classList.remove('hidden');
+        faqContent.classList.add('hidden');
+      }
+    },
+
+    resetToEssentialsTab: function() {
+      const essentialsTab = document.getElementById('essentials-tab');
+      const resourcesTab = document.getElementById('resources-tab');
+      const essentialsContent = document.getElementById('essentials-content');
+      const resourcesContent = document.getElementById('resources-content');
+      
+      if (essentialsTab && resourcesTab && essentialsContent && resourcesContent) {
+        essentialsTab.classList.add('text-white', 'border-yellow-400');
+        essentialsTab.classList.remove('text-gray-400', 'border-transparent');
+        resourcesTab.classList.add('text-gray-400', 'border-transparent');
+        resourcesTab.classList.remove('text-white', 'border-yellow-400');
+        
+        essentialsContent.classList.remove('hidden');
+        resourcesContent.classList.add('hidden');
+      }
+    }
+  };
+
+  // Initialize overlays
+  window.StalkerMods.overlays.init();
+});
