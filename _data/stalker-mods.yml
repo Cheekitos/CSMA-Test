@@ -27,11 +27,11 @@ base_games:
         link2: "https://www.amk-team.ru/forum/"
         hierarchical_children:
           - id: nlc7
-            name: "NLC7"
+            name: "NLC7 (HE)"
             type: regular
             badge: soup
-            description: "Hardcore overhaul built on AMK's foundation adding challenging survival mechanics, revamped loot and economy, extended story & quests, new mutants, and a strong emphasis on strategic gameplay."
-            link: "https://www.moddb.com/mods/nlc7-he23"
+            description: "Built on AMK's foundation and previous NLC7 builds, the Hard Edition adds challenging survival mechanics, revamped loot and economy, extended story & quests, new mutants, and a strong emphasis on strategic gameplay."
+            link: "https://www.moddb.com/mods/nlc7-he23/downloads"
             link2: null
 
       - id: aa2
