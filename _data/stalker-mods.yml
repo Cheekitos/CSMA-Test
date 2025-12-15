@@ -6,7 +6,7 @@ base_games:
   - id: soc
     name: "Shadow of Chernobyl"
     type: base-game
-    description: "The OG game that started it all. Local amnesiac addicted to cheap vodka decides that killing a mysterious man named Strelok is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
+    description: "The OG game that started it all. A local amnesiac addicted to cheap vodka decides that killing a mysterious man named Strelok is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
     link: "https://www.gsc-game.com/"
     link2: null
     children:
@@ -23,14 +23,14 @@ base_games:
         type: platform-family
         badge: overhaul
         description: "One of the earliest total conversion mods that reshapes gameplay with offline A-Life mechanics, dynamic anomalies, expanded quests, improved HUD and detectors, and deeper survival mechanics."
-        link: "https://www.amk-team.ru/forum/topic/480-amk-mod-general-info/"
-        link2: "https://www.moddb.com/games/stalker/downloads/amk-1-4-eng"
+        link: "https://www.moddb.com/games/stalker/downloads/amk-1-4-eng"
+        link2: "https://www.amk-team.ru/forum/"
         hierarchical_children:
           - id: nlc7
             name: "NLC7"
             type: regular
             badge: soup
-            description: "Hardcore overhaul built on AMK's foundation with challenging survival mechanics, revamped loot and economy, extended story & quests, new mutants, and a strong emphasis on strategic gameplay."
+            description: "Hardcore overhaul built on AMK's foundation adding challenging survival mechanics, revamped loot and economy, extended story & quests, new mutants, and a strong emphasis on strategic gameplay."
             link: "https://www.moddb.com/mods/nlc7-he23"
             link2: null
 
@@ -72,7 +72,7 @@ base_games:
         name: "Lost Alpha"
         type: platform-family
         badge: overhaul
-        description: "Restores cut content from the early-stages of the game developement that was removed before release. Expands the Zone with new maps, weapons, and a re-imagined storyline inspired by the game original vision."
+        description: "Restores content from early-stages of developement that was removed from the game before release. Expands the Zone with new maps, weapons, and a re-imagined storyline inspired by the original vision."
         link: "https://www.dezowave.com/lost-alpha/"
         link2: "https://www.moddb.com/mods/lost-alpha"
         hierarchical_children:
@@ -112,17 +112,17 @@ base_games:
             name: "STALKERSOUP"
             type: regular
             badge: soup
-            description: "Massive standalone compilation combining all three STALKER series with Narodnaya Soljanka and The Collector, featuring 50+ levels with extended storylines, unique progression system and hundreds of hours of content."
-            link: "https://www.moddb.com/mods/stalkersoup"
-            link2: null
+            description: "Massive standalone compilation combining all three STALKER series with Narodnaya Soljanka, The Collector, and more. 50+ levels with extended storylines, unique progression system and hundred hours of content."
+            link: "http://www.tecnobacon.com/"
+            link2: "https://www.moddb.com/mods/stalkersoup"
 
       - id: new-arsenal-7
         name: "New Arsenal 7"
         type: regular
         badge: soup
-        description: "Total conversion featuring massive arsenal of weapons and new storyline built on improved OGSR engine with enhanced weapon variety, new maps, multiple gameplay systems, and stable freeplay sandbox experience."
+        description: "Massive new arsenal of weapons for gun lovers, but also adds a new storyline, new maps, multiple new gameplay features, and visual improvments."
         link: "https://www.moddb.com/mods/new-arsenal-7/downloads/new-arsenal-71"
-        link2: null
+        link2: "https://docs.google.com/spreadsheets/d/1GgBFCRIbc7TQ5DwWHvWaridX1G64PYoWItkLyr3pBPk/edit?gid=0#gid=0"
 
       - id: oblivion
         name: "Oblivion Lost Remake"
