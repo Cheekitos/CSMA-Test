@@ -136,7 +136,7 @@ base_games:
             name: "Vector of Alienation"
             type: regular
             badge: story
-            description: "Re-interprets the early alpha storyline into a sci-fi thriller with redesigned locations, cut features restored, vehicles and safehouses, and brand new narrative."
+            description: "Ambitous and atmospheric story mod build on OLR with great writing and a well crafted plotline."
             link: "https://www.cheeki.zone/mods/vector-of-alienation/"
             link2: "https://www.moddb.com/mods/olr-vector-of-alienation"
             is_story: true
@@ -153,7 +153,7 @@ base_games:
         name: "OGSE 0.6.9.3"
         type: engine-family
         badge: overhaul
-        description: "Old Good Stalker Evolution is a standalone mod focused on creating highly atmospheric Zone with improved stability, rich gameplay mechanics, enhanced AI features, and fixing numerous vanilla bugs."
+        description: "Old Good Stalker Evolution is a standalone mod focused on creating a highly atmospheric Zone with improved stability, rich gameplay mechanics, tons of new content and missions with enhanced AI features, while fixing numerous vanilla bugs."
         link: "https://www.moddb.com/mods/old-good-stalker-evolution"
         link2: null
         hierarchical_children:
@@ -161,7 +161,7 @@ base_games:
             name: "Goldsphere: Completion"
             type: regular
             badge: story
-            description: "Total conversion featuring a brand new storyline loosely based on the Roadside Picnic book with new gameplay features, artifacts, anomalies, and esoteric side quests set eighteen years after the initial Chernobyl disaster."
+            description: "Unique and interesting project bringing a brand new storyline (loosely based on the Roadside Picnic book) with new gameplay features, artifacts, anomalies, and esoteric side quests set eighteen years after the initial Chernobyl disaster."
             link: "https://www.moddb.com/mods/goldsphere-completion"
             link2: null
             is_story: true
@@ -225,12 +225,12 @@ base_games:
                 link2: null
 
               - id: ns2016
-                name: "NS 2016-2022"
+                name: "Narodnaya Solyanka 2016"
                 type: regular
                 badge: soup
-                description: "Huge, immersive modpack featuring the vanilla story with expanded, extensive questlines and branching narratives, additional locations, new weapons and mechanics. A good first introdcuction to Soup mods."
+                description: "Port of the legendary Soup mod to the new OGSR engine. Huge technical and graphical improvments. A good first introdcuction to Soup mods."
                 link: "https://www.moddb.com/mods/solyanka/downloads/narodnayasolyanka"
-                link2: null
+                link2: "https://docs.google.com/spreadsheets/d/1GgBFCRIbc7TQ5DwWHvWaridX1G64PYoWItkLyr3pBPk/edit?gid=0#gid=0"
 
               - id: sfz-e0
                 name: "SFZ Project E0"
@@ -245,7 +245,7 @@ base_games:
                     name: "SFZ Project E0 Deluxe Remake"
                     type: regular
                     badge: story
-                    description: "Complete reimagined remake of the original SFZ Project Episode Zero with revamped main story, expanded side-content, redesigned locations, updated gameplay and graphical components, and improved overall polish."
+                    description: "Remake of the original SFZ Project Episode Zero with revamped main story, expanded side-content, redesigned locations, updated gameplay and graphical components, and improved overall polish. Must-play experience."
                     link: "https://www.moddb.com/mods/sfz-project"
                     link2: "https://www.cheeki.zone/mods/sfzproject/"
                     is_story: true
@@ -262,7 +262,7 @@ base_games:
         name: "Priboi Story"
         type: regular
         badge: story
-        description: "Total conversion mod featuring a brand new storyline. Investigate a secret organization as military Lieutenant Priboi Slipchenko, with detective-style gameplay requiring document hunting and puzzle solving."
+        description: "A modding milestone and first mod bringing a new storyline to the game. Investigate a secret organization as military Lieutenant Priboi Slipchenko, with detective-style gameplay requiring document hunting and puzzle solving."
         link: "https://www.moddb.com/mods/priboi-story"
         link2: "https://www.dezowave.com/priboi-story/"
         is_story: true
@@ -280,7 +280,7 @@ base_games:
         name: "OP 2.2"
         type: regular
         badge: soup
-        description: "Massive expansion mod with hundreds of hours of quests and open-world gameplay with hundreds of new items and characters, dozens of locations, multiple overlapping storylines with extended content evolved from Narodnaya Soljanka."
+        description: "Massive expansion mod with hundreds of hours of quests and open-world gameplay, ridiculous amount of (random) items and characters, dozens of locations, multiple overlapping storylines and extended content evolved from Narodnaya Soljanka."
         link: "https://op-2.fandom.com/wiki/Cumulative_Pack_2_Wiki"
         link2: null        
 
@@ -288,7 +288,7 @@ base_games:
         name: "Prosectors Project"
         type: regular
         badge: overhaul
-        description: "Global modification expanding Shadow of Chernobyl with new locations, enhanced custom engine with new renderer, original gameplay mechanics, and reworked story."
+        description: "Global modification expanding the game with new locations, enhanced custom engine with new renderer, original gameplay mechanics, and reworked story."
         link: "https://www.moddb.com/mods/prosectors-project-english-translation"
         link2: null
 
@@ -296,7 +296,7 @@ base_games:
         name: "Secret Trails 2"
         type: regular
         badge: story
-        description: "A long hunt for your lost brother, amnesia, twisty narrative, and a deep Monolith intrigue."
+        description: "A long hunt for your lost brother, amnesia, twisty narrative, and a deep Monolith intrigue. There's an OGSR version out there with better looks, balance and bug fixes (but you'll lose the OG feel of the mod)."
         link: "https://www.moddb.com/mods/secret-trails-2-english-repack"
         link2: null
 
@@ -304,7 +304,7 @@ base_games:
         name: "SoC Update 2.0"
         type: regular
         badge: overhaul
-        description: "Overhaul modernizing Shadow of Chernobyl to contemporary standards with graphics and sound upgrades, while preserving the original story. Featuring 64-bit engine, enhanced textures and improved visual effects."
+        description: "Brings Shadow of Chernobyl to contemporary standards with modernized graphics and sound upgrades, while preserving the original story. Custom engine modifications, new enhanced textures and improved visual effects."
         link: "https://vk.com/stshoc_update"
         link2: "https://stalker-mods.clan.su/load/s_t_a_l_k_e_r_ten_chernobylja/s_t_a_l_k_e_r_ten_chernobylja/shadow_of_chernobyl_update_1_4_2/5-1-0-7127"
 
