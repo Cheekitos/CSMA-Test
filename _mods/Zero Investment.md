@@ -12,7 +12,12 @@ description: "Easy to dismiss at first glance with its loud visuals, memes, anim
 The story loosely follows Shadow of Chernobyl’s structure where you play as as Hattie, a young woman looking for her loved one who vanished inside Parasha 2, the world inside a dying video game. Filled with characters obsessed with loot and skins, it’s intentionally post-ironic: silly on the surface, but surprisingly sincere underneath. It offers a great gameplay loop with solid build variety to experiment with your gear and artifacts, real choices and a karma system that will influence the story and the 9 different endings. It has amazing replayability, New Game+ and achievements to unlock, incentivizing you to explore all the different paths the game has to offer. <br><br> 
 It plays like an arcade RPG looter shooter: fast combat, constantly breaking weapons, tiered gear with perks, active abilities tied to suits and hats, and over a hundred artifacts that radically change how you play. It’s definitely not a traditional STALKER mod, but a standalone game built on the OGSR engine. A fun, unique, divisive, and genuinely refreshing project the modding scene needs more of!"
 
-gallery_images: []
+gallery_images: 
+  - "screenshot01.jpg"
+  - "screenshot02.jpg"
+  - "screenshot03.jpg"
+  - "screenshot04.jpg"
+  - "screenshot05.jpg"
 
 seo_title: "Zero Investment - Download & Install Guide | Cheeki’s S.T.A.L.K.E.R. Mods Archive"
 seo_description: "Download Zero Investment for S.T.A.L.K.E.R. Shadow of Chernobyl. Complete installation guide, gameplay features, and detailed review on Cheeki’s S.T.A.L.K.E.R. Mods Archive"
