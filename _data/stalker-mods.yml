@@ -112,14 +112,14 @@ base_games:
             name: "STALKERSOUP"
             type: regular
             badge: soup
-            description: "Massive standalone compilation combining all three STALKER series with Narodnaya Soljanka, The Collector, and more. 50+ levels with extended storylines, unique progression system and hundred hours of content."
+            description: "Started as an English port of the Russian Narodnaya Solyanka, but became it's own thing. Mashes together content from all games plus dozens of other addons. Dense NPC populations, zombie hordes and so much more."
             link: "http://www.tecnobacon.com/"
             link2: "https://www.moddb.com/mods/stalkersoup"
 
       - id: new-arsenal-7
         name: "New Arsenal 7"
         type: regular
-        badge: soup
+        badge: overhaul
         description: "Massive new arsenal of weapons for gun lovers, but also adds a new storyline, new maps, multiple new gameplay features, and visual improvments."
         link: "https://www.moddb.com/mods/new-arsenal-7/downloads/new-arsenal-71"
         link2: "https://docs.google.com/spreadsheets/d/1GgBFCRIbc7TQ5DwWHvWaridX1G64PYoWItkLyr3pBPk/edit?gid=0#gid=0"
@@ -150,7 +150,7 @@ base_games:
             link2: null
 
       - id: ogse
-        name: "OGSE 0.6.9.3"
+        name: "OGSE"
         type: engine-family
         badge: overhaul
         description: "Old Good Stalker Evolution is a standalone mod focused on creating a highly atmospheric Zone with improved stability, rich gameplay mechanics, tons of new content and missions with enhanced AI features, while fixing numerous vanilla bugs."
@@ -254,7 +254,7 @@ base_games:
                 name: "Zero Investment"
                 type: regular
                 badge: story
-                description: "Post-ironic looter shooter"
+                description: "A meme-heavy, fast-paced looter shooter RPG that turns the STALKER engine into a fresh, weird, and surprisingly thoughtful experience with solid and innovative gameplay mechanics."
                 link: "https://www.moddb.com/mods/zero-investment"
                 link2: null
 
@@ -455,6 +455,14 @@ base_games:
         link: "https://www.cheeki.zone/mods/dreamcatcher/"
         link2: "https://www.moddb.com/downloads/dreamcatcher-translation"
         is_story: true
+		  - id: dreamcatcher-remaster
+            name: "Dreamcatcher 2.0"
+            type: regular
+            badge: story
+            description: "A full remaster of the mod and the recommended version to play if you have the hardware to run it properly!"
+            link: "https://ap-pro.ru/forums/topic/5764-lovec-snov-v20-remastered/"
+            link2: "https://discord.gg/gyMdq3a"
+            is_story: true
 
       - id: ghosts-of-the-past
         name: "Ghosts of the Past"
@@ -548,7 +556,7 @@ base_games:
         name: "Valley of Whispers"
         type: regular
         badge: story
-        description: "Set entirely on a large new map where you are hired to find a missing expedition that disappeared searching for the Heart of the Oasis artifact."
+        description: "A classic story mod set entirely on a large new map with a well crafted story and detailed environmental narration. Blends horror elements with classic Stalker atmosphere."
         link: "https://www.moddb.com/games/stalker-call-of-pripyat/downloads/valley-of-whispers-eng-owr-3"
         link2: "https://www.moddb.com/groups/stalkerseriescommunity/images/dolina-shorohov-valley-of-whispers-mod-for-cop"
         is_story: true
@@ -697,7 +705,7 @@ base_games:
                 type: regular
                 badge: modpack
                 description: "Modpack bundling many popular gameplay and visual mods into a cohesive package, and extensive customization for personalized gameplay experience."
-                link: null
+                link: "https://discord.gg/DGHTTqBFqr"
                 link2: null
 
               - id: bosspack
