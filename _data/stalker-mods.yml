@@ -455,6 +455,7 @@ base_games:
         link: "https://www.cheeki.zone/mods/dreamcatcher/"
         link2: "https://www.moddb.com/downloads/dreamcatcher-translation"
         is_story: true
+		hierarchical_children:
 		  - id: dreamcatcher-remaster
             name: "Dreamcatcher 2.0"
             type: regular
