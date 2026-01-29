@@ -6,7 +6,7 @@ base_games:
   - id: soc
     name: "Shadow of Chernobyl"
     type: base-game
-    description: "The OG game that started it all. A local amnesiac addicted to cheap vodka decides that killing a mysterious man named Strelok is a perfectly reasonable life goal for someone currently living in a radioactive dumpster."
+    description: "The game that started it all. A local amnesiac addicted to cheap vodka goes on a quest to kill a mysterious man called Strelok. A seemingly perfectly reasonable life goal for someone living in a radioactive dumpster."
     link: "https://store.steampowered.com/franchise/stalker"
     link2: "https://www.gog.com/en/game/stalker_shadow_of_chernobyl"
     children:
@@ -312,7 +312,7 @@ base_games:
   - id: cs
     name: "Clear Sky"
     type: base-game
-    description: "The often underappreciated sequel (but a prequel story-wise). You're stuck in a swamp working for the least successful science club in the world, and watch factions wage pointless wars on each other while the Zone keeps killing everyone equally."
+    description: "The often underappreciated sequel (but a prequel story-wise). You're stuck in a swamp working for the worst science club in the world. You watch factions wage pointless wars on each other, and the Zone keeps killing everyone equally."
     link: "https://store.steampowered.com/franchise/stalker"
     link2: "https://www.gog.com/en/game/stalker_clear_sky"
     children:
@@ -425,7 +425,7 @@ base_games:
   - id: cop
     name: "Call of Pripyat"
     type: base-game
-    description: "The least janky and better polished game of the trilogy. You play a military officer sent undercover as a Stalker to investigate why the Zone is bullying the Ukrainian Air Force. You still end up as the errand boy for every drunk in the area."
+    description: "The least janky and better polished game of the trilogy. You play a military officer sent undercover as a Stalker to investigate why the Zone is bullying the Ukrainian Air Force. You end up the errand boy for every drunk in the area."
     link: "https://store.steampowered.com/franchise/stalker"
     link2: "https://www.gog.com/en/game/stalker_call_of_pripyat"
     children:
